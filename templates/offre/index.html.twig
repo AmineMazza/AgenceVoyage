@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offre index{% endblock %}
+
+{% block body %}
+    <h1>Offre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Image</th>
+                <th>Date_depart</th>
+                <th>Date_retour</th>
+                <th>Ballerr_etour</th>
+                <th>Bhebergement</th>
+                <th>Bvisa</th>
+                <th>Bpetit_dejeuner</th>
+                <th>Bdemi_pension</th>
+                <th>Bpension_complete</th>
+                <th>Bvisite_medine</th>
+                <th>Prix_chambre</th>
+                <th>Prix_chambre_double</th>
+                <th>Prix_chambre_triple</th>
+                <th>Prix_chambre_quad</th>
+                <th>Prix_chambre_quint</th>
+                <th>Bcoup_coeur</th>
+                <th>Bpubier</th>
+                <th>Date_publication</th>
+                <th>Date_fin_publication</th>
+                <th>Bpassport</th>
+                <th>Bphotos</th>
+                <th>Bpass_vacinial</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td>{{ offre.id }}</td>
+                <td>{{ offre.titre }}</td>
+                <td>{{ offre.image }}</td>
+                <td>{{ offre.dateDepart ? offre.dateDepart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ offre.dateRetour ? offre.dateRetour|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ offre.ballerrEtour ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bhebergement ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bvisa ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bpetitDejeuner ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bdemiPension ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bpensionComplete ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bvisiteMedine ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.prixChambre }}</td>
+                <td>{{ offre.prixChambreDouble }}</td>
+                <td>{{ offre.prixChambreTriple }}</td>
+                <td>{{ offre.prixChambreQuad }}</td>
+                <td>{{ offre.prixChambreQuint }}</td>
+                <td>{{ offre.bcoupCoeur ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bpubier ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.datePublication ? offre.datePublication|date('Y-m-d') : '' }}</td>
+                <td>{{ offre.dateFinPublication ? offre.dateFinPublication|date('Y-m-d') : '' }}</td>
+                <td>{{ offre.bpassport ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bphotos ? 'Yes' : 'No' }}</td>
+                <td>{{ offre.bpassVacinial ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_offre_show', {'id': offre.id}) }}">show</a>
+                    <a href="{{ path('app_offre_edit', {'id': offre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="25">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_new') }}">Create new</a>
+{% endblock %}
