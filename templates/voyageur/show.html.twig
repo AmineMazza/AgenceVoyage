@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voyageur{% endblock %}
+
+{% block body %}
+    <h1>Voyageur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ voyageur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ voyageur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ voyageur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ voyageur.cin }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ voyageur.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ voyageur.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ voyageur.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Num_passport</th>
+                <td>{{ voyageur.numPassport }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin_passport</th>
+                <td>{{ voyageur.dateFinPassport ? voyageur.dateFinPassport|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ voyageur.dateNaissance ? voyageur.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_voyageur_index') }}">back to list</a>
+
+    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id}) }}">edit</a>
+
+    {{ include('voyageur/_delete_form.html.twig') }}
+{% endblock %}

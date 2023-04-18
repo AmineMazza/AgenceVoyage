@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Avance{% endblock %}
+
+{% block body %}
+    <h1>Create new Avance</h1>
+
+    {{ include('avance/_form.html.twig') }}
+
+    <a href="{{ path('app_avance_index') }}">back to list</a>
+{% endblock %}

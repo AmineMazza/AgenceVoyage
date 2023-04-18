@@ -102,18 +102,22 @@ class Offre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $detail_vols = null;
 
-    #[ORM\ManyToOne(cascade: ["persist"])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(cascade: ["persist"], targetEntity:"App\Entity\User")]
+    #[ORM\JoinColumn(nullable: false, name:"user_id", referencedColumnName:"id")]
     private ?User $id_user = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Destination")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Destination $id_destination = null;
+
+    #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Reservation::class)]
+    private Collection $reservations;
 
     public function __construct()
     {
         $this->hotels = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -514,6 +518,36 @@ class Offre
     public function setIdDestination(?Destination $id_destination): self
     {
         $this->id_destination = $id_destination;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setIdOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getIdOffre() === $this) {
+                $reservation->setIdOffre(null);
+            }
+        }
 
         return $this;
     }

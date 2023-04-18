@@ -48,11 +48,8 @@ class OffreApiService extends AbstractController {
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         // dd($offre);
-        $user = $this->getUser();
         $json = [ 
-            'id_user' => [
-                'id' => $user->getId(),
-            ],
+            'userId' => $this->getUser()->getId(),
             'id_destination' =>  $offre->getIdDestination()->getId(),
             'titre' => $offre->getTitre(),
             'dateDepart' => $offre->getDateDepart()->format('Y-m-d\TH:i:sP'),
