@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Agent;
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,6 +23,23 @@ class AppFixtures extends Fixture
         $user->setRoles(["ROLE_ADMIN"]);
         $user->setPassword($this->hasher->hashPassword($user,"admin"));
         $manager->persist($user);
+        
+        $userAgent = new User();
+        $userAgent->setEmail("agent@gmail.com");
+        $userAgent->setRoles(["ROLE_AGENT"]);
+        $userAgent->setPassword($this->hasher->hashPassword($userAgent,"agent"));
+        $manager->persist($user);
+        $agent = new Agent();
+        $agent->setAgence("Agence1");
+        $agent->setNom("agentNom");
+        $agent->setPrenom("agentPre");
+        $agent->setTelephoneMobile("0743216532");
+        $agent->setAdresse("433 lot tfkt");
+        $agent->setAbonnememt("premium");
+        $agent->setBstatus(true);
+        $agent->setIdUser($userAgent);
+
+        $manager->persist($agent);
 
         $manager->flush();
     }
