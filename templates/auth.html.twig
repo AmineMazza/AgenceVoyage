@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {# {{ encore_entry_script_tags('base') }} #}
+        {% endblock %}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+    </head>
+    <body>
+    <section class="bg-gray-50 dark:bg-gray-900 flex justify-evenly items-center justify-center">
+    <div class="flex flex-col items-center justify-center w-1/2 px-6 py-8 md:h-screen lg:py-0">
+        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <img class="w-8 h-8 mr-2" src="https://www.norsys.fr/sites/all/modules/custom/norsys_base/images/4-logo3.png" alt="logo">
+            Norsys    
+        </a>
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                {% block body %}{% endblock %}
+                
+            </div>
+        </div>
+    </div>
+
+        <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg" alt="">
+
+    </section>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    </body>
+</html>
