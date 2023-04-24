@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+
+  {{ form_start(registrationForm) }}
+   {{ form_row(registrationForm.logo) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+    {{ form_row(registrationForm.agence) }}
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.telephone_mobile) }}
+    {{ form_row(registrationForm.telephone_fixe) }}
+    {{ form_row(registrationForm.adresse) }}
+      {{ form_row(registrationForm.type_abonnement) }}
+    {{ form_row(registrationForm.submit) }}
+{{ form_end(registrationForm) }}
+
+{% endblock %}
