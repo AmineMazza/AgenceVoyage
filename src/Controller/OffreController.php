@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Hotel;
 use App\Entity\Offre;
 use App\Form\OffreType;
+use App\Service\HotelApiService;
 use App\Service\OffreApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,16 +42,26 @@ class OffreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_offre_show', methods: ['GET'])]
-    public function show(Offre $offre): Response
+    public function show(array $_route_params, OffreApiService $offreApiService): Response
     {
         return $this->render('offre/show.html.twig', [
-            'offre' => $offre,
+            'offre' => $offreApiService->getOffre($_route_params['id']),
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_offre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService): Response
+    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
     {
+        foreach ($hotelApiService->getHotelsParams(["id_offre"=> $offre->getId()]) as $key => $value) {
+            $hotel = new Hotel();
+            $hotel->setId($value->id);
+            $hotel->setLieu($value->lieu);
+            $hotel->setEtoile($value->etoile);
+            $hotel->setDistance($value->distance);
+            $hotel->setNombreNuits($value->nombre_nuits);
+            $hotel->setidOffre($offre);
+            $offre->addHotel($hotel);
+        }
         $form = $this->createForm(OffreType::class, $offre);
         $form->handleRequest($request);
 
@@ -66,10 +78,10 @@ class OffreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_offre_delete', methods: ['POST'])]
-    public function delete(Request $request, Offre $offre, OffreApiService $offreApiService): Response
+    public function delete(Request $request,array $_route_params, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$offre->getId(), $request->request->get('_token'))) {
-            $offreApiService->DeleteOffre($offre->getId());
+        if ($this->isCsrfTokenValid('delete'.$_route_params['id'], $request->request->get('_token'))) {
+            $offreApiService->DeleteOffre($_route_params['id']);
         }
 
         return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);

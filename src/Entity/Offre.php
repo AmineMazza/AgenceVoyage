@@ -103,7 +103,7 @@ class Offre
     private ?string $detail_vols = null;
 
     #[ORM\ManyToOne(cascade: ["persist"], targetEntity:"App\Entity\User")]
-    #[ORM\JoinColumn(nullable: false, name:"user_id", referencedColumnName:"id")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $id_user = null;
 
     #[ORM\ManyToOne(targetEntity:"App\Entity\Destination")]
@@ -125,6 +125,10 @@ class Offre
         return $this->id;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getTitre(): ?string
     {
@@ -550,5 +554,10 @@ class Offre
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->titre;
     }
 }

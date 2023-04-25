@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\HotelRepository;
 use Doctrine\DBAL\Types\Types;
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['id_offre' => 'exact'])]
 class Hotel
 {
     #[ORM\Id]
@@ -35,6 +38,11 @@ class Hotel
     public function getId(): ?int
     {
         return $this->id;
+    }
+    
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getIdOffre(): ?Offre
@@ -95,5 +103,10 @@ class Hotel
         $this->nombre_nuits = $nombre_nuits;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->lieu;
     }
 }

@@ -16,7 +16,6 @@ class HotelType extends AbstractType
             ->add('etoile')
             ->add('distance')
             ->add('nombre_nuits')
-            ->add('id_offre')
         ;
     }
 

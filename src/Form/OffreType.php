@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Offre;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -31,8 +32,18 @@ class OffreType extends AbstractType
                     ])
                 ],
             ])
+            ->add('id_destination', null ,[ 'attr' => [ 'class' => "OffreDestination" ]])
             ->add('date_depart')
             ->add('date_retour')
+            ->add('hotels',CollectionType::class, [
+                'entry_type' => HotelType::class,
+                'label' => false,
+                'entry_options' => ['label' => false],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'error_bubbling' => false
+            ])
             ->add('baller_retour')
             ->add('bhebergement')
             ->add('bvisa')
@@ -45,17 +56,16 @@ class OffreType extends AbstractType
             ->add('prix_chambre_triple')
             ->add('prix_chambre_quad')
             ->add('prix_chambre_quint')
+            ->add('prix')
+            ->add('detail_voyage',TextareaType::class, ['required' => false])
+            ->add('detail_vols',TextareaType::class, ['required' => false])
+            ->add('bpassport')
+            ->add('bphotos')
+            ->add('bpass_vacinial')
             ->add('bcoup_coeur')
             ->add('bpubier')
             ->add('date_publication')
             ->add('date_fin_publication')
-            ->add('bpassport')
-            ->add('bphotos')
-            ->add('bpass_vacinial')
-            ->add('prix')
-            ->add('detail_voyage',TextareaType::class)
-            ->add('detail_vols',TextareaType::class)
-            ->add('id_destination')
         ;
     }
 

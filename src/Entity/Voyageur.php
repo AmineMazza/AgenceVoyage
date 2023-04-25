@@ -52,6 +52,11 @@ class Voyageur
         return $this->id;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function getIdReservation(): ?Reservation
     {
         return $this->id_reservation;
