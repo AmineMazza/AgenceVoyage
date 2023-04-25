@@ -5,6 +5,30 @@
     <div id="hotels" data-prototype="{{ form_widget(form.hotels.vars.prototype)|e('html_attr')}}">
 
     </div>
-    {{ form_widget(form) }}
+ 
+    {{ form_row(form.date_depart)}}
+    {{form_row(form.date_retour)}}
+    {{form_row(form.baller_retour)}}
+     {{form_row(form.bhebergement)}}
+    {{form_row(form.bvisa)}}
+     {{form_row(form.bpetit_dejeuner)}}
+    {{form_row(form.bdemi_pension)}}
+     {{form_row(form.bpension_complete)}}
+   {{form_row(form.bvisite_medine)}}
+   {{form_row(form.prix_chambre)}}
+   {{form_row(form.prix_chambre_double)}}
+   {{form_row(form.prix_chambre_triple)}}
+    {{form_row(form.prix_chambre_quad)}}
+    {{form_row(form.prix_chambre_quint)}}
+    {{form_row(form.prix)}}
+     {{form_row(form.detail_voyage)}}
+     {{form_row(form.detail_vols)}}
+     {{form_row(form.bpassport)}}
+     {{form_row(form.bphotos)}}
+      {{form_row(form.bpass_vacinial)}}
+      {{form_row(form.bcoup_coeur)}}
+      {{form_row(form.bpubier)}}
+      {{form_row(form.date_publication)}}
+       {{form_row(form.date_fin_publication)}}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
