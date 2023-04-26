@@ -58,6 +58,7 @@ class HotelApiService extends AbstractController {
         $hotel->setEtoile($data->etoile);
         $hotel->setDistance($data->distance);
         $hotel->setNombreNuits($data->nombreNuits);
+        $hotel->setName($data->name);
         return $hotel;
     }
 
@@ -75,6 +76,7 @@ class HotelApiService extends AbstractController {
                 'etoile' => $hotel->getEtoile(),
                 'distance' => $hotel->getDistance(),
                 'nombreNuits' => $hotel->getNombreNuits(),
+                'name'  => $hotel->getName(),
             ],
         ]);
         if ($response->getStatusCode() === 201) {
@@ -97,6 +99,7 @@ class HotelApiService extends AbstractController {
                 'etoie' => $hotel->getEtoile(),
                 'distance' => $hotel->getDistance(),
                 'nombreNuits' => $hotel->getNombreNuits(),
+                'name'  => $hotel->getName(),
             ],
         ]);
         if ($response->getStatusCode() === 200) {

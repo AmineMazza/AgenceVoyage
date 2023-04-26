@@ -35,6 +35,9 @@ class Hotel
     #[ORM\Column(type: Types::BIGINT)]
     private ?String $nombre_nuits = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,5 +111,17 @@ class Hotel
     public function __toString()
     {
         return $this->lieu;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

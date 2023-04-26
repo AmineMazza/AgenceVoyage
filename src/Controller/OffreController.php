@@ -59,6 +59,7 @@ class OffreController extends AbstractController
             $hotel->setEtoile($value->etoile);
             $hotel->setDistance($value->distance);
             $hotel->setNombreNuits($value->nombre_nuits);
+            $hotel->setName($value->name);
             $hotel->setidOffre($offre);
             $offre->addHotel($hotel);
         }

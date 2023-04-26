@@ -8,6 +8,10 @@ function DesinatioinEvent() {
     let html = `
     <div id="offre_hotels___name__">
         <div>
+            <label for="offre_hotels___name___name" class="required">Name</label>
+            <input type="text" id="offre_hotels___name___name" name="offre[hotels][__name__][name]" required="required" maxlength="255" />
+        </div>
+        <div>
             <label for="offre_hotels___name___lieu" class="">Lieu</label>
             <input type="text" id="offre_hotels___name___lieu" name="offre[hotels][__name__][lieu]" required="required" maxlength="59" />
         </div>
@@ -25,7 +29,6 @@ function DesinatioinEvent() {
         </div>
     </div>
     `
-    console.log(html.replace(/__name__/g,0))
     let form = hotels.getAttribute('data-prototype');
     if(val == "Omra" || val == "Hajj" || val == "Omra combine"){
         hotels.innerHTML += html.replace(/__name__/g,0);
@@ -33,7 +36,7 @@ function DesinatioinEvent() {
         hotels.innerHTML += html.replace(/__name__/g,2);
     }
     else{
-        hotels.innerHTML = hotels.innerHTML += html.replace(/__name__/g,0);
+        hotels.innerHTML = html.replace(/__name__/g,0);
     }
 }
 
