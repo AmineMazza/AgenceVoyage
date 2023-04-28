@@ -21,7 +21,6 @@ class VoyageurType extends AbstractType
             ->add('num_passport')
             ->add('date_fin_passport')
             ->add('date_naissance')
-            ->add('id_reservation')
         ;
     }
 

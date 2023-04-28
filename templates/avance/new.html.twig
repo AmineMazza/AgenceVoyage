@@ -7,5 +7,5 @@
 
     {{ include('avance/_form.html.twig') }}
 
-    <a href="{{ path('app_avance_index') }}">back to list</a>
+    <a href="{{ path('app_avance_index', {'idR': idR }) }}">back to list</a>
 {% endblock %}

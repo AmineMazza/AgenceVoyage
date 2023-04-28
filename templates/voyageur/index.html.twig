@@ -35,8 +35,8 @@
                 <td>{{ voyageur.dateFinPassport ? voyageur.dateFinPassport|date('Y-m-d') : '' }}</td>
                 <td>{{ voyageur.dateNaissance ? voyageur.dateNaissance|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_voyageur_show', {'id': voyageur.id}) }}">show</a>
-                    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id}) }}">edit</a>
+                    <a href="{{ path('app_voyageur_show', {'id': voyageur.id, 'idR': idR}) }}">show</a>
+                    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id, 'idR': idR}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_voyageur_new') }}">Create new</a>
+    <a href="{{ path('app_voyageur_new', {'idR': idR}) }}">Create new</a>
 {% endblock %}

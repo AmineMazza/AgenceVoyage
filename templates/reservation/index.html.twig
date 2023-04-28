@@ -31,6 +31,8 @@
                 <td>
                     <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                    <a href="{{ path('app_avance_index', {'idR': reservation.id}) }}">Avances</a>
+                    <a href="{{ path('app_voyageur_index', {'idR': reservation.id}) }}">Voyageurs</a>
                 </td>
             </tr>
         {% else %}

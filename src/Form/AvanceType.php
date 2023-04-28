@@ -13,9 +13,7 @@ class AvanceType extends AbstractType
     {
         $builder
             ->add('montant')
-            ->add('date')
             ->add('ref_recu')
-            ->add('id_reservation')
         ;
     }
 

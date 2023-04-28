@@ -5,17 +5,18 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Reservation;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReservationApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private OffreApiService $offreApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getReservations() : array
+    public function getReservations() : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/reservations',[
@@ -24,7 +25,25 @@ class ReservationApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        return $response->toArray();
+        $reservations = new ArrayCollection();
+        foreach ($response->toArray() as $key => $data) {
+            dd($data);
+            $reservation = new Reservation();
+            $reservation->setId($data->id);
+            $reservation->setDateReservation($data->date_reservation);
+            $reservation->setNumVoyageurs($data->num_voyageurs);
+            $reservation->setRemarque($data->remarque);
+            $reservation->setMntCommission($data->Mnt_commission);
+            $reservation->setAvanceCommission($data->avance_commission);
+            $reservation->setDateAvanceCommission($data->date_avance_commission);
+            $arr_param = explode('/',$data->idOffre);
+            $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
+            $arr_param = explode('/',$data->idUser);
+            // $reservation->setIdUser($data->idUser);
+            $reservation->setIdCommercial($data->idCommercial);
+            $reservations->add($reservation);
+        }
+        return $reservations;
     }
 
     public function getReservation($id) : Reservation

@@ -27,6 +27,7 @@
                 <td>
                     <a href="{{ path('app_offre_show', {'id': offre.id}) }}">show</a>
                     <a href="{{ path('app_offre_edit', {'id': offre.id}) }}">edit</a>
+                    <a href="{{ path('app_hotel_index', {'idH': offre.id}) }}">Hotels</a>
                 </td>
             </tr>
         {% else %}

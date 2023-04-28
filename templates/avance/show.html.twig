@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_avance_index') }}">back to list</a>
+    <a href="{{ path('app_avance_index', {'idR': idR }) }}">back to list</a>
 
-    <a href="{{ path('app_avance_edit', {'id': avance.id}) }}">edit</a>
+    <a href="{{ path('app_avance_edit', {'id': avance.id, 'idR': idR}) }}">edit</a>
 
     {{ include('avance/_delete_form.html.twig') }}
 {% endblock %}

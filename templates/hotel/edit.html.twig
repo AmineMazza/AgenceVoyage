@@ -7,7 +7,7 @@
 
     {{ include('hotel/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_hotel_index') }}">back to list</a>
+    <a href="{{ path('app_hotel_index', {'idH': idH}) }}">back to list</a>
 
     {{ include('hotel/_delete_form.html.twig') }}
 {% endblock %}

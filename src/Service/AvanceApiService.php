@@ -15,7 +15,7 @@ class AvanceApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getAvances() : array
+    public function getAvances($idR) : array
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/avances',[
@@ -23,6 +23,9 @@ class AvanceApiService extends AbstractController {
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
+            'query' => [
+                'id_reservation' => $idR,
+            ]
         ]);
         return $response->toArray();
     }
@@ -41,26 +44,28 @@ class AvanceApiService extends AbstractController {
         $avance->setId($data->id);
         $avance->setMontant($data->montant);
         $avance->setRefRecu($data->ref_recu);
-        $avance->setDate($data->date);
+        $avance->setDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date));
         $avance->setIdReservation($data->idReservation);
         return $avance;
     }
 
-    public function AddAvance($avance) : bool
+    public function AddAvance($avance,$idR) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
-        $response = $this->client->request('POST', 'http://127.0.0.1/api/Avances', [
+        $date = new \DateTime();
+        $response = $this->client->request('POST', 'http://127.0.0.1/api/avances', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idReservation' => '/api/reservations/'.$avance->getIdResevarion()->getId(),
-                'date' => $avance->getDate()->format('Y-m-d\TH:i:sP'),
+                'idReservation' => '/api/reservations/'.$idR,
+                'date' => $date->format('Y-m-d\TH:i:sP'),
                 'montant' => $avance->getMontant(),
                 'refRecu' => $avance->getRefRecu(),
             ],
         ]);
+        // dd($response);
         if ($response->getStatusCode() === 200) {
             return true;
         }
@@ -70,14 +75,12 @@ class AvanceApiService extends AbstractController {
     public function UpdateAvance($avance) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
-        $response = $this->client->request('PUT', 'http://127.0.0.1/api/Avances/'.$avance->getId(), [
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/avances/'.$avance->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idReservation' => '/api/reservations/'.$avance->getIdResevarion()->getId(),
-                'date' => $avance->getDate()->format('Y-m-d\TH:i:sP'),
                 'montant' => $avance->getMontant(),
                 'refRecu' => $avance->getRefRecu(),
             ],
@@ -91,7 +94,7 @@ class AvanceApiService extends AbstractController {
     public function DeleteAvance($id) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
-        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/Avances/'.$id,[
+        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/avances/'.$id,[
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',

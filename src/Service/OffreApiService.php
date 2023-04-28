@@ -78,6 +78,7 @@ class OffreApiService extends AbstractController {
             $hotel->setLieu($value->lieu);
             $hotel->setEtoile($value->etoile);
             $hotel->setDistance($value->distance);
+            $hotel->setName($value->name);
             $hotel->setNombreNuits($value->nombre_nuits);
             $hotel->setidOffre($offre);
             $offre->addHotel($hotel);

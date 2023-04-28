@@ -5,6 +5,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Voyageur;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -15,7 +16,7 @@ class VoyageurApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getVoyageurs() : array
+    public function getVoyageurs() : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/voyageurs',[
@@ -24,7 +25,22 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        return $response->toArray();
+        $voyageurs = new ArrayCollection();
+        foreach ($response->toArray() as $key => $data) {
+            // dd($data);
+            $voyageur = new Voyageur();
+            $voyageur->setId($data['id']);
+            $voyageur->setNom((!empty($data['nom']) ? $data['nom'] : null));
+            $voyageur->setPrenom((!empty($data['prenom']) ? $data['prenom'] : null));
+            $voyageur->setCin((!empty($data['cin']) ? $data['cin'] : null));
+            $voyageur->setEmail((!empty($data['email']) ? $data['email'] : null));
+            $voyageur->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
+            $voyageur->setTelephone((!empty($data['telephone']) ? $data['telephone'] : null));
+            $voyageur->setNumPassport((!empty($data['numPassport']) ? $data['numPassport'] : null));
+            $voyageur->setDateNaissance((!empty($data['dateNaissance']) ? $data['dateNaissance'] : null));
+            $voyageurs->add($voyageur);
+        }
+        return $voyageurs;
     }
 
     public function getVoyageur($id) : Voyageur
@@ -39,19 +55,18 @@ class VoyageurApiService extends AbstractController {
         $voyageur = new Voyageur();
         $data = json_decode($response->getContent());
         $voyageur->setId($data->id);
-        $voyageur->setIdReservation($data->IdReservation);
-        $voyageur->setNom($data->nom);
-        $voyageur->setPrenom($data->prenom);
-        $voyageur->setCin($data->cin);
-        $voyageur->setEmail($data->email);
-        $voyageur->setAdresse($data->adresse);
-        $voyageur->setTelephone($data->telephone);
-        $voyageur->setNumPassport($data->num_passport);
-        $voyageur->setDateNaissance($data->date_naissance);
+        $voyageur->setNom((!empty($data->nom) ? $data->nom : null));
+        $voyageur->setPrenom((!empty($data->prenom) ? $data->prenom : null));
+        $voyageur->setCin((!empty($data->cin) ? $data->cin : null));
+        $voyageur->setEmail((!empty($data->email) ? $data->email : null));
+        $voyageur->setAdresse((!empty($data->adresse) ? $data->adresse : null));
+        $voyageur->setTelephone((!empty($data->telephone) ? $data->telephone : null));
+        $voyageur->setNumPassport((!empty($data->numPassport) ? $data->numPassport : null));
+        $voyageur->setDateNaissance((!empty($data->dateNaissance) ? $data->dateNaissance : null));
         return $voyageur;
     }
 
-    public function AddVoyageur($voyageur) : bool
+    public function AddVoyageur($voyageur,$idR) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('POST', 'http://127.0.0.1/api/voyageurs', [
@@ -60,18 +75,18 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idReservation' => '/api/reservations/'.$voyageur->getIdReservation()->getId(),
-                'nom' => $voyageur->setNom(),
-                'prenom' => $voyageur->setPrenom(),
-                'cin' => $voyageur->setCin(),
-                'email' => $voyageur->setEmail(),
-                'adresse' => $voyageur->setAdresse(),
-                'telephone' => $voyageur->setTelephone(),
-                'numPassport' => $voyageur->setNumPassport(),
-                'dateNaissance' => $voyageur->setDateNaissance(),
+                'idReservation' => '/api/reservations/'.$idR,
+                'nom' => $voyageur->getNom(),
+                'prenom' => $voyageur->getPrenom(),
+                'cin' => $voyageur->getCin(),
+                'email' => $voyageur->getEmail(),
+                'adresse' => $voyageur->getAdresse(),
+                'telephone' => $voyageur->getTelephone(),
+                'numPassport' => $voyageur->getNumPassport(),
+                'dateNaissance' => $voyageur->getDateNaissance(),
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
         }
         return false;
@@ -86,18 +101,17 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idReservation' => '/api/reservations/'.$voyageur->getIdReservation()->getId(),
-                'nom' => $voyageur->setNom(),
-                'prenom' => $voyageur->setPrenom(),
-                'cin' => $voyageur->setCin(),
-                'email' => $voyageur->setEmail(),
-                'adresse' => $voyageur->setAdresse(),
-                'telephone' => $voyageur->setTelephone(),
-                'numPassport' => $voyageur->setNumPassport(),
-                'dateNaissance' => $voyageur->setDateNaissance(),
+                'nom' => $voyageur->getNom(),
+                'prenom' => $voyageur->getPrenom(),
+                'cin' => $voyageur->getCin(),
+                'email' => $voyageur->getEmail(),
+                'adresse' => $voyageur->getAdresse(),
+                'telephone' => $voyageur->getTelephone(),
+                'numPassport' => $voyageur->getNumPassport(),
+                'dateNaissance' => $voyageur->getDateNaissance(),
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
         }
         return false;
@@ -112,7 +126,7 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
         }
         return false;
