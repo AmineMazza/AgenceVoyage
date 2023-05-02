@@ -49,8 +49,9 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        $jwtToken = $this->CallApiService->getJWTToken($request->request->all()['password'])['token'];
-        $token->setAttribute('JWTToken',$jwtToken);
+        $jwtToken = $this->CallApiService->getJWTToken($request->request->all()['password']);
+        $token->setAttribute('JWTToken',$jwtToken['token']);
+        $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
         // dd($token);
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

@@ -12,11 +12,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class VoyageurApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getVoyageurs() : ArrayCollection
+    public function getVoyageurs($idR) : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/voyageurs',[
@@ -24,7 +24,14 @@ class VoyageurApiService extends AbstractController {
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
+            'query' => [
+                'id_reservation' => $idR,
+            ]
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getVoyageurs($idR);
+        }
         $voyageurs = new ArrayCollection();
         foreach ($response->toArray() as $key => $data) {
             // dd($data);
@@ -52,6 +59,10 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getVoyageur($id);
+        }
         $voyageur = new Voyageur();
         $data = json_decode($response->getContent());
         $voyageur->setId($data->id);
@@ -89,6 +100,10 @@ class VoyageurApiService extends AbstractController {
         if ($response->getStatusCode() === 201) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddVoyageur($voyageur,$idR);
+        }
         return false;
     }
 
@@ -114,6 +129,10 @@ class VoyageurApiService extends AbstractController {
         if ($response->getStatusCode() === 201) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateVoyageur($voyageur);
+        }
         return false;
     }
 
@@ -128,6 +147,10 @@ class VoyageurApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 201) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteVoyageur($id);
         }
         return false;
     }

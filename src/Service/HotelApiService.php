@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class HotelApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -24,6 +24,10 @@ class HotelApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getHotels();
+        }
         return $response->toArray();
     }
 
@@ -37,6 +41,10 @@ class HotelApiService extends AbstractController {
             ],
             'query' => $params
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getHotelsParams($params);
+        }
         return json_decode($response->getContent());
     }
 
@@ -50,6 +58,10 @@ class HotelApiService extends AbstractController {
             ],
             
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getHotel($id);
+        }
         $hotel = new Hotel();
         $data = json_decode($response->getContent());
         $hotel->setId($data->id);
@@ -82,6 +94,10 @@ class HotelApiService extends AbstractController {
         if ($response->getStatusCode() === 201) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddHotel($hotel,$idOfre);
+        }
         return false;
     }
 
@@ -94,7 +110,6 @@ class HotelApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idOffre' => '/api/offres/'.$hotel->getIdOffre()->getId(),
                 'lieu' => $hotel->getLieu(),
                 'etoie' => $hotel->getEtoile(),
                 'distance' => $hotel->getDistance(),
@@ -104,6 +119,10 @@ class HotelApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 200) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateHotel($hotel);
         }
         return false;
     }
@@ -119,6 +138,10 @@ class HotelApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 200) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteHotel($id);
         }
         return false;
     }

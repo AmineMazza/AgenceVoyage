@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MessageApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -24,6 +24,10 @@ class MessageApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getMessages();
+        }
         return $response->toArray();
     }
 
@@ -36,6 +40,10 @@ class MessageApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getMessage($id);
+        }
         $message = new Message();
         $data = json_decode($response->getContent());
         $message->setId($data->id);
@@ -66,6 +74,10 @@ class MessageApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddMessage($message);
+        }
         return false;
     }
 
@@ -88,6 +100,10 @@ class MessageApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateMessage($message);
+        }
         return false;
     }
 
@@ -102,6 +118,10 @@ class MessageApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 200) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteMessage($id);
         }
         return false;
     }

@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AvanceApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -27,6 +27,10 @@ class AvanceApiService extends AbstractController {
                 'id_reservation' => $idR,
             ]
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getAvances($idR);
+        }
         return $response->toArray();
     }
 
@@ -39,6 +43,10 @@ class AvanceApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getAvance($id);
+        }
         $avance = new Avance();
         $data = json_decode($response->getContent());
         $avance->setId($data->id);
@@ -69,6 +77,10 @@ class AvanceApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddAvance($avance,$idR);
+        }
         return false;
     }
 
@@ -88,6 +100,10 @@ class AvanceApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateAvance($avance);
+        }
         return false;
     }
 
@@ -102,6 +118,10 @@ class AvanceApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 200) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteAvance($id);
         }
         return false;
     }

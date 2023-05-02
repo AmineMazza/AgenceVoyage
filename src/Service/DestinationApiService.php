@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class DestinationApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -24,6 +24,10 @@ class DestinationApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getDestinations();
+        }
         return $response->toArray();
     }
 
@@ -36,6 +40,10 @@ class DestinationApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getDestination($id);
+        }
         $destination = new Destination();
         $data = json_decode($response->getContent());
         $destination->setId($data->id);
@@ -53,8 +61,12 @@ class DestinationApiService extends AbstractController {
             ],
             'json' => ['pays' => $destination->getPays()],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddDestination($destination);
         }
         return false;
     }
@@ -69,8 +81,12 @@ class DestinationApiService extends AbstractController {
             ],
             'json' => ['pays' => $destination->getPays()],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateDestination($destination);
         }
         return false;
     }
@@ -84,8 +100,12 @@ class DestinationApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteDestination($id);
         }
         return false;
     }

@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class CommercialApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -24,6 +24,10 @@ class CommercialApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getCommercials();
+        }
         return $response->toArray();
     }
 
@@ -36,12 +40,16 @@ class CommercialApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getCommercial($id);
+        }
         $commercial = new Commercial();
         $data = json_decode($response->getContent());
         $commercial->setId($data->id);
         $commercial->setNom($data->nom);
         $commercial->setPrenom($data->prenom);
-        $commercial->setAdresse($data->adresse);
+        $commercial->setAdresse((!empty($data->adresse) ? $data->adresse : null));
         $commercial->setTelephone($data->telephone);
         return $commercial;
     }
@@ -65,6 +73,10 @@ class CommercialApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->AddCommercial($commercial);
+        }
         return false;
     }
 
@@ -86,6 +98,10 @@ class CommercialApiService extends AbstractController {
         if ($response->getStatusCode() === 200) {
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateCommercial($commercial);
+        }
         return false;
     }
 
@@ -100,6 +116,10 @@ class CommercialApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 200) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteCommercial($id);
         }
         return false;
     }

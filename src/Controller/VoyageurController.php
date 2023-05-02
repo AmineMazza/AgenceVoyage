@@ -17,7 +17,7 @@ class VoyageurController extends AbstractController
     public function index(VoyageurApiService $VoyageurApiService, array $_route_params): Response
     {
         return $this->render('voyageur/index.html.twig', [
-            'voyageurs' => $VoyageurApiService->getVoyageurs(),
+            'voyageurs' => $VoyageurApiService->getVoyageurs($_route_params['idR']),
             'idR' => $_route_params['idR'],
         ]);
     }

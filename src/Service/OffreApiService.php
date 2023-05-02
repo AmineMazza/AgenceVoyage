@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class OffreApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService){
+    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -24,6 +24,10 @@ class OffreApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getOffres();
+        }
         return $response->toArray();
     }
 
@@ -36,6 +40,10 @@ class OffreApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getOffre($id);
+        }
         $offre = new Offre();
         $data = json_decode($response->getContent());
         $offre->setId($data->id);
@@ -134,14 +142,17 @@ class OffreApiService extends AbstractController {
             }
             return true;
         }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->addOffre($offre);
+        }
         return false;
     }
 
     public function updateOffre($offre) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
-        $json = [ 
-            'idUser' => '/api/users/'.$this->getUser()->getId(),
+        $json = [
             'idDestination' =>  '/api/destinations/'.$offre->getIdDestination()->getId(),
             'titre' => $offre->getTitre(),
             'dateDepart' => $offre->getDateDepart()->format('Y-m-d\TH:i:sP'),
@@ -178,10 +189,13 @@ class OffreApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 201) {
             foreach ($offre->getHotels() as $key => $value) {
-                // dd($value);
                 $this->hotelApiService->UpdateHotel($value);
             }
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->updateOffre($offre);
         }
         return false;
     }
@@ -197,6 +211,10 @@ class OffreApiService extends AbstractController {
         ]);
         if ($response->getStatusCode() === 201) {
             return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteOffre($id);
         }
         return false;
     }
