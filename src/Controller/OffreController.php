@@ -7,10 +7,13 @@ use App\Entity\Offre;
 use App\Form\OffreType;
 use App\Service\HotelApiService;
 use App\Service\OffreApiService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/offre')]
 class OffreController extends AbstractController
@@ -24,13 +27,35 @@ class OffreController extends AbstractController
     }
 
     #[Route('/new', name: 'app_offre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OffreApiService $offreApiService): Response
+    public function new(Request $request, OffreApiService $offreApiService, SluggerInterface $slugger): Response
     {
         $offre = new Offre();
         $form = $this->createForm(OffreType::class, $offre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $offreApiService->addOffre($offre);
+
+            $file = $form->get('image')->getData();
+            if ($file){
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                
+                
+                $offre->setImage('/public/assets/images/offres/'.$newFilename);
+                
+            }
+            $status = $offreApiService->addOffre($offre);
+            if($status){
+                try {
+                    $file->move(
+                        $this->getParameter('offres_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw new Exception($e);
+                }
+            }
 
             return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -13,6 +13,7 @@
                 <th>Date_depart</th>
                 <th>Date_retour</th>
                 <th>Prix</th>
+                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,11 @@
                 <td>{{ offre.dateDepart ? offre.dateDepart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ offre.dateRetour ? offre.dateRetour|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ offre.prix }}</td>
+                {% if offre.image is defined %}
+                    <td>{{ offre.image }}</td>
+                {% else %}
+                    <td>Not exist</td>
+                {% endif %}
                 <td>
                     <a href="{{ path('app_offre_show', {'id': offre.id}) }}">show</a>
                     <a href="{{ path('app_offre_edit', {'id': offre.id}) }}">edit</a>

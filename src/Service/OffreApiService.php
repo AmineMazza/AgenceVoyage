@@ -125,6 +125,7 @@ class OffreApiService extends AbstractController {
             'prix' => $offre->getPrix(),
             'detailVoyage' => $offre->getDetailVoyage(),
             'detailVols' => $offre->getDetailVols(),
+            'image' => $offre->getImage(),
         ];
 
         $response = $this->client->request('POST', 'http://127.0.0.1/api/offres', [
