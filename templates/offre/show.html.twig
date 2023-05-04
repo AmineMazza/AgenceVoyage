@@ -104,6 +104,31 @@
                 <th>Bpass_vacinial</th>
                 <td>{{ offre.bpassVacinial ? 'Yes' : 'No' }}</td>
             </tr>
+            <table>
+                <th>Hotels</th>
+                {% for hotel in offre.hotels %}
+                    <tr>
+                        <th>name</th>
+                        <td>{{ hotel.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>lieu</th>
+                        <td>{{ hotel.lieu}}</td>
+                    </tr>
+                    <tr>
+                        <th>etoile</th>
+                        <td>{{ hotel.etoile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Distance au centre</th>
+                        <td>{{ hotel.distance }}</td>
+                    </tr>
+                   <tr>
+                        <th>nombre de nuits</th>
+                        <td>{{ hotel.getNombreNuits() }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
         </tbody>
     </table>
 

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('Reservation/{idR}/voyageur')]
+#[Route('/dashboard/reservation/{idR}/voyageur')]
 class VoyageurController extends AbstractController
 {
     #[Route('/', name: 'app_voyageur_index', methods: ['GET'])]

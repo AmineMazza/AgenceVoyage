@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AgentApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService,private UserApiService $userApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -29,23 +29,23 @@ class AgentApiService extends AbstractController {
             $this->callApiService->getJWTRefreshToken();
             $this->getAgents();
         }
-        $Agents = new ArrayCollection();
+        $agents = new ArrayCollection();
         foreach ($response->toArray() as $key => $data) {
             // dd($data);
-            $Agent = new Agent();
-            $Agent->setId($data['id']);
-            $Agent->setAgence((!empty($data['agence']) ? $data['agence'] : null));
-            $Agent->setNom((!empty($data['nom']) ? $data['nom'] : null));
-            $Agent->setPrenom((!empty($data['prenom']) ? $data['prenom'] : null));
-            $Agent->setTelephoneMobile((!empty($data['telephone_mobile']) ? $data['telephone_mobile'] : null));
-            $Agent->setTelephoneFixe((!empty($data['telephone_fixe']) ? $data['telephone_fixe'] : null));
-            $Agent->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
-            $Agent->setAbonnememt((!empty($data['abonnememt']) ? $data['abonnememt'] : null));
-            $Agent->setBstatus((!empty($data['bstatus']) ? $data['bstatus'] : null));
-            $Agent->setLogo((!empty($data['logo']) ? $data['logo'] : null));
-            $Agents->add($Agent);
+            $agent = new Agent();
+            $agent->setId($data['id']);
+            $agent->setAgence((!empty($data['agence']) ? $data['agence'] : null));
+            $agent->setNom((!empty($data['nom']) ? $data['nom'] : null));
+            $agent->setPrenom((!empty($data['prenom']) ? $data['prenom'] : null));
+            $agent->setTelephoneMobile((!empty($data['telephone_mobile']) ? $data['telephone_mobile'] : null));
+            $agent->setTelephoneFixe((!empty($data['telephone_fixe']) ? $data['telephone_fixe'] : null));
+            $agent->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
+            $agent->setAbonnememt((!empty($data['abonnememt']) ? $data['abonnememt'] : null));
+            $agent->setBstatus((!empty($data['bstatus']) ? $data['bstatus'] : null));
+            $agent->setLogo((!empty($data['logo']) ? $data['logo'] : null));
+            $agents->add($agent);
         }
-        return $Agents;
+        return $agents;
     }
 
     public function getAgent($id) : Agent
@@ -61,22 +61,22 @@ class AgentApiService extends AbstractController {
             $this->callApiService->getJWTRefreshToken();
             $this->getAgent($id);
         }
-        $Agent = new Agent();
+        $agent = new Agent();
         $data = json_decode($response->getContent());
-        $Agent->setId($data['id']);
-        $Agent->setAgence((!empty($data['agence']) ? $data['agence'] : null));
-        $Agent->setNom((!empty($data['nom']) ? $data['nom'] : null));
-        $Agent->setPrenom((!empty($data['prenom']) ? $data['prenom'] : null));
-        $Agent->setTelephoneMobile((!empty($data['telephone_mobile']) ? $data['telephone_mobile'] : null));
-        $Agent->setTelephoneFixe((!empty($data['telephone_fixe']) ? $data['telephone_fixe'] : null));
-        $Agent->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
-        $Agent->setAbonnememt((!empty($data['abonnememt']) ? $data['abonnememt'] : null));
-        $Agent->setBstatus((!empty($data['bstatus']) ? $data['bstatus'] : null));
-        $Agent->setLogo((!empty($data['logo']) ? $data['logo'] : null));
-        return $Agent;
+        $agent->setId($data['id']);
+        $agent->setAgence((!empty($data['agence']) ? $data['agence'] : null));
+        $agent->setNom((!empty($data['nom']) ? $data['nom'] : null));
+        $agent->setPrenom((!empty($data['prenom']) ? $data['prenom'] : null));
+        $agent->setTelephoneMobile((!empty($data['telephone_mobile']) ? $data['telephone_mobile'] : null));
+        $agent->setTelephoneFixe((!empty($data['telephone_fixe']) ? $data['telephone_fixe'] : null));
+        $agent->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
+        $agent->setAbonnememt((!empty($data['abonnememt']) ? $data['abonnememt'] : null));
+        $agent->setBstatus((!empty($data['bstatus']) ? $data['bstatus'] : null));
+        $agent->setLogo((!empty($data['logo']) ? $data['logo'] : null));
+        return $agent;
     }
 
-    public function AddAgent($Agent) : bool
+    public function AddAgent($agent) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('POST', 'http://127.0.0.1/api/agents', [
@@ -85,17 +85,16 @@ class AgentApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idUser' => '/api/users/'.$this->getUser()->getId(),
-                'nom' => $Agent->getId(),
-                'agence' => $Agent->getAgence(),
-                'nom' => $Agent->getNom(),
-                'prenom' => $Agent->getPrenom(),
-                'telephoneMobile' => $Agent->getTelephoneMobile(),
-                'telephoneFixe' => $Agent->getTelephoneFixe(),
-                'adresse' => $Agent->getAdresse(),
-                'abonnement' => $Agent->getAbonnememt(),
-                'bstatus' => $Agent->getBstatus(),
-                'logo' => $Agent->getLogo(),
+                'nom' => $agent->getId(),
+                'agence' => $agent->getAgence(),
+                'nom' => $agent->getNom(),
+                'prenom' => $agent->getPrenom(),
+                'telephoneMobile' => $agent->getTelephoneMobile(),
+                'telephoneFixe' => $agent->getTelephoneFixe(),
+                'adresse' => $agent->getAdresse(),
+                'abonnement' => $agent->getAbonnememt(),
+                'bstatus' => (($agent->isBstatus() != null) ? $agent->isBstatus() : false),
+                'logo' => $agent->getLogo(),
             ],
         ]);
         if ($response->getStatusCode() === 201) {
@@ -103,30 +102,30 @@ class AgentApiService extends AbstractController {
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->AddAgent($Agent,$idR);
+            $this->AddAgent($agent);
         }
         return false;
     }
 
-    public function UpdateAgent($Agent) : bool
+    public function UpdateAgent($agent) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
-        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$Agent->getId(), [
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$agent->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'nom' => $Agent->getId(),
-                'agence' => $Agent->getAgence(),
-                'nom' => $Agent->getNom(),
-                'prenom' => $Agent->getPrenom(),
-                'telephoneMobile' => $Agent->getTelephoneMobile(),
-                'telephoneFixe' => $Agent->getTelephoneFixe(),
-                'adresse' => $Agent->getAdresse(),
-                'abonnement' => $Agent->getAbonnememt(),
-                'bstatus' => $Agent->getBstatus(),
-                'logo' => $Agent->getLogo(),
+                'nom' => $agent->getId(),
+                'agence' => $agent->getAgence(),
+                'nom' => $agent->getNom(),
+                'prenom' => $agent->getPrenom(),
+                'telephoneMobile' => $agent->getTelephoneMobile(),
+                'telephoneFixe' => $agent->getTelephoneFixe(),
+                'adresse' => $agent->getAdresse(),
+                'abonnement' => $agent->getAbonnememt(),
+                'bstatus' => (($agent->isBstatus() != null) ? $agent->isBstatus() : false),
+                'logo' => $agent->getLogo(),
             ],
         ]);
         if ($response->getStatusCode() === 201) {
@@ -134,7 +133,7 @@ class AgentApiService extends AbstractController {
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->UpdateAgent($Agent);
+            $this->UpdateAgent($agent);
         }
         return false;
     }
@@ -154,6 +153,54 @@ class AgentApiService extends AbstractController {
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->DeleteAgent($id);
+        }
+        return false;
+    }
+
+    public function ValidAgent($idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'bstatus' => true,
+            ],
+        ]);
+        if ($response->getStatusCode() === 201) {
+            $agent = $this->getAgent($idA);
+            $this->userApiService->AddUser($agent->getIdUser(),$agent->getId());
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->ValidAgent($idA);
+        }
+        return false;
+    }
+
+    public function UnvalidAgent($idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'bstatus' => false,
+            ],
+        ]);
+        if ($response->getStatusCode() === 201) {
+            $agent = $this->getAgent($idA);
+            $this->userApiService->DeleteUser($agent->getIdUser()->getId());
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UnvalidAgent($idA);
         }
         return false;
     }

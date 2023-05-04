@@ -4,14 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Avance;
 use App\Form\AvanceType;
-use App\Repository\AvanceRepository;
 use App\Service\AvanceApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/reservation/{idR}/avance')]
+#[Route('/dashboard/reservation/{idR}/avance')]
 class AvanceController extends AbstractController
 {
     #[Route('/', name: 'app_avance_index', methods: ['GET'])]

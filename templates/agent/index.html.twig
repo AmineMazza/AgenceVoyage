@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agent index{% endblock %}
+
+{% block body %}
+    <h1>Agent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Agence</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Telephone_mobile</th>
+                <th>Telephone_fixe</th>
+                <th>Adresse</th>
+                <th>Abonnememt</th>
+                <th>Bstatus</th>
+                <th>Logo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for agent in agents %}
+            <tr>
+                <td>{{ agent.id }}</td>
+                <td>{{ agent.agence }}</td>
+                <td>{{ agent.nom }}</td>
+                <td>{{ agent.prenom }}</td>
+                <td>{{ agent.telephoneMobile }}</td>
+                <td>{{ agent.telephoneFixe }}</td>
+                <td>{{ agent.adresse }}</td>
+                <td>{{ agent.abonnememt }}</td>
+                <td>{{ agent.bstatus ? 'Yes' : 'No' }}</td>
+                <td>{{ agent.logo }}</td>
+                <td>
+                    <a href="{{ path('app_agent_show', {'id': agent.id}) }}">show</a>
+                    <a href="{{ path('app_agent_edit', {'id': agent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_agent_new') }}">Create new</a>
+{% endblock %}
