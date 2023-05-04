@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AgentApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService,private UserApiService $userApiService){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -153,54 +153,6 @@ class AgentApiService extends AbstractController {
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->DeleteAgent($id);
-        }
-        return false;
-    }
-
-    public function ValidAgent($idA) : bool
-    {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
-        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
-                'Accept' => 'application/json',
-            ],
-            'json' => [
-                'bstatus' => true,
-            ],
-        ]);
-        if ($response->getStatusCode() === 201) {
-            $agent = $this->getAgent($idA);
-            $this->userApiService->AddUser($agent->getIdUser(),$agent->getId());
-            return true;
-        }
-        else if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->ValidAgent($idA);
-        }
-        return false;
-    }
-
-    public function UnvalidAgent($idA) : bool
-    {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
-        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
-                'Accept' => 'application/json',
-            ],
-            'json' => [
-                'bstatus' => false,
-            ],
-        ]);
-        if ($response->getStatusCode() === 201) {
-            $agent = $this->getAgent($idA);
-            $this->userApiService->DeleteUser($agent->getIdUser()->getId());
-            return true;
-        }
-        else if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->UnvalidAgent($idA);
         }
         return false;
     }

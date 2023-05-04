@@ -37,10 +37,10 @@ class UserApiService extends AbstractController {
             $User->setEmail((!empty($data['email']) ? $data['email'] : null));
             $User->setPassword((!empty($data['password']) ? $data['password'] : null));
             // $User->setRoles((!empty($data['prenom']) ? $data['prenom'] : null));
-            if(!empty($data->agent)){
-                $arr_param = explode('/',$data->agent);
-                $User->setAgent($this->agentApiService->getAgent($arr_param[count($arr_param)-1]));
-            }
+            // if(!empty($data->agent)){
+            //     $arr_param = explode('/',$data->agent);
+            //     $User->setAgent($this->agentApiService->getAgent($arr_param[count($arr_param)-1]));
+            // }
             $Users->add($User);
         }
         return $Users;
@@ -68,10 +68,10 @@ class UserApiService extends AbstractController {
         $User->setEmail((!empty($data->email) ? $data->email : null));
         $User->setPassword((!empty($data->password) ? $data->password : ''));
         $User->setRoles((!empty($data->roles) ? $data->roles : []));
-        if(!empty($data->agent)){
-            $arr_param = explode('/',$data->agent);
-            $User->setAgent($this->agentApiService->getAgent($arr_param[count($arr_param)-1]));
-            }
+        // if(!empty($data->agent)){
+        //     $arr_param = explode('/',$data->agent);
+        //     $User->setAgent($this->agentApiService->getAgent($arr_param[count($arr_param)-1]));
+        // }
         return $User;
     }
 
