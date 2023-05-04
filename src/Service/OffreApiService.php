@@ -24,11 +24,18 @@ class OffreApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
+        $offres = $response->toArray();
+        foreach ($offres as $key => $data) {
+            //dd($data);
+            $arr_dest = explode('/',$data['id_destination']);
+            $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
+            $offres[$key]['id_destination']=$destination;
+        }
         if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->getOffres();
         }
-        return $response->toArray();
+        return $offres;
     }
 
     public function getOffre($id) : Offre

@@ -42,7 +42,7 @@ class OffreController extends AbstractController
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
                 
                 
-                $offre->setImage('/public/assets/images/offres/'.$newFilename);
+                $offre->setImage('/assets/images/offres/'.$newFilename);
                 
             }
             $status = $offreApiService->addOffre($offre);
