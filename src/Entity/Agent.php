@@ -16,6 +16,7 @@ class Agent
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'agent', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $id_user = null;
 
     #[ORM\Column(length: 100)]
@@ -37,7 +38,7 @@ class Agent
     private ?string $adresse = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $abonnememt = null;
+    private ?string $abonnement = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $bstatus = null;
@@ -139,14 +140,14 @@ class Agent
         return $this;
     }
 
-    public function getAbonnememt(): ?string
+    public function getAbonnement(): ?string
     {
-        return $this->abonnememt;
+        return $this->abonnement;
     }
 
-    public function setAbonnememt(string $abonnememt): self
+    public function setAbonnement(string $abonnement): self
     {
-        $this->abonnememt = $abonnememt;
+        $this->abonnement = $abonnement;
 
         return $this;
     }

@@ -23,10 +23,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new GetCollection(),
-        new Post(processor: UserPasswordHasher::class, validationContext: ['groups' => ['Default', 'user:create']]),
+        new Post(),
         new Get(),
-        new Put(processor: UserPasswordHasher::class),
-        new Patch(processor: UserPasswordHasher::class),
+        new Put(),
+        new Patch(),
         new Delete(),
     ],
     normalizationContext: ['groups' => ['user:read']],
@@ -40,18 +40,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['user:read'])]
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:read','user:create'])]
     private ?string $email = null;
 
-    #[Groups(['user:read'])]
     #[ORM\Column]
+    #[Groups(['user:read','user:create','user:update'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['user:create', 'user:update'])]
     private ?string $password = null;
 
     #[ORM\OneToOne(mappedBy: 'id_user', cascade: ['persist', 'remove'])]
@@ -103,8 +104,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }

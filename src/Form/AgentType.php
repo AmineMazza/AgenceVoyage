@@ -18,7 +18,7 @@ class AgentType extends AbstractType
             ->add('telephone_mobile')
             ->add('telephone_fixe')
             ->add('adresse')
-            ->add('abonnememt')
+            ->add('abonnement')
             ->add('bstatus')
             ->add('logo')
             ->add('id_user')

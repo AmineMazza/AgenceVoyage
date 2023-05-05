@@ -75,27 +75,25 @@ class UserApiService extends AbstractController {
         return $User;
     }
 
-    public function AddUser($User,$idA) : bool
+    public function AddUser($user) : bool
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        // dd($user->getEmail());
         $response = $this->client->request('POST', 'http://127.0.0.1/api/users', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'agent' => '/api/agents/'.$idA,
-                'email' => $User->getEmail(),
-                'roles' => $User->getRoles(),
-                'Password' => $User->getPassword(),
+                'email' => $user->getEmail(),
+                'roles' => $user->getRoles(),
+                'password' => $user->getPassword(),
             ],
         ]);
+        // dd($response);
         if ($response->getStatusCode() === 201) {
+            $foreignKeyResponseData = json_decode($response->getContent(), true);
+            $foreignKeyId = $foreignKeyResponseData['id'];
+            $this->agentApiService->AddAgent($user->getAgent(),$foreignKeyId);
             return true;
-        }
-        else if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->AddUser($User,$idA);
         }
         return false;
     }
@@ -111,7 +109,7 @@ class UserApiService extends AbstractController {
             'json' => [
                 'email' => $User->getEmail(),
                 'roles' => $User->getRoles(),
-                'Password' => $User->getPassword(),
+                'password' => $User->getPassword(),
             ],
         ]);
         if ($response->getStatusCode() === 201) {
