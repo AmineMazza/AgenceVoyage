@@ -107,7 +107,7 @@ class ReservationApiService extends AbstractController {
                 'dateAvanceCommission' => $reservation->getDateAvanceCommission(),
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 201) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {

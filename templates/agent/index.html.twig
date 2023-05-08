@@ -31,12 +31,17 @@
                 <td>{{ agent.telephoneMobile }}</td>
                 <td>{{ agent.telephoneFixe }}</td>
                 <td>{{ agent.adresse }}</td>
-                <td>{{ agent.abonnememt }}</td>
+                <td>{{ agent.abonnement }}</td>
                 <td>{{ agent.bstatus ? 'Yes' : 'No' }}</td>
                 <td>{{ agent.logo }}</td>
                 <td>
                     <a href="{{ path('app_agent_show', {'id': agent.id}) }}">show</a>
                     <a href="{{ path('app_agent_edit', {'id': agent.id}) }}">edit</a>
+                    {% if agent.bstatus %}
+                        <a href="{{ path('app_agent_unvalid', {'id': agent.id}) }}">unvalider</a>
+                    {% else %}
+                        <a href="{{ path('app_agent_valid', {'id': agent.id}) }}">valider</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

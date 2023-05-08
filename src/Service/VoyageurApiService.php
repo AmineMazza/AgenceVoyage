@@ -126,7 +126,7 @@ class VoyageurApiService extends AbstractController {
                 'dateNaissance' => $voyageur->getDateNaissance(),
             ],
         ]);
-        if ($response->getStatusCode() === 201) {
+        if ($response->getStatusCode() === 200) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {
@@ -145,7 +145,7 @@ class VoyageurApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 201) {
+        if ($response->getStatusCode() === 200) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {

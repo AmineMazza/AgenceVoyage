@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Service\AgentApiService;
+use App\Service\UserApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,7 @@ class AgentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $agentApiService->AddAgent($agent);
+            $agentApiService->AddAgent($agent, $agent->getIdUser()->getId());
 
             return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -72,6 +73,22 @@ class AgentController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$agent->getId(), $request->request->get('_token'))) {
             $agentApiService->DeleteAgent($agent, true);
         }
+
+        return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/valid', name: 'app_agent_valid', methods: ['GET'])]
+    public function valid(Agent $agent, UserApiService $userApiService): Response
+    {
+        $userApiService->ValidAgent($agent->getIdUser()->getId(),$agent->getId());
+
+        return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/unvalid', name: 'app_agent_unvalid', methods: ['GET'])]
+    public function unvalid(Agent $agent, UserApiService $userApiService): Response
+    {
+        $userApiService->UnvalidAgent($agent->getIdUser()->getId(),$agent->getId());
 
         return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -140,4 +140,50 @@ class UserApiService extends AbstractController {
         }
         return false;
     }
+
+    public function ValidAgent($idU,$idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/users/'.$idU, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'roles' => ['ROLE_AGENT'],
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            $bool = $this->agentApiService->VaildAgent($idA);
+            if($bool) return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->ValidAgent($idU,$idA);
+        }
+        return false;
+    }
+
+    public function UnvalidAgent($idU,$idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/users/'.$idU, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'roles' => ['ROLE_USER'],
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            $bool = $this->agentApiService->UnvaildAgent($idA);
+            if($bool) return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UnvalidAgent($idU,$idA);
+        }
+        return false;
+    }
 }

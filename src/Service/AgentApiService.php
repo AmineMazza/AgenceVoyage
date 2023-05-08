@@ -123,7 +123,7 @@ class AgentApiService extends AbstractController {
                 'logo' => $agent->getLogo(),
             ],
         ]);
-        if ($response->getStatusCode() === 201) {
+        if ($response->getStatusCode() === 200) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {
@@ -142,12 +142,56 @@ class AgentApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 201) {
+        if ($response->getStatusCode() === 200) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->DeleteAgent($id);
+        }
+        return false;
+    }
+
+    public function VaildAgent($idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'bstatus' => true,
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->VaildAgent($idA);
+        }
+        return false;
+    }
+
+    public function UnvaildAgent($idA) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/agents/'.$idA, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'bstatus' => false,
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UnvaildAgent($idA);
         }
         return false;
     }
