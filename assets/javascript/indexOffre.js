@@ -8,6 +8,7 @@ clickableImages.forEach((image) => {
     const newImage = document.createElement('img');
     newImage.setAttribute('src', imageUrl);
     newImage.setAttribute('id', 'imagepop');
+    newImage.setAttribute('class', 'rounded-lg');
     imageContainer.appendChild(newImage);
   });
 });
