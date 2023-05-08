@@ -38,21 +38,15 @@ class OffreRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return Offre[] Returns an array of Offre objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+  
+public function PaginationQuery(): array
+{
+return $this->createQueryBuilder('o')
+    ->orderBy('o.id', 'ASC')
+    ->getQuery()
+    ->getResult()
+;
+}
 
 //    public function findOneBySomeField($value): ?Offre
 //    {

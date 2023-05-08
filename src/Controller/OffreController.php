@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Entity\Offre;
 use App\Form\OffreType;
+use App\Repository\OffreRepository;
 use App\Service\HotelApiService;
 use App\Service\OffreApiService;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +21,19 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class OffreController extends AbstractController
 {
     #[Route('/', name: 'app_offre_index', methods: ['GET'])]
-    public function index(OffreApiService $offreApiService): Response
-    {
+   
+    public function index(OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
+    {    
+        $pagination = $paginator->paginate(
+            $OffreRepository->PaginationQuery(),
+            $request->query->get('page', 1),
+            4
+        );
         return $this->render('offre/index.html.twig', [
-            'offres' => $offreApiService->getOffres(),
+            'pagination' => $pagination,
         ]);
     }
+    
 
     #[Route('/new', name: 'app_offre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OffreApiService $offreApiService, SluggerInterface $slugger): Response
