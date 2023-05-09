@@ -5,52 +5,83 @@
 {% block body %}
     <h1>Agent index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Agence</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Telephone_mobile</th>
-                <th>Telephone_fixe</th>
-                <th>Adresse</th>
-                <th>Abonnememt</th>
-                <th>Bstatus</th>
-                <th>Logo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for agent in agents %}
-            <tr>
-                <td>{{ agent.id }}</td>
-                <td>{{ agent.agence }}</td>
-                <td>{{ agent.nom }}</td>
-                <td>{{ agent.prenom }}</td>
-                <td>{{ agent.telephoneMobile }}</td>
-                <td>{{ agent.telephoneFixe }}</td>
-                <td>{{ agent.adresse }}</td>
-                <td>{{ agent.abonnement }}</td>
-                <td>{{ agent.bstatus ? 'Yes' : 'No' }}</td>
-                <td>{{ agent.logo }}</td>
-                <td>
-                    <a href="{{ path('app_agent_show', {'id': agent.id}) }}">show</a>
-                    <a href="{{ path('app_agent_edit', {'id': agent.id}) }}">edit</a>
-                    {% if agent.bstatus %}
-                        <a href="{{ path('app_agent_unvalid', {'id': agent.id}) }}">unvalider</a>
+    <table class="table w-full">
+    <thead class="bg-gray-50 border-b border-gray-200">
+        <tr class="text-xs text-left font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-4 py-3">Id</th>
+            <th class="px-4 py-3">Agent</th>
+            <th class="px-4 py-3">Telephone mobile</th>
+            <th class="px-4 py-3">Telephone fixe</th>
+            <th class="px-4 py-3">Adresse</th>
+            <th class="px-4 py-3">Abonnement</th>
+            <th class="px-4 py-3">statut</th>
+            <th class="px-4 py-3">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+    {% for agent in agents %}
+        <tr class="text-sm text-gray-500">
+            <td class="px-4 py-3">{{ agent.id }}</td>
+            <td class="px-4 py-3">
+                <div class="flex items-center space-x-2">
+                    <div class="flex-shrink-0">
+                        {% if agent.logo %}
+                            <img src="{{ agent.logo }}" alt="" class="w-8 h-8 rounded-full">
+                        {% else %}
+                            <img src="/assets/images/nouser.png" alt="" class="w-8 h-8 rounded-full">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div>{{ agent.nom }} {{ agent.prenom }}</div>
+                        <div class="text-gray-400">{{ agent.agence }}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-4 py-3">{{ agent.telephoneMobile }}</td>
+            <td class="px-4 py-3">{{ agent.telephoneFixe }}</td>
+            <td class="px-4 py-3">{{ agent.adresse }}</td>
+            <td class="px-4 py-3">{{ agent.abonnement }}</td>
+            <td class="px-4 py-3">
+                {% if agent.bstatus %}
+                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Validé</span>
                     {% else %}
-                        <a href="{{ path('app_agent_valid', {'id': agent.id}) }}">valider</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">non Validé</span>
+                {% endif %}
+            </td>
+            <td class="px-4 py-3">
+                <div class="flex items-center space-x-2">
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <a href="{{ path('app_agent_show', {'id': agent.id}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-yellow-300 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            Show
+                        </a>
+                        <a href="{{ path('app_agent_edit', {'id': agent.id}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                            Edit
+                        </a>
+                        {% if agent.bstatus %}
+                            <a href="{{ path('app_agent_unvalid', {'id': agent.id}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-600 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                unvalider
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_agent_valid', {'id': agent.id}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                valider
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr class="text-sm text-gray-500">
+            <td colspan="8" class="px-4 py-3">No records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 
     <a href="{{ path('app_agent_new') }}">Create new</a>
 {% endblock %}
