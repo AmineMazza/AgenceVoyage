@@ -71,6 +71,7 @@ class ReservationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, ReservationApiService $ReservationApiService): Response
     {
+        // dd($reservation);
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 

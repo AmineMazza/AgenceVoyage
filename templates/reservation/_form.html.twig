@@ -5,7 +5,12 @@
     {{ form_row(form.num_voyageurs) }}
     {{ form_row(form.remarque) }}
     {{ form_row(form.id_offre) }}
-    <input type="checkbox" id="isCommercial" name="reservation[isCommercial]">
+    {% if reservation.getIdCommercial() is null %}
+        <input type="checkbox" id="isCommercial" name="reservation[isCommercial]">
+    {% else %}
+        <input type="checkbox" id="isCommercial" name="reservation[isCommercial]" checked>
+    {% endif %}
+    
     <label>is Commercial</label><br>
     <select id="SelectMethod" name="reservation[SelectMethod]">
         <option value="null" ></option>

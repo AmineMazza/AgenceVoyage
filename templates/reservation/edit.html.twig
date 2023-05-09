@@ -2,6 +2,11 @@
 
 {% block title %}Edit Reservation{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('editReservation') }}
+{% endblock %}
+
 {% block body %}
     <h1>Edit Reservation</h1>
 

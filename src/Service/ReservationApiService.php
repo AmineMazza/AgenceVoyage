@@ -39,7 +39,7 @@ class ReservationApiService extends AbstractController {
             $reservation->setRemarque((!empty($data['remarque']) ? $data['remarque'] : null));
             $reservation->setMntCommission((!empty($data['Mnt_commission']) ? $data['Mnt_commission'] : null));
             $reservation->setAvanceCommission((!empty($data['avance_commission']) ? $data['avance_commission'] : null));
-            $reservation->setDateAvanceCommission((!empty($data['date_avance_commission']) ? $data['date_avance_commission'] : null));
+            $reservation->setDateAvanceCommission((!empty($data['date_avance_commission']) ? (\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date_avance_commission'])) : null));
             $arr_param = explode('/',$data['idOffre']);
             $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
             $arr_param = explode('/',$data['idUser']);
@@ -98,7 +98,7 @@ class ReservationApiService extends AbstractController {
             'remarque' => $reservation->getRemarque(),
             'mntCommission' => $reservation->getMntCommission(),
             'avanceCommission' => $reservation->getAvanceCommission(),
-            'dateAvanceCommission' => $reservation->getDateAvanceCommission(),
+            'dateAvanceCommission' => (($reservation->getAvanceCommission()!=null) ? (new \DateTime())->format('Y-m-d\TH:i:sP') : null ),
         ];
         if($reservation->getIdCommercial()->getId() != null){
             $data['idCommercial'] = '/api/commercials/'.$reservation->getIdCommercial()->getId();
@@ -133,15 +133,11 @@ class ReservationApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idOffre' => '/api/offres/'.$reservation->getIdOffre()->getId(),
-                'idUser' => '/api/users/'.$reservation->getIdUser()->getId(),
-                'idCommercial' => '/api/commercials/'.$reservation->getIdCommercial()->getId(),
-                'dateReservation' => $reservation->getDateReservation(),
                 'numVoyageurs' => $reservation->getNumVoyageurs(),
                 'remarque' => $reservation->getRemarque(),
                 'mntCommission' => $reservation->getMntCommission(),
                 'avanceCommission' => $reservation->getAvanceCommission(),
-                'dateAvanceCommission' => $reservation->getDateAvanceCommission(),
+                'dateAvanceCommission' => (($reservation->getAvanceCommission()!=null) ? (new \DateTime())->format('Y-m-d\TH:i:sP') : null ),
             ],
         ]);
         if ($response->getStatusCode() === 200) {

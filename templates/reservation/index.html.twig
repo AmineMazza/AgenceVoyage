@@ -27,7 +27,7 @@
                 <td>{{ reservation.remarque }}</td>
                 <td>{{ reservation.MntCommission }}</td>
                 <td>{{ reservation.avanceCommission }}</td>
-                <td>{{ reservation.dateAvanceCommission }}</td>
+                <td>{{ reservation.dateAvanceCommission|date('Y-m-d H:i:s') }}</td>
                 <td>
                     <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
