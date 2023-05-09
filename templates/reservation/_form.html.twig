@@ -1,4 +1,22 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger">{{ form_errors(form) }}</div>
+    {% endif %}
+    {{ form_row(form.num_voyageurs) }}
+    {{ form_row(form.remarque) }}
+    {{ form_row(form.id_offre) }}
+    <input type="checkbox" id="isCommercial" name="reservation[isCommercial]">
+    <label>is Commercial</label><br>
+    <select id="SelectMethod" name="reservation[SelectMethod]">
+        <option value="null" ></option>
+        <option value="new">New Commerciale</option>
+        <option value="exist">Already existing Commercial</option>
+    </select>
+    <div id="reservation_commercial">
+    </div>
+    <div class="commercial-info">
+        {{ form_row(form.mnt_commission) }}
+        {{ form_row(form.avance_commission) }}
+    </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -5,6 +5,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Commercial;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -15,7 +16,7 @@ class CommercialApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getCommercials() : array
+    public function getCommercials() : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/commercials',[
@@ -28,7 +29,34 @@ class CommercialApiService extends AbstractController {
             $this->callApiService->getJWTRefreshToken();
             $this->getCommercials();
         }
-        return $response->toArray();
+        $commercials = new ArrayCollection();
+        foreach ($response->toArray() as $key => $data) {
+            // dd($data);
+            $commercial = new Commercial();
+            $commercial->setId($data['id']);
+            $commercial->setNom($data['nom']);
+            $commercial->setPrenom($data['prenom']);
+            $commercial->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
+            $commercial->setTelephone($data['telephone']);
+            $commercials->add($commercial);
+        }
+        return $commercials;
+    }
+
+    public function getCommercialsJSON()
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('GET', 'http://127.0.0.1/api/commercials',[
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+        ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getCommercials();
+        }
+        return $response->getContent();
     }
 
     public function getCommercial($id) : Commercial
@@ -54,7 +82,7 @@ class CommercialApiService extends AbstractController {
         return $commercial;
     }
 
-    public function AddCommercial($commercial) : bool
+    public function AddCommercial($commercial)
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('POST', 'http://127.0.0.1/api/commercials', [
@@ -71,7 +99,8 @@ class CommercialApiService extends AbstractController {
             ],
         ]);
         if ($response->getStatusCode() === 201) {
-            return true;
+            $foreignKeyResponseData = json_decode($response->getContent(), true);
+            return $foreignKeyResponseData['id'];
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();

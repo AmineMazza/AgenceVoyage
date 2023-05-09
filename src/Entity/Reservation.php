@@ -44,14 +44,14 @@ class Reservation
     #[ORM\Column(nullable: true)]
     private ?float $avance_commission = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $date_avance_commission = null;
-
     #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Avance::class)]
     private Collection $avances;
 
     #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Voyageur::class)]
     private Collection $voyageurs;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_avance_commission = null;
 
     public function __construct()
     {
@@ -165,17 +165,6 @@ class Reservation
         return $this;
     }
 
-    public function getDateAvanceCommission(): ?float
-    {
-        return $this->date_avance_commission;
-    }
-
-    public function setDateAvanceCommission(?float $date_avance_commission): self
-    {
-        $this->date_avance_commission = $date_avance_commission;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Avance>
@@ -233,6 +222,18 @@ class Reservation
                 $voyageur->setIdReservation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateAvanceCommission(): ?\DateTimeInterface
+    {
+        return $this->date_avance_commission;
+    }
+
+    public function setDateAvanceCommission(?\DateTimeInterface $date_avance_commission): self
+    {
+        $this->date_avance_commission = $date_avance_commission;
 
         return $this;
     }

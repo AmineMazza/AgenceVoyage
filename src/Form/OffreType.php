@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Image;
 
@@ -66,12 +67,12 @@ class OffreType extends AbstractType
             ->add('bdemi_pension')
             ->add('bpension_complete')
             ->add('bvisite_medine')
-            ->add('prix_chambre')
-            ->add('prix_chambre_double')
-            ->add('prix_chambre_triple')
-            ->add('prix_chambre_quad')
-            ->add('prix_chambre_quint')
-            ->add('prix')
+            ->add('prix_chambre',NumberType::class)
+            ->add('prix_chambre_double',NumberType::class)
+            ->add('prix_chambre_triple',NumberType::class)
+            ->add('prix_chambre_quad',NumberType::class)
+            ->add('prix_chambre_quint',NumberType::class)
+            ->add('prix',NumberType::class)
             ->add('detail_voyage',TextareaType::class, ['required' => false])
             ->add('detail_vols',TextareaType::class, ['required' => false])
             ->add('bpassport')

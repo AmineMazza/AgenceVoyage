@@ -124,4 +124,9 @@ class Commercial
 
         return $this;
     }
+
+    function __toString(): string
+    {
+        return $this->getNom() .' '. $this->getPrenom();
+    }
 }

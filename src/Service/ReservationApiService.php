@@ -90,22 +90,29 @@ class ReservationApiService extends AbstractController {
     public function AddReservation($reservation) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $data = [
+            'idOffre' => '/api/offres/'.$reservation->getIdOffre()->getId(),
+            'idUser' => '/api/users/'. $this->getUser()->getId(),
+            'dateReservation' => (new \DateTime())->format('Y-m-d\TH:i:sP'),
+            'numVoyageurs' => $reservation->getNumVoyageurs(),
+            'remarque' => $reservation->getRemarque(),
+            'mntCommission' => $reservation->getMntCommission(),
+            'avanceCommission' => $reservation->getAvanceCommission(),
+            'dateAvanceCommission' => $reservation->getDateAvanceCommission(),
+        ];
+        if($reservation->getIdCommercial()->getId() != null){
+            $data['idCommercial'] = '/api/commercials/'.$reservation->getIdCommercial()->getId();
+        }
+        else {
+            $commercialId = $this->commercialApiService->AddCommercial($reservation->getIdCommercial());
+            $data['idCommercial'] = '/api/commercials/'.$commercialId;
+        }
         $response = $this->client->request('POST', 'http://127.0.0.1/api/reservations', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
-            'json' => [
-                'idOffre' => '/api/offres/'.$reservation->getIdOffre()->getId(),
-                'idUser' => '/api/users/'.$reservation->getIdUser()->getId(),
-                'idCommercial' => '/api/commercials/'.$reservation->getIdCommercial()->getId(),
-                'dateReservation' => $reservation->getDateReservation(),
-                'numVoyageurs' => $reservation->getNumVoyageurs(),
-                'remarque' => $reservation->getRemarque(),
-                'mntCommission' => $reservation->getMntCommission(),
-                'avanceCommission' => $reservation->getAvanceCommission(),
-                'dateAvanceCommission' => $reservation->getDateAvanceCommission(),
-            ],
+            'json' => $data,
         ]);
         if ($response->getStatusCode() === 201) {
             return true;

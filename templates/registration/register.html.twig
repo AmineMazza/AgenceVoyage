@@ -10,7 +10,7 @@
     {% if form_errors(registrationForm.plainPassword) %}
       <div class="alert alert-danger">{{ form_errors(registrationForm.plainPassword) }}</div>
     {% endif %}
-    {% if error %}
+    {% if error is defined %}
       <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
     <div class="relative z-0 w-full mb-6 group">
