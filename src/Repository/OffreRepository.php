@@ -39,13 +39,18 @@ class OffreRepository extends ServiceEntityRepository
         }
     }
   
-public function PaginationQuery(): array
+public function PaginationQuery(string $value="all"): array
 {
-return $this->createQueryBuilder('o')
-    ->orderBy('o.id', 'ASC')
-    ->getQuery()
-    ->getResult()
-;
+        $queryBuilder = $this->createQueryBuilder('o')
+        ->orderBy('o.id', 'ASC');
+
+    if ($value !== "all") {
+        $queryBuilder->leftJoin('o.id_destination', 'c')
+            ->andWhere('c.pays = :value')
+            ->setParameter('value', $value);
+    }
+
+    return $queryBuilder->getQuery()->getResult();
 }
 
 //    public function findOneBySomeField($value): ?Offre

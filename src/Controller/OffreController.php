@@ -20,21 +20,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/offre')]
 class OffreController extends AbstractController
 {
-    #[Route('/', name: 'app_offre_index', methods: ['GET'])]
-   
-    public function index(OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
-    {    
-        $pagination = $paginator->paginate(
-            $OffreRepository->PaginationQuery(),
-            $request->query->get('page', 1),
-            4
-        );
-        return $this->render('offre/index.html.twig', [
-            'pagination' => $pagination,
-        ]);
-    }
-    
-
     #[Route('/new', name: 'app_offre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OffreApiService $offreApiService, SluggerInterface $slugger): Response
     {
@@ -68,7 +53,7 @@ class OffreController extends AbstractController
                 }
             }
 
-            return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('offre/new.html.twig', [
@@ -84,7 +69,7 @@ class OffreController extends AbstractController
             'offre' => $offreApiService->getOffre($_route_params['id']),
         ]);
     }
-
+    
     #[Route('/{id}/edit', name: 'app_offre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
     {
@@ -123,4 +108,18 @@ class OffreController extends AbstractController
 
         return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
+    public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
+    {    
+    
+        $pagination = $paginator->paginate(
+            $OffreRepository->PaginationQuery($_route_params['value']),
+            $request->query->get('page', 1),
+            8
+        );
+        return $this->render('offre/index.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    }
+    
 }
