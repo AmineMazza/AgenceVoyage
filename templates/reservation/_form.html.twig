@@ -4,7 +4,6 @@
     {% endif %}
     {{ form_row(form.num_voyageurs) }}
     {{ form_row(form.remarque) }}
-    {{ form_row(form.id_offre) }}
     {% if reservation.getIdCommercial() is null %}
         <input type="checkbox" id="isCommercial" name="reservation[isCommercial]">
     {% else %}

@@ -37,6 +37,7 @@
                 <td>
                     <a href="{{ path('app_voyageur_show', {'id': voyageur.id, 'idR': idR}) }}">show</a>
                     <a href="{{ path('app_voyageur_edit', {'id': voyageur.id, 'idR': idR}) }}">edit</a>
+                    {{ include('voyageur/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
