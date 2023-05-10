@@ -1,14 +1,67 @@
-{{ form_start(form) }}
-    {{ form_widget(form.agence) }}
-    {{ form_widget(form.nom) }}
-    {{ form_widget(form.prenom) }}
-    {{ form_widget(form.telephone_mobile) }}
-    {{ form_widget(form.telephone_fixe) }}
-    {{ form_widget(form.adresse) }}
-    {{ form_widget(form.abonnement) }}
-    {{ form_widget(form.bstatus) }}
-    {{ form_widget(form.logo) }}
-    {{ form_widget(form.id_user) }}
-    V
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    {{ form_start(form, {
+        'attr': {'class': 'space-y-6'}
+    }) }}
+        <h5 class="text-xl text-center font-medium text-blue-600 dark:text-white">Modifier</h5>
+        {{ form_widget(form.logo) }}
+        {% if form_errors(form.logo) %}
+            <div class="alert alert-danger">{{ form_errors(form.logo) }}</div>
+        {% endif %}
+        <div>
+            <label for="agence" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom d'agence</label>
+            {{ form_widget(form.agence, {
+                'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+            }) }}
+        </div>
+        <div class="flex justify-between">
+            <div class="mr-2">
+                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                {{ form_widget(form.nom, {
+                    'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+                }) }}
+            </div>
+            <div class="ml-2">
+                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
+                {{ form_widget(form.prenom, {
+                    'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+                }) }}
+            </div>
+        </div>
+        <div class="flex">
+            <div class="mr-2">
+                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone mobile</label>
+                {{ form_widget(form.telephone_mobile, {
+                    'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+                }) }}
+            </div>
+            <div class="ml-2">
+                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone Fixe</label>
+                {{ form_widget(form.telephone_fixe, {
+                    'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+                }) }}
+            </div>
+        </div>
+        <div>
+            <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
+            {{ form_widget(form.adresse, {
+                'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'}
+            }) }}
+        </div>
+        <div>
+            <label for="abonnement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Abonnement</label>
+            {{ form_widget(form.abonnement, {
+                'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+            }) }}
+        </div>
+        <div class="flex justify-around">
+            <div class="flex items-center">
+                {{ form_widget(form.bstatus, {
+                    'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                }) }}
+                <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Valider</label>
+            </div>
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300">{{ button_label|default('Save') }}</button>
+        </div>
+        
+    {{ form_end(form) }}
+</div>
