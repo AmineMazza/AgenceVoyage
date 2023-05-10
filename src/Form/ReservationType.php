@@ -17,7 +17,6 @@ class ReservationType extends AbstractType
         $builder
             ->add('num_voyageurs', NumberType::class)
             ->add('remarque', TextareaType::class, ['required' => false])
-            ->add('id_offre')
             ->add('mnt_commission', TextType::class, ['required' => false])
             ->add('avance_commission', TextType::class, ['required' => false])
         ;

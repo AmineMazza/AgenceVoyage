@@ -3,14 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Offre;
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Image;
 
 class OffreType extends AbstractType
@@ -18,7 +20,7 @@ class OffreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
+            ->add('titre',TextType::class,['required' => false])
             ->add('image',FileType::class,[
                 'label' => 'image',
                 'mapped' => false,
@@ -44,7 +46,7 @@ class OffreType extends AbstractType
                     ])
                 ],
             ])
-            ->add('id_destination', null ,[ 'attr' => [ 'class' => "OffreDestination" ]])
+            ->add('id_destination', null ,['required' => false, 'attr' => [ 'class' => "OffreDestination" ]])
             ->add('date_depart')
             ->add('date_retour')
             ->add('hotels',CollectionType::class, [
@@ -60,28 +62,28 @@ class OffreType extends AbstractType
                 'allow_delete' => true,
                 'error_bubbling' => false
             ])
-            ->add('baller_retour')
-            ->add('bhebergement')
-            ->add('bvisa')
-            ->add('bpetit_dejeuner')
-            ->add('bdemi_pension')
-            ->add('bpension_complete')
-            ->add('bvisite_medine')
-            ->add('prix_chambre',NumberType::class)
-            ->add('prix_chambre_double',NumberType::class)
-            ->add('prix_chambre_triple',NumberType::class)
-            ->add('prix_chambre_quad',NumberType::class)
-            ->add('prix_chambre_quint',NumberType::class)
-            ->add('prix',NumberType::class)
+            ->add('baller_retour',null ,['required' => false])
+            ->add('bhebergement',null,['required' => false])
+            ->add('bvisa',null,['required' => false])
+            ->add('bpetit_dejeuner',null,['required' => false])
+            ->add('bdemi_pension',null,['required' => false])
+            ->add('bpension_complete',null,['required' => false])
+            ->add('bvisite_medine',null,['required' => false])
+            ->add('prix_chambre',NumberType::class,['required' => false])
+            ->add('prix_chambre_double',NumberType::class,['required' => false])
+            ->add('prix_chambre_triple',NumberType::class,['required' => false])
+            ->add('prix_chambre_quad',NumberType::class,['required' => false])
+            ->add('prix_chambre_quint',NumberType::class,['required' => false])
+            ->add('prix',NumberType::class,['required' => false])
             ->add('detail_voyage',TextareaType::class, ['required' => false])
             ->add('detail_vols',TextareaType::class, ['required' => false])
-            ->add('bpassport')
-            ->add('bphotos')
-            ->add('bpass_vacinial')
-            ->add('bcoup_coeur')
-            ->add('bpubier')
-            ->add('date_publication')
-            ->add('date_fin_publication')
+            ->add('bpassport',null,['required' => false])
+            ->add('bphotos',null,['required' => false])
+            ->add('bpass_vacinial',null,['required' => false])
+            ->add('bcoup_coeur',null,['required' => false])
+            ->add('bpubier',null,['required' => false])
+            ->add('date_publication',DateType::class,['required' => false])
+            ->add('date_fin_publication',DateType::class,['required' => false])
         ;
     }
 

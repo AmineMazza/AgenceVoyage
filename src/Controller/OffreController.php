@@ -56,13 +56,15 @@ class OffreController extends AbstractController
             }
             $status = $offreApiService->addOffre($offre);
             if($status){
-                try {
-                    $file->move(
-                        $this->getParameter('offres_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    throw new Exception($e);
+                if($file){
+                    try {
+                        $file->move(
+                            $this->getParameter('offres_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        throw new Exception($e);
+                    }
                 }
             }
 

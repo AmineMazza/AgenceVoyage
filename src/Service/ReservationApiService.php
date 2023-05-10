@@ -87,11 +87,11 @@ class ReservationApiService extends AbstractController {
         return $reservation;
     }
 
-    public function AddReservation($reservation) : bool
+    public function AddReservation($reservation, $idO) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $data = [
-            'idOffre' => '/api/offres/'.$reservation->getIdOffre()->getId(),
+            'idOffre' => '/api/offres/'.$idO,
             'idUser' => '/api/users/'. $this->getUser()->getId(),
             'dateReservation' => (new \DateTime())->format('Y-m-d\TH:i:sP'),
             'numVoyageurs' => $reservation->getNumVoyageurs(),
@@ -119,7 +119,7 @@ class ReservationApiService extends AbstractController {
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->AddReservation($reservation);
+            $this->AddReservation($reservation, $idO);
         }
         return false;
     }

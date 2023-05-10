@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class OffreApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService, private CallApiService $callApiService){
+    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService, private CallApiService $callApiService, private UserApiService $userApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -30,10 +30,36 @@ class OffreApiService extends AbstractController {
             $arr_dest = explode('/',$data['id_destination']);
             $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
             $offres[$key]['id_destination']=$destination;
+            $offres[$key]['idDestination']=$destination;
         }
         if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->getOffres();
+        }
+        return $offres;
+    }
+
+    public function getOffresParams($params) : array
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('GET', 'http://127.0.0.1/api/offres',[
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'query' => $params,
+        ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getOffres();
+        }
+        $offres = $response->toArray();
+        foreach ($offres as $key => $data) {
+            //dd($data);
+            $arr_dest = explode('/',$data['id_destination']);
+            $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
+            $offres[$key]['id_destination']=$destination;
+            $offres[$key]['idDestination']=$destination;
         }
         return $offres;
     }
@@ -83,10 +109,10 @@ class OffreApiService extends AbstractController {
         $arr_dest = explode('/',$data->idDestination);
         $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
         $offre->setIdDestination($destination);
-        $searchParams = [
-            'id_offre' => $data->id,
-        ];
-        $hotels = $this->hotelApiService->getHotelsParams($searchParams);
+        $arr_dest = explode('/',$data->id_user);
+        $user = $this->userApiService->getOneUser($arr_dest[count($arr_dest)-1]);
+        $offre->setIdUser($user);
+        $hotels = $this->hotelApiService->getHotelsParams(['id_offre' => $data->id]);
         foreach ($hotels as $key => $value) {
             $hotel = new Hotel();
             $hotel->setId($value->id);
