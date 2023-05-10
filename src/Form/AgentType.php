@@ -4,8 +4,13 @@ namespace App\Form;
 
 use App\Entity\Agent;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Image;
 
 class AgentType extends AbstractType
 {
@@ -18,10 +23,24 @@ class AgentType extends AbstractType
             ->add('telephone_mobile')
             ->add('telephone_fixe')
             ->add('adresse')
-            ->add('abonnement')
+            ->add('abonnement',ChoiceType::class,[
+                'choices' => [
+                    'free' => 'free',
+                    'premium' => 'premium',
+                ]
+            ])
             ->add('bstatus')
-            ->add('logo')
-            ->add('id_user')
+            ->add('logo',FileType::class,[
+                'label' => 'image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '1024k',
+                    ])
+                ],
+            ])
+            ->add('id_user',TextType::class)
         ;
     }
 
