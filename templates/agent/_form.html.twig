@@ -1,4 +1,14 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.agence) }}
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.prenom) }}
+    {{ form_widget(form.telephone_mobile) }}
+    {{ form_widget(form.telephone_fixe) }}
+    {{ form_widget(form.adresse) }}
+    {{ form_widget(form.abonnement) }}
+    {{ form_widget(form.bstatus) }}
+    {{ form_widget(form.logo) }}
+    {{ form_widget(form.id_user) }}
+    V
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
