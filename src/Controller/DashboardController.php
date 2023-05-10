@@ -41,19 +41,22 @@ class DashboardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $extraFields = $form->getExtraData();
+            
             // dd($extraFields);
-            if($extraFields['isCommercial'] == 'on'){
-                $commercial = new Commercial();
-                if($extraFields['SelectMethod'] == 'new') {
-                    $commercial->setNom($extraFields['id_commercial']['nom']);
-                    $commercial->setPrenom($extraFields['id_commercial']['prenom']);
-                    $commercial->setTelephone($extraFields['id_commercial']['telephone']);
-                    $commercial->setAdresse($extraFields['id_commercial']['adresse']);
+            if($extraFields != []){
+                if($extraFields['isCommercial'] == 'on'){
+                    $commercial = new Commercial();
+                    if($extraFields['SelectMethod'] == 'new') {
+                        $commercial->setNom($extraFields['id_commercial']['nom']);
+                        $commercial->setPrenom($extraFields['id_commercial']['prenom']);
+                        $commercial->setTelephone($extraFields['id_commercial']['telephone']);
+                        $commercial->setAdresse($extraFields['id_commercial']['adresse']);
+                    }
+                    elseif($extraFields['SelectMethod'] == 'exist') {
+                        $commercial =  $commercialApiService->getCommercial($extraFields['id_commercial']);
+                    }
+                    $reservation->setIdCommercial($commercial);
                 }
-                elseif($extraFields['SelectMethod'] == 'exist') {
-                    $commercial =  $commercialApiService->getCommercial($extraFields['id_commercial']);
-                }
-                $reservation->setIdCommercial($commercial);
             }
             // dd($reservation);
             $ReservationApiService->AddReservation($reservation, $_route_params['idO']);

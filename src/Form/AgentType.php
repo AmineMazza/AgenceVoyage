@@ -40,7 +40,6 @@ class AgentType extends AbstractType
                     ])
                 ],
             ])
-            ->add('id_user',TextType::class)
         ;
     }
 

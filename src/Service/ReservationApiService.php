@@ -100,12 +100,14 @@ class ReservationApiService extends AbstractController {
             'avanceCommission' => $reservation->getAvanceCommission(),
             'dateAvanceCommission' => (($reservation->getAvanceCommission()!=null) ? (new \DateTime())->format('Y-m-d\TH:i:sP') : null ),
         ];
-        if($reservation->getIdCommercial()->getId() != null){
-            $data['idCommercial'] = '/api/commercials/'.$reservation->getIdCommercial()->getId();
-        }
-        else {
-            $commercialId = $this->commercialApiService->AddCommercial($reservation->getIdCommercial());
-            $data['idCommercial'] = '/api/commercials/'.$commercialId;
+        if($reservation->getIdCommercial() != null){
+            if($reservation->getIdCommercial()->getId() != null){
+                $data['idCommercial'] = '/api/commercials/'.$reservation->getIdCommercial()->getId();
+            }
+            else {
+                $commercialId = $this->commercialApiService->AddCommercial($reservation->getIdCommercial());
+                $data['idCommercial'] = '/api/commercials/'.$commercialId;
+            }
         }
         $response = $this->client->request('POST', 'http://127.0.0.1/api/reservations', [
             'headers' => [

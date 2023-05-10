@@ -44,7 +44,8 @@ class VoyageurApiService extends AbstractController {
             $voyageur->setAdresse((!empty($data['adresse']) ? $data['adresse'] : null));
             $voyageur->setTelephone((!empty($data['telephone']) ? $data['telephone'] : null));
             $voyageur->setNumPassport((!empty($data['numPassport']) ? $data['numPassport'] : null));
-            $voyageur->setDateNaissance((!empty($data['dateNaissance']) ? $data['dateNaissance'] : null));
+            $voyageur->setDateFinPassport((!empty($data['dateFinPassport']) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['dateFinPassport']) : null));
+            $voyageur->setDateNaissance((!empty($data['dateNaissance']) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['dateNaissance']) : null));
             $voyageurs->add($voyageur);
         }
         return $voyageurs;
@@ -73,7 +74,8 @@ class VoyageurApiService extends AbstractController {
         $voyageur->setAdresse((!empty($data->adresse) ? $data->adresse : null));
         $voyageur->setTelephone((!empty($data->telephone) ? $data->telephone : null));
         $voyageur->setNumPassport((!empty($data->numPassport) ? $data->numPassport : null));
-        $voyageur->setDateNaissance((!empty($data->dateNaissance) ? $data->dateNaissance : null));
+        $voyageur->setDateNaissance((!empty($data->dateNaissance) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->dateNaissance) : null));
+        $voyageur->setDateFinPassport((!empty($data->dateFinPassport) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->dateFinPassport) : null));
         return $voyageur;
     }
 
@@ -94,7 +96,8 @@ class VoyageurApiService extends AbstractController {
                 'adresse' => $voyageur->getAdresse(),
                 'telephone' => $voyageur->getTelephone(),
                 'numPassport' => $voyageur->getNumPassport(),
-                'dateNaissance' => $voyageur->getDateNaissance(),
+                'dateNaissance' => $voyageur->getDateNaissance()->format('Y-m-d'),
+                'dateFinPassport' => $voyageur->getDateFinPassport()->format('Y-m-d'),
             ],
         ]);
         if ($response->getStatusCode() === 201) {
@@ -123,7 +126,8 @@ class VoyageurApiService extends AbstractController {
                 'adresse' => $voyageur->getAdresse(),
                 'telephone' => $voyageur->getTelephone(),
                 'numPassport' => $voyageur->getNumPassport(),
-                'dateNaissance' => $voyageur->getDateNaissance(),
+                'dateNaissance' => $voyageur->getDateNaissance()->format('Y-m-d'),
+                'dateFinPassport' => $voyageur->getDateFinPassport()->format('Y-m-d'),
             ],
         ]);
         if ($response->getStatusCode() === 200) {

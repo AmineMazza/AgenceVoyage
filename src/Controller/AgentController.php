@@ -7,9 +7,11 @@ use App\Form\AgentType;
 use App\Service\AgentApiService;
 use App\Service\UserApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/dashboard/agent')]
 class AgentController extends AbstractController
@@ -50,13 +52,36 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_agent_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Agent $agent, AgentApiService $agentApiService): Response
+    public function edit(Request $request, Agent $agent, AgentApiService $agentApiService, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(AgentType::class, $agent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $agentApiService->UpdateAgent($agent);
+            $logo = $form->get('logo')->getData();
+            if ($logo){
+                $originalFilename = pathinfo($logo->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$logo->guessExtension();
+                
+                
+                $agent->setLogo('/assets/agentLogo/'.$newFilename);
+                
+            }
+            $status = $agentApiService->UpdateAgent($agent);
+            if($status){
+                if($logo){
+                    try {
+                        $logo->move(
+                            $this->getParameter('logo_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        throw new Exception($e);
+                    }
+                }
+            }
 
             return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
         }
