@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Hotel;
 use App\Entity\Offre;
 use App\Form\OffreType;
 use App\Repository\OffreRepository;
@@ -73,8 +72,13 @@ class OffreController extends AbstractController
     #[Route('/{id}/edit', name: 'app_offre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
     {
-        if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
-            return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
+        if($this->getUser() && !$this->isGranted('ROLE_USER')){
+            if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
+                return $this->redirectToRoute('app_offre_index', ['value' => 'all'], Response::HTTP_SEE_OTHER);
+            }
+        }
+        else{
+            return $this->redirectToRoute('app_offre_show', ['id' => $offre->getId()], Response::HTTP_SEE_OTHER);
         }
         $form = $this->createForm(OffreType::class, $offre);
         $form->handleRequest($request);

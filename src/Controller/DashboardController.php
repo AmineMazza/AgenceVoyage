@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commercial;
+use App\Entity\Offre;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Service\CommercialApiService;
@@ -33,8 +34,14 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/myOffres/{idO}/reserver', name: 'app_myoffres_reserver', methods: ['GET', 'POST'])]
-    public function reserver(Request $request, array $_route_params , ReservationApiService $ReservationApiService, CommercialApiService $commercialApiService): Response
+    public function reserver(Request $request ,array $_route_params , ReservationApiService $ReservationApiService, CommercialApiService $commercialApiService, OffreApiService $offreApiService): Response
     {
+        if(!$this->isGranted("ROLE_ADMIN")){
+            $offre = $offreApiService->getOffre($_route_params['idO']);
+            if ($offre->getIdUser()->getId() != $this->getUser()->getId()) {
+                return $this->redirectToRoute('app_myoffres', [], Response::HTTP_SEE_OTHER);
+            }
+        }
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
