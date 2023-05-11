@@ -3,36 +3,105 @@
 {% block title %}Reservation index{% endblock %}
 
 {% block body %}
-    <h1>Reservation index</h1>
+    <div class="flex justify-between mx-10 my-8">
+        <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-blue-500">Reservations</span> </h1>
+        <a href="{{ path('app_myoffres') }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">Reserver</a>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date_reservation</th>
-                <th>Num_voyageurs</th>
-                <th>Remarque</th>
-                <th>Mnt_commission</th>
-                <th>Avance_commission</th>
-                <th>Date_avance_commission</th>
-                <th>actions</th>
+    <table class="table w-max m-auto rounded-xl">
+        <thead class="bg-gray-50 border-b border-gray-200">
+            <tr class="text-xs text-left font-medium text-gray-500 uppercase tracking-wider"><tr>
+                <th class="px-4 py-3">Id</th>
+                <th class="px-4 py-3">Date de reservation</th>
+                <th class="px-4 py-3">Nombre de voyageurs</th>
+                <th class="px-4 py-3">Montant de commission</th>
+                <th class="px-4 py-3">Avance de commission</th>
+                <th class="px-4 py-3">Date d'avance</th>
+                <th class="px-4 py-3">Remarque</th>
+                <th class="px-4 py-3">Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white divide-y divide-gray-200">
         {% for reservation in reservations %}
-            <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reservation.numVoyageurs }}</td>
-                <td>{{ reservation.remarque }}</td>
-                <td>{{ reservation.MntCommission }}</td>
-                <td>{{ reservation.avanceCommission }}</td>
-                <td>{{ reservation.dateAvanceCommission|date('Y-m-d H:i:s') }}</td>
-                <td>
-                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
-                    <a href="{{ path('app_avance_index', {'idR': reservation.id}) }}">Avances</a>
-                    <a href="{{ path('app_voyageur_index', {'idR': reservation.id}) }}">Voyageurs</a>
+            <tr class="text-sm text-gray-500">
+                <td class="px-4 py-3 text-center">{{ reservation.id }}</td>
+                <td class="px-4 py-3 text-center">{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="px-4 py-3 text-center">{{ reservation.numVoyageurs }}</td>
+                <td class="px-4 py-3 text-center">
+                    {% if reservation.MntCommission %}
+                        {{ reservation.MntCommission }}
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-auto text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" /></svg>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3 text-center">
+                    {% if reservation.avanceCommission %}
+                        {{ reservation.avanceCommission }}
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-auto text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" /></svg>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3 text-center">
+                    {% if reservation.dateAvanceCommission %}
+                        {{ reservation.dateReservation|date('Y-m-d H:i:s')}}
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-auto text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" /></svg>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3 text-center">{{ reservation.remarque }}</td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                            <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" data-popover-target="popover-show" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-yellow-300 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            </a>
+                            <div data-popover id="popover-show" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Voir</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en cliquant, vous pouvez voir plus de détails sur cette réservation</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                            <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" data-popover-target="popover-edit" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent border-gray-200 hover:bg-gray-100 hover:text-blue-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                            </a>
+                            <div data-popover id="popover-edit" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Modifier</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en un clic, vous pouvez modifier cette réservation</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                            <a href="{{ path('app_avance_index', {'idR': reservation.id}) }}" data-popover-target="popover-avance" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent border-gray-200 hover:bg-gray-100 hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg>
+                            </a>
+                            <div data-popover id="popover-avance" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Avances</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en cliquant, vous pouvez voir les avances de cette réservation</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                            <a href="{{ path('app_voyageur_index', {'idR': reservation.id}) }}" data-popover-target="popover-voyageur" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent border-gray-200 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+                            </a>
+                            <div data-popover id="popover-voyageur" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Voyageurs</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en cliquant, vous pouvez voir les Voyageurs de cette réservation</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% else %}
