@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th>Date_avance_commission</th>
-                <td>{{ reservation.dateAvanceCommission }}</td>
+                <td>{{ reservation.dateAvanceCommission  ? reservation.dateAvanceCommission|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

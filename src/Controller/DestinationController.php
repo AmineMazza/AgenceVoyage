@@ -4,18 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Destination;
 use App\Form\DestinationType;
-use App\Repository\DestinationRepository;
 use App\Service\CallApiService;
 use App\Service\DestinationApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\Exception\ClientException;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-#[Route('/destination')]
+#[Route('/dashboard/destination')]
 class DestinationController extends AbstractController
 {
     #[Route('/', name: 'app_destination_index', methods: ['GET'])]

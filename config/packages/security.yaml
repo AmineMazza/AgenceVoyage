@@ -52,10 +52,15 @@ security:
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS }
-        - { path: ^/api$,       roles: PUBLIC_ACCESS }
-        - { path: ^/api/users$, roles: PUBLIC_ACCESS }
-        - { path: ^/api/agents$, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/(users|agents)$, roles: PUBLIC_ACCESS, methods: [POST] }
+        - { path: ^/api/(offres|destinations|users|hotels), roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: ^/api/$, roles: ROLE_ADMIN }
+        - { path: ^/api, roles: [ROLE_ADMIN,ROLE_AGENT] }
+        - { path: ^/dashboard/(agent|destination), roles: ROLE_ADMIN }
+        - { path: ^/dashboard,       roles: [ROLE_ADMIN,ROLE_AGENT] }
+        - { path: ^/offre/new, roles: [ROLE_ADMIN,ROLE_AGENT]}
+        - { path: ^/offre/id/edit, roles: [ROLE_ADMIN,ROLE_AGENT]}
+        - { path: ^/offre, roles: PUBLIC_ACCESS, methods: ['GET'] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

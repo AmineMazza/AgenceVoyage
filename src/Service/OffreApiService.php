@@ -41,18 +41,12 @@ class OffreApiService extends AbstractController {
 
     public function getOffresParams($params) : array
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/offres',[
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'query' => $params,
         ]);
-        if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->getOffres();
-        }
         $offres = $response->toArray();
         foreach ($offres as $key => $data) {
             //dd($data);
@@ -66,17 +60,11 @@ class OffreApiService extends AbstractController {
 
     public function getOffre($id) : Offre
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/offres/'.$id, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->getOffre($id);
-        }
         $offre = new Offre();
         $data = json_decode($response->getContent());
         $offre->setId($data->id);

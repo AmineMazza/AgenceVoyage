@@ -33,17 +33,11 @@ class DestinationApiService extends AbstractController {
 
     public function getDestination($id) : Destination
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/destinations/'.$id, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
         ]);
-        if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->getDestination($id);
-        }
         $destination = new Destination();
         $data = json_decode($response->getContent());
         $destination->setId($data->id);

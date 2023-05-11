@@ -33,18 +33,12 @@ class HotelApiService extends AbstractController {
 
     public function getHotelsParams($params) : array
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/hotels',[
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'query' => $params
         ]);
-        if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->getHotelsParams($params);
-        }
         return json_decode($response->getContent());
     }
 

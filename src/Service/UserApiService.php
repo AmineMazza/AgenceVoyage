@@ -48,18 +48,12 @@ class UserApiService extends AbstractController {
 
     public function getOneUser($id) : User
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/users/'.$id, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
         ]);
         // dd($response);
-        if ($response->getStatusCode() === 401) {
-            $this->callApiService->getJWTRefreshToken();
-            $this->getOneUser($id);
-        }
         $User = new User();
         $data = json_decode($response->getContent());
         // dd($data);
