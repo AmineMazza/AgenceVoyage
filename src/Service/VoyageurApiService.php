@@ -81,6 +81,7 @@ class VoyageurApiService extends AbstractController {
 
     public function AddVoyageur($voyageur,$idR) : bool
     {
+        // dd($voyageur->getD);
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('POST', 'http://127.0.0.1/api/voyageurs', [
             'headers' => [
@@ -96,8 +97,8 @@ class VoyageurApiService extends AbstractController {
                 'adresse' => $voyageur->getAdresse(),
                 'telephone' => $voyageur->getTelephone(),
                 'numPassport' => $voyageur->getNumPassport(),
-                'dateNaissance' => $voyageur->getDateNaissance()->format('Y-m-d'),
-                'dateFinPassport' => $voyageur->getDateFinPassport()->format('Y-m-d'),
+                'dateNaissance' => ($voyageur->getDateNaissance() ? $voyageur->getDateNaissance()->format('Y-m-d') : null),
+                'dateFinPassport' => ($voyageur->getDateFinPassport() ? $voyageur->getDateFinPassport()->format('Y-m-d') : null),
             ],
         ]);
         if ($response->getStatusCode() === 201) {

@@ -75,6 +75,7 @@ class DashboardController extends AbstractController
         return $this->renderForm('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
+            'idOffre' => $_route_params['idO'],
             'commercials' => str_replace(" ","$",$commercials),
         ]);
     }
