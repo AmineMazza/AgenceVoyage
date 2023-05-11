@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Service\AgentApiService;
 use App\Service\UserApiService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
