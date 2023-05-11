@@ -26,7 +26,7 @@ Encore
     .addEntry('sliders', './assets/javascript/slidingForms.js')
     .addEntry('newReservation', './assets/javascript/newReservation.js')
     .addEntry('editReservation', './assets/javascript/editReservation.js')
-
+    .addEntry('editAgent', './assets/javascript/editAgent.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
