@@ -59,9 +59,9 @@ class DashboardController extends AbstractController
                 }
             }
             // dd($reservation);
-            $ReservationApiService->AddReservation($reservation, $_route_params['idO']);
+            $idR = $ReservationApiService->AddReservation($reservation, $_route_params['idO']);
 
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_voyageur_index', ['idR' => $idR], Response::HTTP_SEE_OTHER);
         }
 
         $commercials = $commercialApiService->getCommercialsJSON();

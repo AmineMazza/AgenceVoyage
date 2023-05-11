@@ -69,25 +69,25 @@ class ReservationApiService extends AbstractController {
         }
         $reservation = new Reservation();
         $data = json_decode($response->getContent());
-        $reservation->setId($data['id']);
-        $reservation->setDateReservation(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date_reservation']));
-        $reservation->setNumVoyageurs($data['num_voyageurs']);
-        $reservation->setRemarque((!empty($data['remarque']) ? $data['remarque'] : null));
-        $reservation->setMntCommission((!empty($data['Mnt_commission']) ? $data['Mnt_commission'] : null));
-        $reservation->setAvanceCommission((!empty($data['avance_commission']) ? $data['avance_commission'] : null));
-        $reservation->setDateAvanceCommission((!empty($data['date_avance_commission']) ? $data['date_avance_commission'] : null));
-        $arr_param = explode('/',$data['idOffre']);
+        $reservation->setId($data->id);
+        $reservation->setDateReservation(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date_reservation));
+        $reservation->setNumVoyageurs($data->num_voyageurs);
+        $reservation->setRemarque((!empty($data->remarque) ? $data->remarque : null));
+        $reservation->setMntCommission((!empty($data->Mnt_commission) ? $data->Mnt_commission : null));
+        $reservation->setAvanceCommission((!empty($data->avance_commission) ? $data->avance_commission : null));
+        $reservation->setDateAvanceCommission((!empty($data->date_avance_commission) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date_avance_commission) : null));
+        $arr_param = explode('/',$data->idOffre);
         $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
-        $arr_param = explode('/',$data['idUser']);
+        $arr_param = explode('/',$data->idUser);
         $reservation->setIdUser($this->userApiService->getOneUser($arr_param[count($arr_param)-1]));
-        if(!empty($data['idCommercial'])){
-            $arr_param = explode('/',$data['idCommercial']);
+        if(!empty($data->idCommercial)){
+            $arr_param = explode('/',$data->idCommercial);
             $reservation->setIdCommercial($this->commercialApiService->getCommercial($arr_param[count($arr_param)-1]));
         }
         return $reservation;
     }
 
-    public function AddReservation($reservation, $idO) : bool
+    public function AddReservation($reservation, $idO)
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $data = [
@@ -117,13 +117,15 @@ class ReservationApiService extends AbstractController {
             'json' => $data,
         ]);
         if ($response->getStatusCode() === 201) {
-            return true;
+            $foreignKeyResponseData = json_decode($response->getContent(), true);
+            $foreignKeyId = $foreignKeyResponseData['id'];
+            return $foreignKeyId;
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->AddReservation($reservation, $idO);
         }
-        return false;
+        return null;
     }
 
     public function UpdateReservation($reservation) : bool
