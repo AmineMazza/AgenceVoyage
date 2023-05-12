@@ -12,7 +12,24 @@ const destination = document.querySelector("#offre_id_destination");
 const petitdej = document.querySelector("#petitdej");
 const hbar0 = document.querySelector("#hbar0");
 const hbar1 = document.querySelector("#hbar1");
+const imageOffre=document.getElementById('offre_image');
 
+
+/******handle image offre */
+const newimageInput=document.getElementById("imageInputOffre");
+newimageInput.addEventListener('click',function(){
+    imageOffre.click();
+})
+imageOffre.addEventListener('change',function(event){
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        newimageInput.src = e.target.result;
+    };
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+})
 
 
 /**************************** */

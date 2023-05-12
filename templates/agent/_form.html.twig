@@ -3,7 +3,13 @@
         'attr': {'class': 'space-y-6'}
     }) }}
         <h5 class="text-xl text-center font-medium text-blue-600 dark:text-white">Modifier</h5>
-        {{ form_widget(form.logo) }}
+        <div class="hidden">{{ form_widget(form.logo) }}</div>
+        {% if form.logo.parent.vars.value.logo %}
+        <img src="{{asset(form.logo.parent.vars.value.logo)}}" alt="" id="imageInput">
+        {% else %}
+        <img src="{{asset('/assets/images/nouser.png')}}" alt="" id="imageInput">
+        {% endif %}
+        
         {% if form_errors(form.logo) %}
             <div class="alert alert-danger">{{ form_errors(form.logo) }}</div>
         {% endif %}
