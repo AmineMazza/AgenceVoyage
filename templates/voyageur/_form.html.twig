@@ -2,6 +2,17 @@
     {% if form_errors(form) %}
          <div class="alert alert-danger">{{ form_errors(form) }}</div>
     {% endif %}
-    {{ form_widget(form) }}
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.prenom) }}
+    {{ form_widget(form.cin) }}
+    {{ form_widget(form.email) }}
+    {{ form_widget(form.telephone) }}
+    {{ form_widget(form.adresse) }}
+    {{ form_widget(form.num_passport) }}
+    {{ form_widget(form.date_fin_passport) }}
+    {{ form_widget(form.date_naissance) }}
+
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
