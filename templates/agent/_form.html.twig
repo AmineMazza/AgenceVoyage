@@ -2,13 +2,22 @@
     {{ form_start(form, {
         'attr': {'class': 'space-y-6'}
     }) }}
-        <h5 class="text-xl text-center font-medium text-blue-600 dark:text-white">Modifier</h5>
+        <h5 class="text-xl text-center font-bold text-blue-600 dark:text-white">Modifier</h5>
         <div class="hidden">{{ form_widget(form.logo) }}</div>
         {% if form.logo.parent.vars.value.logo %}
-        <img src="{{asset(form.logo.parent.vars.value.logo)}}" alt="" id="imageInput">
+            <img src="{{asset(form.logo.parent.vars.value.logo)}}" alt="" id="imageInput" data-popover-target="popover-default" class="m-auto cursor-pointer w-1/3">
         {% else %}
-        <img src="{{asset('/assets/images/nouser.png')}}" alt="" id="imageInput">
+            <img src="{{asset('/assets/images/nouser.png')}}" alt="" id="imageInput" data-popover-target="popover-default" class="m-auto cursor-pointer w-1/3">
         {% endif %}
+        <div data-popover id="popover-default" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                <h3 class="font-semibold text-gray-900 dark:text-white">Modifier le Logo</h3>
+            </div>
+            <div class="px-3 py-2">
+                <p>en cliquant sur le Logo vous pouvez le modifier.</p>
+            </div>
+            <div data-popper-arrow></div>
+        </div>
         
         {% if form_errors(form.logo) %}
             <div class="alert alert-danger">{{ form_errors(form.logo) }}</div>
