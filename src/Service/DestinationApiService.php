@@ -88,7 +88,7 @@ class DestinationApiService extends AbstractController {
     public function DeleteDestination($id) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
-        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/Destinations/'.$id,[
+        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/destinations/'.$id,[
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
