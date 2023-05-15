@@ -3,56 +3,75 @@
 {% block title %}Voyageur{% endblock %}
 
 {% block body %}
-    <h1>Voyageur</h1>
+    <h1 class="text-center my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">VOYAGEUR NUMERO <span class="text-blue-600 dark:text-blue-500">#{{ voyageur.id }}</span></h1>
+    <div class="w-full m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex justify-end px-4 pt-4">
+            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                <span class="sr-only">Open dropdown</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id, 'idR': idR}) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Modifier</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col items-center pb-10">
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white italic">ID: {{ voyageur.id }}</h5>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Nom complet:</p>
+                <p class="text-gray-500">{{ voyageur.nom }} {{ voyageur.prenom }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">N&deg; CIN:</p>
+                <p class="text-gray-500">{{ voyageur.cin ? voyageur.cin : '-' }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Email:</p>
+                <p class="text-gray-500">{{ voyageur.email }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Telephone:</p>
+                <p class="text-gray-500">{{ voyageur.telephone }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Adresse:</p>
+                <p class="text-gray-500">{{ voyageur.adresse }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">N&deg; Passport:</p>
+                <p class="text-gray-500">{{ voyageur.numPassport  ? voyageur.numPassport : '-' }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Date d'expiration de passport:</p>
+                <p class="text-gray-500">{{ voyageur.dateFinPassport ? voyageur.dateFinPassport|date('Y-m-d') : '-' }}</p>
+            </div>
+            <div class="text-center mt-2">
+                <p class="font-semibold">Date de naissance:</p>
+                <p class="text-gray-500">{{ voyageur.dateNaissance ? voyageur.dateNaissance|date('Y-m-d') : '-' }}</p>
+            </div>
+        
+            <div class="flex mt-4 space-x-3 md:mt-6">
+                <a href="{{ path('app_voyageur_edit', {'id': voyageur.id, 'idR': idR}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                    Modifier
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ voyageur.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ voyageur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ voyageur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Cin</th>
-                <td>{{ voyageur.cin }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ voyageur.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ voyageur.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ voyageur.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Num_passport</th>
-                <td>{{ voyageur.numPassport }}</td>
-            </tr>
-            <tr>
-                <th>Date_fin_passport</th>
-                <td>{{ voyageur.dateFinPassport ? voyageur.dateFinPassport|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_naissance</th>
-                <td>{{ voyageur.dateNaissance ? voyageur.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <a href="{{ path('app_voyageur_index', {'idR': idR}) }}" class="flex items-center justify-center mt-4 mb-12 text-center font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+        retour à la liste des Voyageurs
+    </a>
 
-    <a href="{{ path('app_voyageur_index', {'idR': idR}) }}">back to list</a>
-
-    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id, 'idR': idR}) }}">edit</a>
-
-    {{ include('voyageur/_delete_form.html.twig') }}
 {% endblock %}
