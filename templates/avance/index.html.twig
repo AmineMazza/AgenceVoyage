@@ -3,28 +3,57 @@
 {% block title %}Avance index{% endblock %}
 
 {% block body %}
-    <h1>Avance index</h1>
+    <div class="flex justify-between mx-10 my-8">
+        <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-blue-500">Avances</span> </h1>
+        <a href="{{ path('app_avance_new', {'idR': idR }) }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">ajouter</a>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Montant</th>
-                <th>Date</th>
-                <th>Ref_recu</th>
-                <th>actions</th>
+    <table class="table w-full m-auto rounded-xl">
+        <thead class="bg-gray-50 border-b border-gray-200">
+            <tr class="text-xs text-left font-medium text-gray-500 uppercase tracking-wider"><tr>
+                <th class="px-4 py-3">Id</th>
+                <th class="px-4 py-3">Montant</th>
+                <th class="px-4 py-3">Date</th>
+                <th class="px-4 py-3">Reference du recu</th>
+                <th class="px-4 py-3">actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white divide-y divide-gray-200">
         {% for avance in avances %}
-            <tr>
-                <td>{{ avance.id }}</td>
-                <td>{{ avance.montant }}</td>
-                <td>{{ avance.date ? avance.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ avance.refRecu }}</td>
-                <td>
-                    <a href="{{ path('app_avance_show', {'id': avance.id, 'idR': idR}) }}">show</a>
-                    <a href="{{ path('app_avance_edit', {'id': avance.id, 'idR': idR}) }}">edit</a>
+            <tr class="text-sm text-gray-500">
+                <td class="px-4 py-3 text-center">{{ avance.id }}</td>
+                <td class="px-4 py-3 text-center">{{ avance.montant }}</td>
+                <td class="px-4 py-3 text-center">{{ avance.date ? avance.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="px-4 py-3 text-center">{{ avance.refRecu }}</td>
+                <td class="px-4 py-3 text-center">
+                <div class="flex items-center justify-center space-x-2">
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                            <a href="{{ path('app_avance_show', {'id': avance.id, 'idR': idR}) }}" data-popover-target="popover-show" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-yellow-300 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            </a>
+                            <div data-popover id="popover-show" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Voir</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en cliquant, vous pouvez voir plus de détails sur cet avance.</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                            <a href="{{ path('app_avance_edit', {'id': avance.id, 'idR': idR}) }}" data-popover-target="popover-edit" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent border-gray-200 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                            </a>
+                            <div data-popover id="popover-edit" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Modifier</h3>
+                                </div>
+                                <div class="px-3 py-2">
+                                    <p>en un clic, vous pouvez modifier les informations cet avance.</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +64,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_avance_new', {'idR': idR }) }}">Create new</a>
 {% endblock %}
