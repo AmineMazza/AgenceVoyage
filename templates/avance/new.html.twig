@@ -3,7 +3,7 @@
 {% block title %}New Avance{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-12 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">AJOUTER UNE AVANCE POUR RESERVATION <span class="text-blue-600 dark:text-blue-500">#</span></h1>
+    <h1 class="text-center mt-12 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">AJOUTER UNE AVANCE POUR RESERVATION <span class="text-blue-600 dark:text-blue-500">#{{app.request.get('idR')}}</span></h1>
 
     {{ include('avance/_form.html.twig') }}
 
