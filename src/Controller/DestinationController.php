@@ -30,23 +30,16 @@ class DestinationController extends AbstractController
         }
     }
 
-    #[Route('/new', name: 'app_destination_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DestinationApiService $destinationApiService, CallApiService $callApiService): Response
+    #[Route('/new', name: 'app_destination_new', methods: ['POST'])]
+    public function new(Request $request, DestinationApiService $destinationApiService): Response
     {
 
         $destination = new Destination();
-        $form = $this->createForm(DestinationType::class, $destination);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $destinationApiService->AddDestination($destination);
-            return $this->redirectToRoute('app_destination_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $destination->setPays($request->request->get('destination_pays'));
 
-        return $this->renderForm('destination/new.html.twig', [
-            'destination' => $destination,
-            'form' => $form,
-        ]);
+        $destinationApiService->AddDestination($destination);
+        return $this->redirectToRoute('app_destination_index', [], Response::HTTP_SEE_OTHER);
+
     }
 
     #[Route('/{id}', name: 'app_destination_show', methods: ['GET'])]
