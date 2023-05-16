@@ -3,33 +3,58 @@
 {% block title %}Destination index{% endblock %}
 
 {% block body %}
-    <h1>Destination index</h1>
+    <h1 class="my-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-blue-500">Destinations</span> </h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Pays</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="grid grid-cols-2 gap-x-4 mx-6">
         {% for destination in destinations %}
-            <tr>
-                <td>{{ destination.id }}</td>
-                <td>{{ destination.pays }}</td>
-                <td>
-                    <a href="{{ path('app_destination_show', {'id': destination.id}) }}">show</a>
-                    <a href="{{ path('app_destination_edit', {'id': destination.id}) }}">edit</a>
-                </td>
-            </tr>
+        <div class="shadow-md rounded-xl flex justify-around mt-3 py-3 hover:shadow-xl transition duration-500">
+            <div class="font-semibold">{{ destination.pays }}</div>
+            <div>
+                <a href="{{ path('app_destination_edit', {'id': destination.id}) }}" data-popover-target="popover-edit" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white  border-gray-200 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                </a>
+                <div data-popover id="popover-edit" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Modifier</h3>
+                    </div>
+                    <div class="px-3 py-2">
+                        <p>en un clic, vous pouvez modifier les informations du voyageur.</p>
+                    </div>
+                    <div data-popper-arrow></div>
+                </div>
+            </div>
+        </div>
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+        <a href="#" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center dark:focus:ring-[#2557D6]/50 mt-3  transition duration-500">
+            Ajouter une destination
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-3"><path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" /></svg>
+        </a>
+    </div>
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Ajouter une destination</h3>
+                    <form class="space-y-6" action="#">
+                        <div>
+                            <label for="destination" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destination</label>
+                            <input type="text" name="destination" id="destination" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Maroc" required>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+            
 
-    <a href="{{ path('app_destination_new') }}">Create new</a>
 {% endblock %}
