@@ -53,6 +53,14 @@ public function PaginationQuery(string $value="all"): array
     return $queryBuilder->getQuery()->getResult();
 }
 
+public function countOffre(): int
+{
+    $queryBuilder = $this->createQueryBuilder('o')
+        ->select('COUNT(o.id) as offreCount');
+
+    return $queryBuilder->getQuery()->getSingleScalarResult();
+}
+
 //    public function findOneBySomeField($value): ?Offre
 //    {
 //        return $this->createQueryBuilder('o')

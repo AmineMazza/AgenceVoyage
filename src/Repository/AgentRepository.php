@@ -38,7 +38,13 @@ class AgentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function countAgent(): int
+    {
+        $queryBuilder = $this->createQueryBuilder('o')
+            ->select('COUNT(o.id) as offreCount');
+    
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
 //    /**
 //     * @return Agent[] Returns an array of Agent objects
 //     */

@@ -6,6 +6,8 @@ use App\Entity\Commercial;
 use App\Entity\Offre;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
+use App\Repository\AgentRepository;
+use App\Repository\OffreRepository;
 use App\Service\CommercialApiService;
 use App\Service\OffreApiService;
 use App\Service\ReservationApiService;
@@ -18,10 +20,15 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
-    public function index(): Response
+    public function index(OffreRepository $offreRepository,AgentRepository $agentRepository): Response
     {
+        $offres=$offreRepository->countOffre();
+        $agent=$agentRepository->countAgent();
+  
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
+            'offres'=> $offres,
+            'agent'=>$agent,
         ]);
     }
 
