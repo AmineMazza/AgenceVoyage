@@ -38,7 +38,13 @@ class ReservationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function countReservation(): int
+    {
+        $queryBuilder = $this->createQueryBuilder('o')
+            ->select('COUNT(o.id)');
+    
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

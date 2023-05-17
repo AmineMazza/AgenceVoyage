@@ -41,7 +41,7 @@ class AgentRepository extends ServiceEntityRepository
     public function countAgent(): int
     {
         $queryBuilder = $this->createQueryBuilder('o')
-            ->select('COUNT(o.id) as offreCount');
+            ->select('COUNT(o.id)');
     
         return $queryBuilder->getQuery()->getSingleScalarResult();
     }

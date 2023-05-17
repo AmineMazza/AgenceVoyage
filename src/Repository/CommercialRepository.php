@@ -38,7 +38,13 @@ class CommercialRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function countCommercial(): int
+    {
+        $queryBuilder = $this->createQueryBuilder('o')
+            ->select('COUNT(o.id)');
+    
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
 //    /**
 //     * @return Commercial[] Returns an array of Commercial objects
 //     */
