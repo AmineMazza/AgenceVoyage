@@ -52,6 +52,26 @@ public function PaginationQuery(string $value="all"): array
 
     return $queryBuilder->getQuery()->getResult();
 }
+public function filterOffrePrix(float $value1, float $value2): array
+{
+    $queryBuilder = $this->createQueryBuilder('o')
+        ->orderBy('o.id', 'ASC')
+        ->andWhere('o.prix between :value1 and :value2')
+        ->setParameter('value1', $value1)
+        ->setParameter('value2', $value2);
+
+    return $queryBuilder->getQuery()->getResult();
+}
+
+public function filterOffretitle(string $value): array
+{
+    $queryBuilder = $this->createQueryBuilder('o')
+        ->orderBy('o.id', 'ASC')
+        ->andWhere('o.titre like :value')
+        ->setParameter('value', '%' . $value . '%');
+
+    return $queryBuilder->getQuery()->getResult();
+}
 
 public function countOffre(): int
 {
