@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Avance;
 use App\Form\AvanceType;
 use App\Service\AvanceApiService;
+use App\Service\PdfService;
 use App\Service\ReservationApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class AvanceController extends AbstractController
     #[Route('/', name: 'app_avance_index', methods: ['GET'])]
     public function index(AvanceApiService $avanceRepository,array $_route_params, ReservationApiService $reservationApiService): Response
     {
-        if($this->isGranted('ROLE_ADMIN')){
+        if(!$this->isGranted('ROLE_ADMIN')){
             $reservation =  $reservationApiService->getReservation($_route_params['idR']);
             if ($reservation->getId() == null ) {
                 return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
@@ -71,6 +72,21 @@ class AvanceController extends AbstractController
             'avance' => $avance,
             'idR' => $_route_params['idR'],
         ]);
+    }
+
+    #[Route('/Recu/{id}', name: 'app_avance_recu', methods: ['GET'])]
+    public function Recu(Avance $avance, PdfService $pdfService)
+    {
+        // if ($avance->getIdReservation()->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN") ) {
+        //     return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        // }
+        // dd($avance->getIdReservation()->getId());
+
+        $html = $this->renderView('avance/recu.html.twig', [
+            'avance' => $avance,
+        ]);
+        // dd($html);
+        $pdfService->showPdf($html);
     }
 
     #[Route('/{id}/edit', name: 'app_avance_edit', methods: ['GET', 'POST'])]

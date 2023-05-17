@@ -14,6 +14,7 @@
         "doctrine/doctrine-bundle": "^2.9",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
+        "dompdf/dompdf": "^2.0",
         "gesdinet/jwt-refresh-token-bundle": "^1.1",
         "knplabs/knp-paginator-bundle": "^6.2",
         "lexik/jwt-authentication-bundle": "^2.18",
