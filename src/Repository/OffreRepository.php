@@ -73,6 +73,7 @@ public function filterOffre(string $destination='',float $prixMin = 0.0): array
         $queryBuilder->andWhere('o.prix_un >= :prixMin')
             ->setParameter('prixMin', $prixMin);
     }
+    
     return $queryBuilder->getQuery()->getResult();
 }
 

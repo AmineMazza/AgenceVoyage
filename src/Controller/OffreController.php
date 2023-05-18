@@ -108,6 +108,7 @@ class OffreController extends AbstractController
     public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    
         if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix']) || isset($_GET['SearchOffreDate'])) {
+            
             $pagination = $paginator->paginate(
                 $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix']),
                 $request->query->get('page', 1),
