@@ -16,13 +16,14 @@ class ReservationApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getReservations() : ArrayCollection
+    public function getReservations($params = null) : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/reservations',[
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
+                'query' => $params,
             ],
         ]);
         if ($response->getStatusCode() === 401) {
