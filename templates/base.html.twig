@@ -50,7 +50,17 @@
                         <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="" alt="user photo">
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <img class="w-8 h-8 rounded-full" src="{{ asset('/assets/images/admin.png') }}" alt="user photo">
+                            {% else %}
+                                {% if app.user.agent is not null %}
+                                    {% if app.user.agent.logo is not null %}
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset(app.user.agent.logo) }}" alt="user photo">      
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('/assets/images/nouser.png') }}" alt="user photo">
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
                         </button>
                         </div>
                         {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_AGENT") %}
@@ -59,7 +69,7 @@
                             {% if is_granted("ROLE_ADMIN") %}
                                 <span class="block text-sm text-gray-900 dark:text-white">admin</span>
                             {% else %}
-                                <span class="block text-sm text-gray-900 dark:text-white">{{ app.user }}</span>
+                                <span class="block text-sm text-gray-900 dark:text-white">{{ app.user.agent.agence }}</span>
                             {% endif %}
                             <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ app.user.email }}</span>
                         </div>
@@ -191,7 +201,7 @@
                             {% if is_granted("ROLE_ADMIN") %}
                                 <span class="block text-sm text-gray-900 dark:text-white">admin</span>
                             {% else %}
-                                <span class="block text-sm text-gray-900 dark:text-white">{{ app.user }}</span>
+                                <span class="block text-sm text-gray-900 dark:text-white">{{ app.user.agent.agence }}</span>
                             {% endif %}
                             <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ app.user.email }}</span>
                             </div>
