@@ -31,6 +31,9 @@ class Message
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_envoi = null;
 
+    #[ORM\Column(length: 40, nullable: true)]
+    private ?string $telephone = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +100,18 @@ class Message
     public function setDateEnvoi(\DateTimeInterface $date_envoi): self
     {
         $this->date_envoi = $date_envoi;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }
