@@ -45,11 +45,11 @@
                                     'attr': {'class': 'bg-gray-50 mr-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                             }) }}
                         </div>
-                        <div id="petitdej" class="flex items-center ml-3 w-1/4 pr-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Petit Dejeuner </label>
-                            {{form_widget(form.bpetit_dejeuner, {
-                                    'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            }) }}
+                        <div class="flex items-center ml-3 w-1/5 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
+                            {{form_widget(form.bvisite_medine, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">visite de medine</label>
                         </div>
                     </div>
                     
@@ -145,12 +145,6 @@
                             })}}
                             <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Aller Retour</label>
                         </div>
-                        <div class="flex items-center ml-3 w-1/5 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bvisite_medine, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">visite de medine</label>
-                        </div>
                     </div>
                     <div class="flex">
                         <div class="w-1/2 m-auto">
@@ -209,7 +203,7 @@
             <!-- Item 4 -->
             <div id="4" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
                 <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Prix</span> de chambre:</h1>
+                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Prix</span> par personne:</h1>
                 <div class="">
                     <div class="flex mb-4">
                         <div class="relative w-1/3 m-auto">
@@ -297,34 +291,6 @@
             <!-- Item 7 -->
             <div id="7" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
                 <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> supplémentaires:</h1>
-                    <div class="flex">
-                        <div class="w-1/2 p-2 pl-12">
-                            <label for="ofrre_detail_voyage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du voyage</label>
-                            {{form_widget(form.detail_voyage, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                        <div class="w-1/2 p-2 pr-12">
-                            <label for="ofrre_detail_vols" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du vol</label>
-                            {{form_widget(form.detail_vols, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <!-- Item 8 -->
-            <div id="8" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Payement:</span></h1>
                     <div class="justify-center w-1/2 m-auto">
                         <div class="flex items-center mt-4 m-auto w-1/2 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
@@ -340,12 +306,14 @@
                             <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pension complete</label>
                         </div>
                     </div>
-                            <label for="" id='ErrorPrix' class="text-red-500"></label>
+                    <label for="" id='ErrorPrix' class="text-red-500"></label>
+                    {# kml hna  #}
+                    
                 </div>
             </div>
 
-            <!-- Item 9 -->
-            <div id="9" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
+            <!-- Item 8 -->
+            <div id="8" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
                 <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations sur</span> la publication:</h1>
                     <div class="flex justify-center">
@@ -389,6 +357,34 @@
                             }) }}
                         </div>
                         
+                    </div>
+                
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div id="9" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> supplémentaires:</h1>
+                    <div class="flex">
+                        <div class="w-1/2 p-2 pl-12">
+                            <label for="ofrre_detail_voyage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du voyage</label>
+                            {{form_widget(form.detail_voyage, {
+                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                        'placeholder': "Write your thoughts here...",
+                                        'rows': '8'
+                                }
+                            })}}
+                        </div>
+                        <div class="w-1/2 p-2 pr-12">
+                            <label for="ofrre_detail_vols" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du vol</label>
+                            {{form_widget(form.detail_vols, {
+                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                        'placeholder': "Write your thoughts here...",
+                                        'rows': '8'
+                                }
+                            })}}
+                        </div>
                     </div>
                     <button id="BtnSave" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         {{ button_label|default('Save') }}
