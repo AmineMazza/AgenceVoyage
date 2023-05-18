@@ -42,7 +42,7 @@ Encore
     .addEntry('editReservation', './assets/javascript/editReservation.js')
     .addEntry('editAgent', './assets/javascript/editAgent.js')
     .addEntry('datables', './assets/javascript/datablesJquery.js')
-    
+    .addEntry('destinationIndex', './assets/javascript/destinationIndex.js')
     
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
