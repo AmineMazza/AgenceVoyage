@@ -7,7 +7,7 @@
         "@symfony/webpack-encore": "^4.2.0",
         "autoprefixer": "^10.4.14",
         "core-js": "^3.23.0",
-        "file-loader": "^6.0.0",
+        "file-loader": "^6.2.0",
         "glob-all": "^3.3.1",
         "path": "^0.12.7",
         "postcss": "^8.4.22",
