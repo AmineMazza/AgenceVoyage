@@ -169,7 +169,17 @@
                     {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_AGENT") %}
                         <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <img class="w-8 h-8 rounded-full" src="{{ asset('/assets/images/admin.png') }}" alt="user photo">
+                            {% else %}
+                                {% if app.user.agent is not null %}
+                                    {% if app.user.agent.logo is not null %}
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset(app.user.agent.logo) }}" alt="user photo">      
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('/assets/images/nouser.png') }}" alt="user photo">
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
                         </button>
                     {% else %}
                         <a href="/login" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-500">Commancer</a>
