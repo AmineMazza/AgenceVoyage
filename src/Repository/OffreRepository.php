@@ -52,26 +52,30 @@ public function PaginationQuery(string $value="all"): array
 
     return $queryBuilder->getQuery()->getResult();
 }
-public function filterOffrePrix(float $value1, float $value2): array
+
+
+public function filterOffre(string $destination='',float $prixMin = 0.0): array
 {
     $queryBuilder = $this->createQueryBuilder('o')
-        ->orderBy('o.id', 'ASC')
-        ->andWhere('o.prix between :value1 and :value2')
-        ->setParameter('value1', $value1)
-        ->setParameter('value2', $value2);
+        ->orderBy('o.id', 'ASC');
 
+    if ($destination != '' && $prixMin != 0) {
+        $queryBuilder->leftJoin('o.id_destination', 'c')
+            ->andWhere('c.pays = :destination')
+            ->andWhere('o.prix_un >= :prixMin')
+            ->setParameter('destination', $destination)
+            ->setParameter('prixMin', $prixMin);
+    } else if ($destination != '' && $prixMin==0) {
+        $queryBuilder->leftJoin('o.id_destination', 'c')
+            ->andWhere('c.pays like :destination')
+            ->setParameter('destination', '%' . $destination . '%');
+    } else if ($prixMin != 0 && $destination==='') {
+        $queryBuilder->andWhere('o.prix_un >= :prixMin')
+            ->setParameter('prixMin', $prixMin);
+    }
     return $queryBuilder->getQuery()->getResult();
 }
 
-public function filterOffretitle(string $value): array
-{
-    $queryBuilder = $this->createQueryBuilder('o')
-        ->orderBy('o.id', 'ASC')
-        ->andWhere('o.titre like :value')
-        ->setParameter('value', '%' . $value . '%');
-
-    return $queryBuilder->getQuery()->getResult();
-}
 
 public function countOffre(): int
 {

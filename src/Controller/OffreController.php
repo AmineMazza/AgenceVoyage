@@ -107,11 +107,21 @@ class OffreController extends AbstractController
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
     public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    
-        $pagination = $paginator->paginate(
+        if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix']) || isset($_GET['SearchOffreDate'])) {
+            $pagination = $paginator->paginate(
+                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix']),
+                $request->query->get('page', 1),
+                8
+            );
+        }
+        else{
+      $pagination = $paginator->paginate(
             $OffreRepository->PaginationQuery($_route_params['value']),
             $request->query->get('page', 1),
             8
         );
+        }
+  
         return $this->render('offre/index.html.twig', [
             'pagination' => $pagination,
         ]);

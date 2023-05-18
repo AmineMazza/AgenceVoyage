@@ -14,11 +14,16 @@
             <a href="{{ path('app_offre_new') }}" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">Create new</a>
         </div>
     {% endif %}
-    <div class="grid grid-cols-2 gap-8 m-8">
-    <form method="GET">
-        <input type="text" id='searchOffrename' name="SearchOffreName">
+        <form method="GET">
+        <label for="">Destination :</label>
+        <input type="text" id='searchOffDestination' name="searchOffDestination">
+        <label for="">date de depart :</label>
+        <input type="date" id='SearchOffreDate' name="SearchOffreDate">
+         <label for="">prix a partir de :</label>
+        <input type="number" id='SearchOffreMinPrix' name="SearchOffreMinPrix">
         <button>search</button>
     </form>
+    <div class="grid grid-cols-2 gap-8 m-8">
 
     {% for offre in pagination %}
         <div class="flex justify-between items-center bg-white rounded-lg shadow-lg p-6 hover:scale-105 transition duration-500">
