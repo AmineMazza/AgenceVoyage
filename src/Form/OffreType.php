@@ -65,7 +65,6 @@ class OffreType extends AbstractType
             ->add('baller_retour',null ,['required' => false])
             ->add('bhebergement',null,['required' => false])
             ->add('bvisa',null,['required' => false])
-            ->add('bpetit_dejeuner',null,['required' => false])
             ->add('bdemi_pension',null,['required' => false])
             ->add('prix_demi_pension',NumberType::class,['required' => false])
             ->add('detail_demi_pension',TextareaType::class, ['required' => false])
