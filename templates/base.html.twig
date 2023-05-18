@@ -7,12 +7,15 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+            <link rel="stylesheet" href="{{ asset('css/responsive.bootstrap5.min.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('base') }}
+            <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+            <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
         {% endblock %}
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
@@ -47,7 +50,7 @@
                         <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="#" alt="user photo">
+                            <img class="w-8 h-8 rounded-full" src="" alt="user photo">
                         </button>
                         </div>
                         {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_AGENT") %}

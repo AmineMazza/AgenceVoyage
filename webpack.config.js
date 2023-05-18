@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const webpack = require('webpack');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -14,6 +15,19 @@ Encore
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
+    .copyFiles({
+        from: './node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css',
+        to: 'css/[name].[ext]'
+    })
+    .copyFiles({
+        from: './node_modules/datatables.net/js/jquery.dataTables.min.js',
+        to: 'js/[name].[ext]'
+    })
+    .copyFiles({
+        from: './node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js',
+        to: 'js/[name].[ext]'
+    })
+
     /*
      * ENTRY CONFIG
      *
@@ -27,6 +41,9 @@ Encore
     .addEntry('newReservation', './assets/javascript/newReservation.js')
     .addEntry('editReservation', './assets/javascript/editReservation.js')
     .addEntry('editAgent', './assets/javascript/editAgent.js')
+    .addEntry('datables', './assets/javascript/datablesJquery.js')
+    
+    
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
@@ -54,6 +71,10 @@ Encore
     // .configureBabel((config) => {
     //     config.plugins.push('@babel/a-babel-plugin');
     // })
+    .addPlugin(new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+    }))
 
     // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {

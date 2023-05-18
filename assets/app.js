@@ -10,3 +10,7 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+import 'datatables.net-bs5/js/dataTables.bootstrap5.min.js';
+import 'datatables.net/js/jquery.dataTables.min.js';
+import 'datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js';
