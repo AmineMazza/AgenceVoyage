@@ -5,6 +5,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Message;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -47,36 +48,38 @@ class MessageApiService extends AbstractController {
         $message = new Message();
         $data = json_decode($response->getContent());
         $message->setId($data->id);
-        $message->setIdOffre($data->idOffre);
-        $message->setNom($data->nom);
+        $message->setNom($data->nom ? $data->nom : null);
         $message->setEmail($data->email);
-        $message->setMessage($data->distance);
+        $message->setTelephone($data->telephone ? $data->telephone : null);
+        $message->setMessage($data->message);
         $message->setDateEnvoi($data->date_envoi);
         return $message;
     }
 
-    public function AddMessage($message) : bool
+    public function AddMessage($message,$idO = null) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $json = [
+            'nom' => $message->getNom(),
+            'email' => $message->getEmail(),
+            'telephone' => $message->getTelephone(),
+            'message' => $message->getMessage(),
+            'dateEnvoi' => (new \DateTime())->format('Y-m-d\TH:i:sP'),
+        ];
+        if($idO != null) $json['idOffre'] = '/api/offres/'.$idO;
         $response = $this->client->request('POST', 'http://127.0.0.1/api/messages', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
-            'json' => [
-                'idOffre' => '/api/offres/'.$message->getIdOffre()->getId(),
-                'nom' => $message->getNom(),
-                'email' => $message->getEmail(),
-                'message' => $message->getMessage(),
-                'dateEnvoi' => $message->getDateEnvoi(),
-            ],
+            'json' => $json,
         ]);
         if ($response->getStatusCode() === 201) {
             return true;
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->AddMessage($message);
+            $this->AddMessage($message,$idO);
         }
         return false;
     }
@@ -90,11 +93,10 @@ class MessageApiService extends AbstractController {
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'idOffre' => '/api/offres/'.$message->getIdOffre()->getId(),
                 'nom' => $message->getNom(),
                 'email' => $message->getEmail(),
+                'telephone' => $message->getTelephone(),
                 'message' => $message->getMessage(),
-                'dateEnvoi' => $message->getDateEnvoi(),
             ],
         ]);
         if ($response->getStatusCode() === 200) {
