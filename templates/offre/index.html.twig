@@ -15,6 +15,11 @@
         </div>
     {% endif %}
     <div class="grid grid-cols-2 gap-8 m-8">
+    <form method="GET">
+        <input type="text" id='searchOffrename' name="SearchOffreName">
+        <button>search</button>
+    </form>
+
     {% for offre in pagination %}
         <div class="flex justify-between items-center bg-white rounded-lg shadow-lg p-6 hover:scale-105 transition duration-500">
         <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="mr-8 hover:cursor-pointer">

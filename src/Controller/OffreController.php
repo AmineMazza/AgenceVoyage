@@ -107,7 +107,6 @@ class OffreController extends AbstractController
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
     public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    
-    
         $pagination = $paginator->paginate(
             $OffreRepository->PaginationQuery($_route_params['value']),
             $request->query->get('page', 1),

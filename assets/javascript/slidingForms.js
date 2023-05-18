@@ -13,6 +13,39 @@ const petitdej = document.querySelector("#petitdej");
 const hbar0 = document.querySelector("#hbar0");
 const hbar1 = document.querySelector("#hbar1");
 const imageOffre=document.getElementById('offre_image');
+const offrebdemipension=document.getElementById('offre_bdemi_pension');
+const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
+const offreDetail_demi_pension=document.getElementById('offre_detail_demi_pension');
+const offreBpension_complete=document.getElementById('offre_bpension_complete');
+const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
+const offre_detail_complete_pension=document.getElementById('offre_detail_complete_pension');
+const offreBvisite_medine=document.getElementById('offre_bvisite_medine');
+
+// handle pension
+
+offrebdemipension.checked = true ;
+offrebdemipension.addEventListener('click',function(){
+    if(offrebdemipension.checked){
+         offreDetail_demi_pension.style.display= "block";
+         offrePrix_demi_pension.style.display= "block";
+     }
+     else{
+         offreDetail_demi_pension.style.display= "none";
+         offrePrix_demi_pension.style.display= "none";
+     }
+})
+
+offreBpension_complete.checked = true ;
+offreBpension_complete.addEventListener('click',function(){
+    if(offreBpension_complete.checked){
+         offre_prix_complete_pension.style.display= "block";
+         offre_detail_complete_pension.style.display= "block";
+     }
+     else{
+         offre_prix_complete_pension.style.display= "none";
+         offre_detail_complete_pension.style.display= "none";
+     }
+})
 
 
 /******handle image offre */
@@ -60,9 +93,14 @@ if(destination.options[destination.selectedIndex].text != "Omra"  || destination
 destination.addEventListener("change",function(){
     let destVal = destination.options[destination.selectedIndex].text;
     if(destVal == "Omra"  || destVal == "Hajj" || destVal == "Omra_combine"){
+        if(offreBvisite_medine.checked==true){
+            hotel2.style.display = "block";
+         }
+        else{
+        hotel2.style.display = 'none' ;
+        }
         hotel0.style.display = 'block' ;
         hotel1.style.display = 'block' ;
-        hotel2.style.display = 'block' ;
         hbar0.style.display = 'block' ;
         hbar1.style.display = 'block' ;
     }else{
@@ -84,7 +122,18 @@ checkbox.addEventListener("change", function(){
     }
     
 })
+/*** */
 
+offreBvisite_medine.addEventListener('change',function(){
+    if(offreBvisite_medine.checked==true){
+        console.log('ed');
+        hotel2.style.display= 'block';
+    }
+    else{
+        console.log('eed');
+        hotel2.style.display= 'none';     
+    }
+})
 hebergement.checked = true ;
 hebergement.addEventListener("change", function(){
     if(hebergement.checked == true){
@@ -120,8 +169,8 @@ nextbutton.addEventListener("click",function(){
     else if(i==2){
         const hebergement = document.getElementById('offre_bhebergement');
         const infoHebergementError=document.getElementById('Hebergement');
+        let destVal = destination.options[destination.selectedIndex].text;
         if(hebergement.checked == true){
-                let destVal = destination.options[destination.selectedIndex].text;
             if(destVal === "Omra"  || destVal === "Hajj" || destVal === "Omra_combine"){
                 const hotels_0_name=document.getElementById('offre_hotels_0_name');
                 const hotels_0_lieu=document.getElementById('offre_hotels_0_lieu');
@@ -143,6 +192,11 @@ nextbutton.addEventListener("click",function(){
                         i++;
                     }
             }
+            else if(destVal===""){
+                infoHebergementError.innerText='oblige de choisir un destination';
+                previousbutton.click();
+                i=2; 
+            }
             else {
                     const hotels_0_name=document.getElementById('offre_hotels_0_name');
                     const hotels_0_lieu=document.getElementById('offre_hotels_0_lieu');
@@ -162,8 +216,15 @@ nextbutton.addEventListener("click",function(){
             }
     }
     else{
+        if(destVal===""){
+            infoHebergementError.innerText='oblige de choisir un destination';
+            previousbutton.click();
+            i=2; 
+        }
+        else{
         infoHebergementError.innerText='';
         i++;
+    }
     }
     }
     else if(i==3){
@@ -215,11 +276,11 @@ nextbutton.addEventListener("click",function(){
 
     }
     else if(i==4){
-        const chambre1=document.getElementById('offre_prix_chambre');
-        const chambre2=document.getElementById('offre_prix_chambre_double');
-        const chambre3=document.getElementById('offre_prix_chambre_triple');
-        const chambre4=document.getElementById('offre_prix_chambre_quad');
-        const chambre5=document.getElementById('offre_prix_chambre_quint');
+        const chambre1=document.getElementById('offre_prix_un');
+        const chambre2=document.getElementById('offre_prix_double');
+        const chambre3=document.getElementById('offre_prix_triple');
+        const chambre4=document.getElementById('offre_prix_quad');
+        const chambre5=document.getElementById('offre_prix_quint');
         const ChambreError=document.getElementById('ChambreError');
            if(chambre1.value==='' && chambre2.value==='' && chambre3.value==='' && chambre4.value==='' && chambre5.value ==='' ){
             ChambreError.innerText='oblige de remplir au minimum un champ';
@@ -233,10 +294,9 @@ nextbutton.addEventListener("click",function(){
     }
     else if(i==5){
         const offrPassport=document.getElementById('offre_bpassport');
-        const offreVisa=document.getElementById('offre_bvisa');
         const ErrorVisa=document.getElementById('ErrorVisa');
-        if(offrPassport.checked==false || offreVisa.checked==false){
-            ErrorVisa.innerText='visa passeport obligatoire';
+        if(offrPassport.checked==false){
+            ErrorVisa.innerText='passeport obligatoire';
             previousbutton.click();
             i=5;
         }
@@ -245,16 +305,21 @@ nextbutton.addEventListener("click",function(){
             i++;
         }
     }
-    else if(i==8){
-        const offreprix=document.getElementById('offre_prix');
-        const ErrorPrix=document.getElementById('ErrorPrix');
-        if(offreprix.value===''){
-            ErrorPrix.innerText='prix obligatoire';
-            previousbutton.click();
-            i=8;
+    else if(i==7){
+        const ErrorPension=document.getElementById('ErrorPension');
+        if(offrebdemipension.checked===true || offreBpension_complete.checked === true){
+            if(offrePrix_demi_pension.value==='' || offre_prix_complete_pension.value===''){
+                ErrorPension.innerText='error prix obligatior';
+                previousbutton.click();
+                i=7;
+            }
+            else{
+                ErrorPension.innerText='';
+                i++;   
+            }
         }
         else{
-            ErrorPrix.innerText='';
+            ErrorPension.innerText='';
             i++;  
         }
     }
