@@ -51,8 +51,9 @@ class DashboardController extends AbstractController
     #[Route('/myOffres/{idO}/reserver', name: 'app_myoffres_reserver', methods: ['GET', 'POST'])]
     public function reserver(Request $request ,array $_route_params , ReservationApiService $ReservationApiService, CommercialApiService $commercialApiService, OffreApiService $offreApiService): Response
     {
+        $offre = $offreApiService->getOffre($_route_params['idO']);
+        // dd($offre);
         if(!$this->isGranted("ROLE_ADMIN")){
-            $offre = $offreApiService->getOffre($_route_params['idO']);
             if ($offre->getIdUser()->getId() != $this->getUser()->getId()) {
                 return $this->redirectToRoute('app_myoffres', [], Response::HTTP_SEE_OTHER);
             }
@@ -85,6 +86,23 @@ class DashboardController extends AbstractController
 
             return $this->redirectToRoute('app_voyageur_index', ['idR' => $idR], Response::HTTP_SEE_OTHER);
         }
+        $choices = [];
+        if($offre->getPrixUn() != null){
+            $choices[1] = 1;
+        }
+        if($offre->getPrixDouble() != null){
+            $choices[2] = 2;
+        }
+        if($offre->getPrixTriple() != null){
+            $choices[3] = 3;
+        }
+        if($offre->getPrixQuad() != null){
+            $choices[4] = 4;
+        }
+        if($offre->getPrixQuint() != null){
+            $choices[5] = 5;
+        }        
+        // dd(json_decode(json_encode($choices)));
 
         $commercials = $commercialApiService->getCommercialsJSON();
         return $this->renderForm('reservation/new.html.twig', [
@@ -92,6 +110,7 @@ class DashboardController extends AbstractController
             'form' => $form,
             'idOffre' => $_route_params['idO'],
             'commercials' => str_replace(" ","$",$commercials),
+            'choices' => json_decode(json_encode($choices)),
         ]);
     }
 

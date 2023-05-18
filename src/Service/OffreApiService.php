@@ -77,13 +77,17 @@ class OffreApiService extends AbstractController {
         $offre->setBvisa($data->bvisa);
         $offre->setBpetitDejeuner($data->bpetit_dejeuner);
         $offre->setBdemiPension($data->bdemi_pension);
+        $offre->setPrixDemiPension($data->bdemi_pension ? $data->prix_demi_pension : null);
+        $offre->setDetailDemiPension($data->bdemi_pension ? (!empty($data->detail_demi_pension) ? $data->detail_demi_pension : null) : null);
         $offre->setBpensionComplete($data->bpension_complete);
+        $offre->setPrixCompletePension($data->bpension_complete ? $data->prix_complete_pension : null);
+        $offre->setDetailCompletePension($data->bpension_complete ? (!empty($data->detail_complete_pension) ? $data->detail_complete_pension : null) : null);
         $offre->setBvisiteMedine($data->bvisite_medine);
-        $offre->setPrixChambre((!empty($data->prix_chambre) ? $data->prix_chambre : null));
-        $offre->setPrixChambreDouble((!empty($data->prix_chambre_double) ? $data->prix_chambre_double : null));
-        $offre->setPrixChambreTriple((!empty($data->prix_chambre_triple) ? $data->prix_chambre_triple : null));
-        $offre->setPrixChambreQuad((!empty($data->prix_chambre_quad) ? $data->prix_chambre_quad : null));
-        $offre->setPrixChambreQuint((!empty($data->prix_chambre_quint) ? $data->prix_chambre_quint : null));
+        $offre->setPrixUn((!empty($data->prix_un) ? $data->prix_un : null));
+        $offre->setPrixDouble((!empty($data->prix_double) ? $data->prix_double : null));
+        $offre->setPrixTriple((!empty($data->prix_triple) ? $data->prix_triple : null));
+        $offre->setPrixQuad((!empty($data->prix_quad) ? $data->prix_quad : null));
+        $offre->setPrixQuint((!empty($data->prix_quint) ? $data->prix_quint : null));
         $offre->setBcoupCoeur($data->bcoup_coeur);
         $offre->setBpubier($data->bpubier);
         $offre->setDatePublication((!empty($offre->getDatePublication()) ? $offre->getDatePublication()->format('Y-m-d') : null));
@@ -91,7 +95,6 @@ class OffreApiService extends AbstractController {
         $offre->setBpassport($data->bpassport);
         $offre->setBphotos($data->bphotos);
         $offre->setBpassVacinial($data->bpass_vacinial);
-        $offre->setPrix($data->prix);
         $offre->setDetailVoyage((!empty($data->detail_voyage) ? $data->detail_voyage : null));
         $offre->setDetailVols((!empty($data->detail_vols) ? $data->detail_vols : null));
         $arr_dest = explode('/',$data->idDestination);
@@ -129,13 +132,17 @@ class OffreApiService extends AbstractController {
             'bvisa' => $offre->isBvisa(),
             'bpetitDejeuner' => $offre->isBpetitDejeuner(),
             'bdemiPension' => $offre->isBdemiPension(),
+            'prixDemiPension' => $offre->isBdemiPension() ? $offre->getPrixDemiPension() : null,
+            'detailDemiPension' => $offre->isBdemiPension() ? $offre->getDetailDemiPension() : null,
             'bpensionComplete' => $offre->isBpensionComplete(),
+            'prixCompletePension' => $offre->isBpensionComplete() ? $offre->getPrixCompletePension() : null,
+            'detailCompletePension' => $offre->isBpensionComplete() ? $offre->getDetailCompletePension() : null,
             'bvisiteMedine' => $offre->isBvisiteMedine(),
-            'prixChambre' => $offre->getPrixChambre(),
-            'prixChambreDouble' => $offre->getPrixChambreDouble(),
-            'prixChambreTriple' => $offre->getPrixChambreTriple(),
-            'prixChambreQuad' => $offre->getPrixChambreQuad(),
-            'prixChambreQuint' => $offre->getPrixChambreQuint(),
+            'prix' => $offre->getPrixUn(),
+            'prixDouble' => $offre->getPrixDouble(),
+            'prixTriple' => $offre->getPrixTriple(),
+            'prixQuad' => $offre->getPrixQuad(),
+            'prixQuint' => $offre->getPrixQuint(),
             'bcoupCoeur' => $offre->isBcoupCoeur(),
             'bpubier' => $offre->isBpubier(),
             'datePublication' => (!empty($offre->getDatePublication()) ? $offre->getDatePublication()->format('Y-m-d') : null),
@@ -184,13 +191,17 @@ class OffreApiService extends AbstractController {
             'bvisa' => $offre->isBvisa(),
             'bpetitDejeuner' => $offre->isBpetitDejeuner(),
             'bdemiPension' => $offre->isBdemiPension(),
+            'prixDemiPension' => $offre->isBdemiPension() ? $offre->getPrixDemiPension() : null,
+            'detailDemiPension' => $offre->isBdemiPension() ? $offre->getDetailDemiPension() : null,
             'bpensionComplete' => $offre->isBpensionComplete(),
+            'prixCompletePension' => $offre->isBpensionComplete() ? $offre->getPrixCompletePension() : null,
+            'detailCompletePension' => $offre->isBpensionComplete() ? $offre->getDetailCompletePension() : null,
             'bvisiteMedine' => $offre->isBvisiteMedine(),
-            'prixChambre' => $offre->getPrixChambre(),
-            'prixChambreDouble' => $offre->getPrixChambreDouble(),
-            'prixChambreTriple' => $offre->getPrixChambreTriple(),
-            'prixChambreQuad' => $offre->getPrixChambreQuad(),
-            'prixChambreQuint' => $offre->getPrixChambreQuint(),
+            'prixDouble' => $offre->getPrixDouble(),
+            'prixTriple' => $offre->getPrixTriple(),
+            'prixQuad' => $offre->getPrixQuad(),
+            'prixQuint' => $offre->getPrixQuint(),
+            'bcoupCoeur' => $offre->isBcoupCoeur(),
             'bcoupCoeur' => $offre->isBcoupCoeur(),
             'bpubier' => $offre->isBpubier(),
             'datePublication' => (!empty($offre->getDatePublication()) ? $offre->getDatePublication()->format('Y-m-d') : null),

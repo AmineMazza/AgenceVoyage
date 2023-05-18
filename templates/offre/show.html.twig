@@ -134,23 +134,23 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">Chambre Single</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixChambre }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixUn }}</td>
                                     </tr>
                                     <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">Chambre Double</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixChambreDouble }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixDouble }}</td>
                                     </tr>
                                     <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">Chambre Triple</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixChambreTriple }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixTriple }}</td>
                                     </tr>
                                     <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">Chambre Quad</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixChambreQuad }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixQuad }}</td>
                                     </tr>
                                     <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">Chambre Quint</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixChambreQuint }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixQuint }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -192,7 +192,25 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
                     {% endif %}
                 </div>
-                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">Prix totale: {{ offre.prix }} <span class="text-green-600">MAD</span></div>
+                {% if offre.prix_un is defined  %}
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixUn }} <span class="text-green-600">MAD</span></div>
+                {% else %}
+                    {% if offre.prix_double is defined %}
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixDouble }} <span class="text-green-600">MAD</span></div>
+                    {% else %}
+                        {% if offre.prix_double is defined %}
+                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixTriple }} <span class="text-green-600">MAD</span></div>
+                        {% else %}
+                            {% if offre.prix_quad is defined %}
+                                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixQuad }} <span class="text-green-600">MAD</span></div>
+                            {% else %}
+                                {% if offre.prix_quint is defined %}
+                                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixQuint }} <span class="text-green-600">MAD</span></div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %} 
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="absolute bottom-0 flex">
                 <a href="{{ path('app_offre_index', {'value':'all'}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">

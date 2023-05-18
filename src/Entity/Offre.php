@@ -55,19 +55,19 @@ class Offre
     private ?bool $bvisite_medine = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $prix_chambre = null;
+    private ?float $prix_un = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $prix_chambre_double = null;
+    private ?float $prix_double = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $prix_chambre_triple = null;
+    private ?float $prix_triple = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $prix_chambre_quad = null;
+    private ?float $prix_quad = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $prix_chambre_quint = null;
+    private ?float $prix_quint = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $bcoup_coeur = null;
@@ -96,9 +96,6 @@ class Offre
     #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Message::class)]
     private Collection $messages;
 
-    #[ORM\Column]
-    private ?float $prix = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $detail_voyage = null;
 
@@ -115,6 +112,18 @@ class Offre
 
     #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Reservation::class)]
     private Collection $reservations;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $prix_demi_pension = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $prix_complete_pension = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $detail_demi_pension = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $detail_complete_pension = null;
 
     public function __construct()
     {
@@ -265,66 +274,6 @@ class Offre
         return $this;
     }
 
-    public function getPrixChambre(): ?float
-    {
-        return $this->prix_chambre;
-    }
-
-    public function setPrixChambre(?float $prix_chambre): self
-    {
-        $this->prix_chambre = $prix_chambre;
-
-        return $this;
-    }
-
-    public function getPrixChambreDouble(): ?float
-    {
-        return $this->prix_chambre_double;
-    }
-
-    public function setPrixChambreDouble(?float $prix_chambre_double): self
-    {
-        $this->prix_chambre_double = $prix_chambre_double;
-
-        return $this;
-    }
-
-    public function getPrixChambreTriple(): ?float
-    {
-        return $this->prix_chambre_triple;
-    }
-
-    public function setPrixChambreTriple(?float $prix_chambre_triple): self
-    {
-        $this->prix_chambre_triple = $prix_chambre_triple;
-
-        return $this;
-    }
-
-    public function getPrixChambreQuad(): ?float
-    {
-        return $this->prix_chambre_quad;
-    }
-
-    public function setPrixChambreQuad(?float $prix_chambre_quad): self
-    {
-        $this->prix_chambre_quad = $prix_chambre_quad;
-
-        return $this;
-    }
-
-    public function getPrixChambreQuint(): ?float
-    {
-        return $this->prix_chambre_quint;
-    }
-
-    public function setPrixChambreQuint(?float $prix_chambre_quint): self
-    {
-        $this->prix_chambre_quint = $prix_chambre_quint;
-
-        return $this;
-    }
-
     public function isBcoupCoeur(): ?bool
     {
         return $this->bcoup_coeur;
@@ -469,18 +418,6 @@ class Offre
         return $this;
     }
 
-    public function getPrix(): ?float
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(float $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
     public function getDetailVoyage(): ?string
     {
         return $this->detail_voyage;
@@ -562,5 +499,113 @@ class Offre
     public function __toString()
     {
         return $this->titre;
+    }
+
+    public function getPrixDemiPension(): ?float
+    {
+        return $this->prix_demi_pension;
+    }
+
+    public function setPrixDemiPension(?float $prix_demi_pension): self
+    {
+        $this->prix_demi_pension = $prix_demi_pension;
+
+        return $this;
+    }
+
+    public function getPrixCompletePension(): ?float
+    {
+        return $this->prix_complete_pension;
+    }
+
+    public function setPrixCompletePension(?float $prix_complete_pension): self
+    {
+        $this->prix_complete_pension = $prix_complete_pension;
+
+        return $this;
+    }
+
+    public function getDetailDemiPension(): ?string
+    {
+        return $this->detail_demi_pension;
+    }
+
+    public function setDetailDemiPension(?string $detail_demi_pension): self
+    {
+        $this->detail_demi_pension = $detail_demi_pension;
+
+        return $this;
+    }
+
+    public function getDetailCompletePension(): ?string
+    {
+        return $this->detail_complete_pension;
+    }
+
+    public function setDetailCompletePension(?string $detail_complete_pension): self
+    {
+        $this->detail_complete_pension = $detail_complete_pension;
+
+        return $this;
+    }
+
+    public function getPrixUn(): ?float
+    {
+        return $this->prix_un;
+    }
+
+    public function setPrixUn(?float $prix_un): self
+    {
+        $this->prix_un = $prix_un;
+
+        return $this;
+    }
+
+    public function getPrixDouble(): ?float
+    {
+        return $this->prix_double;
+    }
+
+    public function setPrixDouble(?float $prix_double): self
+    {
+        $this->prix_double = $prix_double;
+
+        return $this;
+    }
+
+    public function getPrixTriple(): ?float
+    {
+        return $this->prix_triple;
+    }
+
+    public function setPrixTriple(?float $prix_triple): self
+    {
+        $this->prix_triple = $prix_triple;
+
+        return $this;
+    }
+
+    public function getPrixQuad(): ?float
+    {
+        return $this->prix_quad;
+    }
+
+    public function setPrixQuad(?float $prix_quad): self
+    {
+        $this->prix_quad = $prix_quad;
+
+        return $this;
+    }
+    
+    public function getPrixQuint(): ?float
+    {
+        return $this->prix_quint;
+    }
+
+    public function setPrixQuint(?float $prix_quint): self
+    {
+        $this->prix_quint = $prix_quint;
+
+        return $this;
     }
 }
