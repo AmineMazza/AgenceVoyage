@@ -50,7 +50,8 @@ class MessageRepository extends ServiceEntityRepository
     {
             $queryBuilder = $this->createQueryBuilder('o')
             ->select('COUNT(o.id)')
-            ->andWhere('o.bstatus = 0');
+            ->andWhere('o.bstatus = false');
+            
         return $queryBuilder->getQuery()->getResult();
     }    
 //    /**

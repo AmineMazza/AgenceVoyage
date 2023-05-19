@@ -130,19 +130,16 @@ class MessageApiService extends AbstractController {
         return false;
     }
 
-    public function SeenMessage($idM) : bool
+    public function SeenMessage($idM)
     {
         $response = $this->client->request('PUT', 'http://127.0.0.1/api/messages/'.$idM, [
             'headers' => [
                 'Accept' => 'application/json',
             ],
             'json' => [
-                'bsatatus' => true,
+                'bstatus' => true,
             ],
         ]);
-        if ($response->getStatusCode() === 200) {
-            return true;
-        }
-        return false;
+        return $response->getStatusCode();
     }
 }

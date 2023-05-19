@@ -16,7 +16,6 @@ class MessageController extends AbstractController
     #[Route('dashboard/message/', name: 'app_message_index', methods: ['GET'])]
     public function index(MessageApiService $MessageApiService): Response
     {
-        
         return $this->render('message/index.html.twig', [
             'messages' => $MessageApiService->getMessages(),
         ]);
