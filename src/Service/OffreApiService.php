@@ -150,7 +150,6 @@ class OffreApiService extends AbstractController {
             'bpassport' => $offre->isBpassport(),
             'bphotos' => $offre->isBphotos(),
             'bpassVacinial' => $offre->isBpassVacinial(),
-            'prix' => $offre->getPrix(),
             'detailVoyage' => $offre->getDetailVoyage(),
             'detailVols' => $offre->getDetailVols(),
             'image' => $offre->getImage(),
@@ -209,7 +208,6 @@ class OffreApiService extends AbstractController {
             'bpassport' => $offre->isBpassport(),
             'bphotos' => $offre->isBphotos(),
             'bpassVacinial' => $offre->isBpassVacinial(),
-            'prix' => $offre->getPrix(),
             'detailVoyage' => $offre->getDetailVoyage(),
             'detailVols' => $offre->getDetailVols(),
         ];
