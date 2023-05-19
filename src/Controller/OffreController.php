@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use DateTimeImmutable;
 
 #[Route('/offre')]
 class OffreController extends AbstractController
@@ -107,13 +108,25 @@ class OffreController extends AbstractController
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
     public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    
-        if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix']) || isset($_GET['SearchOffreDate'])) {
-            
+
+        $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
+    
+
+        if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix'])) {
+            if($_GET['SearchOffreDate']!=''){   
+            $pagination = $paginator->paginate(
+                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix'],$date),
+                $request->query->get('page', 1),
+                8
+            );
+        }
+        else{
             $pagination = $paginator->paginate(
                 $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix']),
                 $request->query->get('page', 1),
                 8
             );
+        }
         }
         else{
       $pagination = $paginator->paginate(

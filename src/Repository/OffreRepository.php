@@ -54,7 +54,7 @@ public function PaginationQuery(string $value="all"): array
 }
 
 
-public function filterOffre(string $destination='',float $prixMin = 0.0): array
+public function filterOffre(string $destination='',float $prixMin = 0.0,?\DateTimeInterface $date = null): array
 {
     $queryBuilder = $this->createQueryBuilder('o')
         ->orderBy('o.id', 'ASC');
@@ -73,7 +73,11 @@ public function filterOffre(string $destination='',float $prixMin = 0.0): array
         $queryBuilder->andWhere('o.prix_un >= :prixMin')
             ->setParameter('prixMin', $prixMin);
     }
-    
+    if ($date instanceof \DateTimeInterface) {
+        $queryBuilder
+            ->andWhere('o.date_depart >= :date')
+            ->setParameter('date', $date);
+    }
     return $queryBuilder->getQuery()->getResult();
 }
 

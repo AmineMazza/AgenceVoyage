@@ -1,4 +1,7 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.email) }}
+    {{ form_widget(form.telephone) }}
+    {{ form_widget(form.message) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
