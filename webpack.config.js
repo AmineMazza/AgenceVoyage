@@ -44,6 +44,8 @@ Encore
     .addEntry('datables', './assets/javascript/datablesJquery.js')
     .addEntry('destinationIndex', './assets/javascript/destinationIndex.js')
     .addEntry('MessageVu', './assets/javascript/MessageVu.js')
+    .addEntry('CountMessage', './assets/javascript/CountMessage.js')
+   
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

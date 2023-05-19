@@ -8,6 +8,8 @@ VoirBtn.forEach((btn) => {
         const nom= btn.closest('tr').querySelector('.nom-column').textContent;
         nameMessage.innerHTML=nom;
         MegContainer.innerText=message;
+        const numMeg=document.getElementById('numMessage');
+        numMeg.innerText=parseInt(numMeg.innerText)-1;
         console.log('Clicked on ID:', id);
     });
 });

@@ -49,8 +49,8 @@ class MessageRepository extends ServiceEntityRepository
     public function CountMessages(): array
     {
             $queryBuilder = $this->createQueryBuilder('o')
-            ->orderBy('o.id', 'ASC')
-            ->andWhere('O.bstatus = 0');
+            ->select('COUNT(o.id)')
+            ->andWhere('o.bstatus = 0');
         return $queryBuilder->getQuery()->getResult();
     }    
 //    /**
