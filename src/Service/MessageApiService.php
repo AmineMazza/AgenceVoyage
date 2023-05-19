@@ -53,6 +53,7 @@ class MessageApiService extends AbstractController {
         $message->setTelephone($data->telephone ? $data->telephone : null);
         $message->setMessage($data->message);
         $message->setDateEnvoi($data->date_envoi);
+        $message->setDateEnvoi($data->bsatatus);
         return $message;
     }
 
@@ -65,6 +66,7 @@ class MessageApiService extends AbstractController {
             'telephone' => $message->getTelephone(),
             'message' => $message->getMessage(),
             'dateEnvoi' => (new \DateTime())->format('Y-m-d\TH:i:sP'),
+            'bstatus' => false,
         ];
         if($idO != null) $json['idOffre'] = '/api/offres/'.$idO;
         $response = $this->client->request('POST', 'http://127.0.0.1/api/messages', [
@@ -124,6 +126,28 @@ class MessageApiService extends AbstractController {
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->DeleteMessage($id);
+        }
+        return false;
+    }
+
+    public function SeenMessage($idM) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/messages/'.$idM, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'bsatatus' => true,
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->SeenMessage($idM);
         }
         return false;
     }
