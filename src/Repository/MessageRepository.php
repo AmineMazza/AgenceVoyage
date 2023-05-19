@@ -45,6 +45,14 @@ class MessageRepository extends ServiceEntityRepository
     
         return $queryBuilder->getQuery()->getSingleScalarResult();
     }
+
+    public function CountMessages(): array
+    {
+            $queryBuilder = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'ASC')
+            ->andWhere('O.bstatus = 0');
+        return $queryBuilder->getQuery()->getResult();
+    }    
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */
