@@ -54,6 +54,7 @@ security:
         - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS }
         - { path: ^/api/(users|agents)$, roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: ^/api/(offres|destinations|users|hotels), roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: ^/api/message, roles: PUBLIC_ACCESS, methods: [PUT] }
         - { path: ^/api/$, roles: ROLE_ADMIN }
         - { path: ^/api, roles: [ROLE_ADMIN,ROLE_AGENT] }
         - { path: ^/dashboard/(agent|destination), roles: ROLE_ADMIN }
