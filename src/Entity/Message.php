@@ -34,6 +34,9 @@ class Message
     #[ORM\Column(length: 40, nullable: true)]
     private ?string $telephone = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $bstatus = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,6 +115,18 @@ class Message
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function isBstatus(): ?bool
+    {
+        return $this->bstatus;
+    }
+
+    public function setBstatus(?bool $bstatus): self
+    {
+        $this->bstatus = $bstatus;
 
         return $this;
     }
