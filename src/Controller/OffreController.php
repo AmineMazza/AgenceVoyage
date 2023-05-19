@@ -108,12 +108,9 @@ class OffreController extends AbstractController
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
     public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    
-
-        $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
-    
-
         if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix'])) {
             if($_GET['SearchOffreDate']!=''){   
+        $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
             $pagination = $paginator->paginate(
                 $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix'],$date),
                 $request->query->get('page', 1),
