@@ -14,11 +14,11 @@ const hbar0 = document.querySelector("#hbar0");
 const hbar1 = document.querySelector("#hbar1");
 const imageOffre=document.getElementById('offre_image');
 const offrebdemipension=document.getElementById('offre_bdemi_pension');
-const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
-const offreDetail_demi_pension=document.getElementById('offre_detail_demi_pension');
+const offrePrix_demi_pension=document.getElementById('Offre_prix_demi_pension');
+const offreDetail_demi_pension=document.getElementById('Offre_detail_demi_pension');
 const offreBpension_complete=document.getElementById('offre_bpension_complete');
-const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
-const offre_detail_complete_pension=document.getElementById('offre_detail_complete_pension');
+const offre_prix_complete_pension=document.getElementById('Offre_prix_complete_pension');
+const offre_detail_complete_pension=document.getElementById('Offre_detail_complete_pension');
 const offreBvisite_medine=document.getElementById('offre_bvisite_medine');
 
 // handle create offre for agent
@@ -317,6 +317,9 @@ nextbutton.addEventListener("click",function(){
         }
     }
     else if(i==7){
+        const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
+        const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
+
         const ErrorPension=document.getElementById('ErrorPension');
         if(offrebdemipension.checked===true || offreBpension_complete.checked === true){
             if(offrePrix_demi_pension.value==='' || offre_prix_complete_pension.value===''){
