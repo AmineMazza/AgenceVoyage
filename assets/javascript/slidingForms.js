@@ -21,6 +21,17 @@ const offre_prix_complete_pension=document.getElementById('offre_prix_complete_p
 const offre_detail_complete_pension=document.getElementById('offre_detail_complete_pension');
 const offreBvisite_medine=document.getElementById('offre_bvisite_medine');
 
+// handle create offre for agent
+const foragent = document.querySelector("#forAgent");
+const usersinput = document.querySelector("#users-input");
+foragent.addEventListener("change",()=>{
+    if(foragent.checked) usersinput.style.display = 'block';
+    else{
+        usersinput.selectedIndex = 0;
+        usersinput.style.display = 'none';
+    }
+})
+
 // handle pension
 
 offrebdemipension.checked = true ;

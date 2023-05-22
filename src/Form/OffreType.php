@@ -86,6 +86,15 @@ class OffreType extends AbstractType
             ->add('bpubier',null,['required' => false])
             ->add('date_publication',DateType::class,['required' => false])
             ->add('date_fin_publication',DateType::class,['required' => false])
+            ->add('id_user', null ,[    
+                'placeholder' => "",
+                'required' => false,
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('u')
+                        ->where('u.roles LIKE :role')
+                        ->setParameter('role', '%ROLE_AGENT%');
+                },
+            ])
         ;
     }
 
@@ -93,6 +102,7 @@ class OffreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Offre::class,
+            'allow_extra_fields' => true,
         ]);
     }
 }
