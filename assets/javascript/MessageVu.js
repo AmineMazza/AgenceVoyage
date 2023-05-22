@@ -1,11 +1,13 @@
 const VoirBtn = document.querySelectorAll('#VoirBTN');
 const MegContainer=document.getElementById("messagecontainer");
 const nameMessage=document.getElementById('nameMessage');
+
 VoirBtn.forEach((btn) => {
     btn.addEventListener('click', function () {
         const id = btn.closest('tr').querySelector('.id-column').textContent;
         const message= btn.closest('tr').querySelector('.message-column').textContent;
         const nom= btn.closest('tr').querySelector('.nom-column').textContent;
+        const seenMessage=btn.closest('tr').querySelector('.seenMessage-column');
         nameMessage.innerHTML=nom;
         MegContainer.innerText=message;
         const numMeg=document.getElementById('numMessage');
@@ -20,15 +22,14 @@ VoirBtn.forEach((btn) => {
         })
             .then((response) => response.json())
             .then((result) => {
-                console.log('Response:', result);
+                seenMessage.innerText='Oui';
+
                 // Perform any additional actions or UI updates as needed
             })
             .catch((error) => {
                 console.error('Request failed:', error);
                 // Handle error condition
             });
-
-        console.log('Clicked on ID:', id);
     });
 });
 
