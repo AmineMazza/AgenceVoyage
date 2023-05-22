@@ -3,9 +3,63 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<div>offres: {{offres}}</div>
-<div>agent: {{agent}}</div>
-<div>messages: {{messages}}</div>
-<div>commercial: {{commercial}}</div>
-<div>reservation: {{reservation}}</div>
+  <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+<!-- 1-->
+  
+            <div class="shadow-lg bg-red-400 border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2">
+                <div class="p-4 flex flex-col">
+                    <a href="/dashboard/myOffres" class="no-underline text-white text-2xl">
+                       {{offres}}
+                    </a>
+                    <a href="/dashboard/myOffres" class="no-underline text-white text-lg">
+                      offres
+                    </a>
+                </div>
+            </div>
+<!-- 2-->
+             <div class="shadow-lg bg-orange-400 border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2">
+                <div class="p-4 flex flex-col">
+                    <a href="/dashboard/agent" class="no-underline text-white text-2xl">
+                      {{agent}}
+                    </a>
+                    <a href="/dashboard/agent" class="no-underline text-white text-lg">
+                    agent
+                    </a>
+                </div>
+            </div>
+<!-- 3-->
+ <div class="shadow-lg bg-green-400 border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2">
+                <div class="p-4 flex flex-col">
+                    <a href="/dashboard/message" class="no-underline text-white text-2xl">
+                      {{messages}}
+                    </a>
+                    <a href="/dashboard/message" class="no-underline text-white text-lg">
+                     messages
+                    </a>
+                </div>
+   </div>
+   <!-- 4-->
+ <div class="shadow-lg bg-cyan-400 border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2">
+                <div class="p-4 flex flex-col">
+                    <a href="/dashboard/commercial" class="no-underline text-white text-2xl">
+                      {{commercial}}
+                    </a>
+                    <a href="/dashboard/commercial" class="no-underline text-white text-lg">
+                      commercial
+                    </a>
+                </div>
+   </div>
+   <!-- 5-->
+ <div class="shadow-lg bg-purple-400 border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2">
+                <div class="p-4 flex flex-col">
+                    <a href="/dashboard/reservation" class="no-underline text-white text-2xl">
+                      {{reservation}}
+                    </a>
+                    <a href="/dashboard/reservation" class="no-underline text-white text-lg">
+                     reservation
+                    </a>
+                </div>
+   </div>
+</div>
+
 {% endblock %}
