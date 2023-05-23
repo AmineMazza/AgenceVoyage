@@ -15,11 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use App\Form\RegistrationType;
 use App\Service\UserApiService;
+use Exception;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserApiService $userApiService): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserApiService $userApiService, SluggerInterface $slugger): Response
     {
         
         $user = new User();

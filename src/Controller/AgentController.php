@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agent;
+use App\Entity\User;
 use App\Form\AgentType;
 use App\Service\AgentApiService;
 use App\Service\UserApiService;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -26,14 +28,27 @@ class AgentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_agent_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AgentApiService $agentApiService): Response
+    public function new(Request $request, UserApiService $userApiService, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $agent = new Agent();
         $form = $this->createForm(AgentType::class, $agent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $agentApiService->AddAgent($agent, $agent->getIdUser()->getId());
+            $extraFields = $form->getExtraData();
+            $user = new User();
+            $user->setEmail($extraFields['email']);
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $extraFields['password']
+                )
+            );
+            if($agent->isBstatus()) $user->setRoles(['ROLE_AGENT']);
+            else $user->setRoles(['ROLE_USER']);
+            $user->setAgent($agent);
+
+            $userApiService->AddUser($user);
 
             return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -94,10 +109,13 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_agent_delete', methods: ['POST'])]
-    public function delete(Request $request, Agent $agent, AgentApiService $agentApiService): Response
+    public function delete(Request $request, Agent $agent, AgentApiService $agentApiService, UserApiService $userApiService): Response
     {
         if ($this->isCsrfTokenValid('delete'.$agent->getId(), $request->request->get('_token'))) {
-            $agentApiService->DeleteAgent($agent, true);
+            $bool = $agentApiService->DeleteAgent($agent);
+            if($bool){
+                $userApiService->DeleteUser($agent->getIdUser()->getId());
+            }
         }
 
         return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
