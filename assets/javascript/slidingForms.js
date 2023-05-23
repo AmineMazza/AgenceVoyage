@@ -296,13 +296,9 @@ nextbutton.addEventListener("click",function(){
     }
     else if(i==4){
         const chambre1=document.getElementById('offre_prix_un');
-        const chambre2=document.getElementById('offre_prix_double');
-        const chambre3=document.getElementById('offre_prix_triple');
-        const chambre4=document.getElementById('offre_prix_quad');
-        const chambre5=document.getElementById('offre_prix_quint');
         const ChambreError=document.getElementById('ChambreError');
-           if(chambre1.value==='' && chambre2.value==='' && chambre3.value==='' && chambre4.value==='' && chambre5.value ==='' ){
-            ChambreError.innerText='oblige de remplir au minimum un champ';
+           if(chambre1.value==='' ){
+            ChambreError.innerText="oblige de remplir Prix par personne d'une personne";
             previousbutton.click();
             i=4;
            }
