@@ -65,31 +65,39 @@ const errorImageOffre=document.getElementById('errorImageOffre');
 newimageInput.addEventListener('click',function(){
     imageOffre.click();
 })
-imageOffre.addEventListener('change',function(event){
+
+imageOffre.addEventListener('change', function(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
-    let width=0;
-    let height=0;
+
+    let isFileRead = false;
+
     reader.onload = (e) => {
         newimageInput.src = e.target.result;
-         width = newimageInput.width;
-         height = newimageInput.height;
-        "1920 1080"
-        console.log('Image width:', width);
-        console.log('Image height:', height);
-        
+        console.log(newimageInput);
+        newimageInput.addEventListener('load', function() {
+            const width = newimageInput.width;
+            const height = newimageInput.height;
+            console.log('Image width:', width);
+            console.log('Image height:', height);
+
+            if (width === 1080 && height === 1920) {
+                if (!isFileRead) {
+                    isFileRead = true;
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                // Width and/or height don't match the desired values
+                errorImageOffre.innerText = "Error: Size must be 1920x1080";
+              
+            }
+        });
     };
+
     if (file) {
-        if(width==="1080" && height==="1920"){
         reader.readAsDataURL(file);
     }
-    else{
-        errorImageOffre.innerText="error size most be 1920x1080";
-        imageOffre.value="";
-    }
-    }
-    
-})
+});
 
 
 /**************************** */
