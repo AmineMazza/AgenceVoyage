@@ -127,30 +127,30 @@
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50 dark:bg-gray-800">
                                     <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type de chambre</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Personnes</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">Chambre Single</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixUn }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Une pers.</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ offre.prixUn ? offre.prixUn : '-' }}</td>
                                     </tr>
                                     <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">Chambre Double</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixDouble }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Deux pers.</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ offre.prixDouble ? offre.prixDouble : '-' }}</td>
                                     </tr>
                                     <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">Chambre Triple</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixTriple }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Trois pers.</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ offre.prixTriple ? offre.prixTriple : '-' }}</td>
                                     </tr>
                                     <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">Chambre Quad</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixQuad }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Quatre pers.</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ offre.prixQuad ? offre.prixQuad : '-' }}</td>
                                     </tr>
                                     <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">Chambre Quint</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ offre.prixQuint }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Cinq pers.</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ offre.prixQuint ? offre.prixQuint : '-' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
