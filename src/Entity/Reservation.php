@@ -47,10 +47,10 @@ class Reservation
     #[ORM\Column(nullable: true)]
     private ?float $avance_commission = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Avance::class)]
+    #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Avance::class, orphanRemoval: true)]
     private Collection $avances;
 
-    #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Voyageur::class)]
+    #[ORM\OneToMany(mappedBy: 'id_reservation', targetEntity: Voyageur::class, orphanRemoval: true)]
     private Collection $voyageurs;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
