@@ -68,40 +68,17 @@ class DashboardController extends AbstractController
             // dd($extraFields);
             if($extraFields != []){
                 if($extraFields['isCommercial'] == 'on'){
-                    $commercial = new Commercial();
-                    if($extraFields['SelectMethod'] == 'new') {
-                        $commercial->setNom($extraFields['id_commercial']['nom']);
-                        $commercial->setPrenom($extraFields['id_commercial']['prenom']);
-                        $commercial->setTelephone($extraFields['id_commercial']['telephone']);
-                        $commercial->setAdresse($extraFields['id_commercial']['adresse']);
-                    }
-                    elseif($extraFields['SelectMethod'] == 'exist') {
-                        $commercial =  $commercialApiService->getCommercial($extraFields['id_commercial']);
-                    }
-                    $reservation->setIdCommercial($commercial);
+                    $idR = $ReservationApiService->AddReservation($reservation, $_route_params['idO'],$extraFields['id_commercial']);
                 }
             }
+            else {
+                $idR = $ReservationApiService->AddReservation($reservation, $_route_params['idO']);
+            }
             // dd($reservation);
-            $idR = $ReservationApiService->AddReservation($reservation, $_route_params['idO']);
+            
 
             return $this->redirectToRoute('app_voyageur_index', ['idR' => $idR], Response::HTTP_SEE_OTHER);
-        }
-        $choices = [];
-        if($offre->getPrixUn() != null){
-            $choices[1] = 1;
-        }
-        if($offre->getPrixDouble() != null){
-            $choices[2] = 2;
-        }
-        if($offre->getPrixTriple() != null){
-            $choices[3] = 3;
-        }
-        if($offre->getPrixQuad() != null){
-            $choices[4] = 4;
-        }
-        if($offre->getPrixQuint() != null){
-            $choices[5] = 5;
-        }        
+        }   
         // dd(json_decode(json_encode($choices)));
 
         $commercials = $commercialApiService->getCommercialsJSON();
@@ -110,7 +87,6 @@ class DashboardController extends AbstractController
             'form' => $form,
             'idOffre' => $_route_params['idO'],
             'commercials' => str_replace(" ","$",$commercials),
-            'choices' => json_decode(json_encode($choices)),
         ]);
     }
 

@@ -88,7 +88,7 @@ class ReservationApiService extends AbstractController {
         return $reservation;
     }
 
-    public function AddReservation($reservation, $idO)
+    public function AddReservation($reservation, $idO, $idC = null)
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $data = [
@@ -101,15 +101,7 @@ class ReservationApiService extends AbstractController {
             'avanceCommission' => $reservation->getAvanceCommission(),
             'dateAvanceCommission' => (($reservation->getAvanceCommission()!=null) ? (new \DateTime())->format('Y-m-d\TH:i:sP') : null ),
         ];
-        if($reservation->getIdCommercial() != null){
-            if($reservation->getIdCommercial()->getId() != null){
-                $data['idCommercial'] = '/api/commercials/'.$reservation->getIdCommercial()->getId();
-            }
-            else {
-                $commercialId = $this->commercialApiService->AddCommercial($reservation->getIdCommercial());
-                $data['idCommercial'] = '/api/commercials/'.$commercialId;
-            }
-        }
+        if($idC != null) $data['idCommercial'] = '/api/commercials/'.$idC;
         $response = $this->client->request('POST', 'http://127.0.0.1/api/reservations', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
@@ -124,7 +116,7 @@ class ReservationApiService extends AbstractController {
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->AddReservation($reservation, $idO);
+            $this->AddReservation($reservation, $idO, $idC);
         }
         return null;
     }
