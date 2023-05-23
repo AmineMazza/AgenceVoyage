@@ -43,9 +43,6 @@ class Offre
     private ?bool $bvisa = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $bpetit_dejeuner = null;
-
-    #[ORM\Column(nullable: true)]
     private ?bool $bdemi_pension = null;
 
     #[ORM\Column(nullable: true)]
@@ -222,18 +219,6 @@ class Offre
     public function setBvisa(?bool $bvisa): self
     {
         $this->bvisa = $bvisa;
-
-        return $this;
-    }
-
-    public function isBpetitDejeuner(): ?bool
-    {
-        return $this->bpetit_dejeuner;
-    }
-
-    public function setBpetitDejeuner(?bool $bpetit_dejeuner): self
-    {
-        $this->bpetit_dejeuner = $bpetit_dejeuner;
 
         return $this;
     }
