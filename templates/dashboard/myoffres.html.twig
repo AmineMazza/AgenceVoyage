@@ -9,8 +9,14 @@
 
 {% block body %}
     <div class="flex justify-between mx-10 my-6">
-        <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Découvrez</span> nos offres.</h1>
-        <a href="{{ path('app_offre_new') }}" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">Create new</a>
+        <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Découvrez</span> votre offres.</h1>
+        <a href="{{ path('app_offre_new') }}" class="text-white flex items-center bg-gradient-to-br from-green-400 to-blue-600 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all duration-300">
+            Ajouter
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" />
+            </svg>
+        </a>
+
     </div>
     <div class="grid grid-cols-2 gap-8 m-8">
     {% for offre in offres %}
