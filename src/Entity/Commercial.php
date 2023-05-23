@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommercialRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommercialRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['cin' => 'exact', 'id_user' => 'exact', 'agents' => 'exact'])]
 class Commercial
 {
     #[ORM\Id]
@@ -32,9 +35,19 @@ class Commercial
     #[ORM\OneToMany(mappedBy: 'id_commercial', targetEntity: Reservation::class)]
     private Collection $reservations;
 
+    #[ORM\Column(length: 15, unique: true)]
+    private ?string $cin = null;
+
+    #[ORM\ManyToMany(targetEntity: Agent::class, inversedBy: 'commercials')]
+    private Collection $agents;
+
+    #[ORM\ManyToOne]
+    private ?User $id_user = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->agents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,5 +141,53 @@ class Commercial
     function __toString(): string
     {
         return $this->getNom() .' '. $this->getPrenom();
+    }
+
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    public function setCin(string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(Agent $agent): self
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(Agent $agent): self
+    {
+        $this->agents->removeElement($agent);
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->id_user;
+    }
+
+    public function setIdUser(?User $id_user): self
+    {
+        $this->id_user = $id_user;
+
+        return $this;
     }
 }

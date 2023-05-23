@@ -14,6 +14,7 @@ class CommercialType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
+            ->add('cin')
             ->add('telephone')
             ->add('adresse')
         ;

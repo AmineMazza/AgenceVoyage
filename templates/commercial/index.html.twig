@@ -44,9 +44,10 @@
                                 </div>
                                 <div data-popper-arrow></div>
                             </div>
+                            {% if is_granted('ROLE_ADMIN') %}        
                             <div data-popover-target="popover-agent" data-popover-placement="top" data-modal-target="medium-modal" data-modal-toggle="medium-modal" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 hover:bg-gray-100 hover:cursor-pointer hover:text-blue-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
-                            </div>
+                            </div>  
                             <div data-popover id="popover-agent" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                                 <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
                                     <h3 class="font-semibold text-gray-900 dark:text-white">Agent</h3>
@@ -56,6 +57,7 @@
                                 </div>
                                 <div data-popper-arrow></div>
                             </div>
+                            {% endif %}
                             <a href="{{ path('app_commercial_edit', {'id': commercial.id}) }}" data-popover-target="popover-edit" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r rounded-r-lg border-gray-200 hover:bg-gray-100 hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
                             </a>
@@ -72,6 +74,7 @@
                     </div>
                 </td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}               
             <div id="medium-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-lg max-h-full">
                     <!-- Modal content -->
@@ -84,21 +87,27 @@
                             </button>
                         </div>
                         <!-- Modal body -->
+                        <form class="space-y-6" action="{{path('app_commercial_agent', {'id': commercial.id})}}" method="POST">
                         <div class="px-6 pb-6 space-y-6">
                             <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                <label for="countries" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Relier ce commercial a un agent:</label>
-                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label for="agent" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Relier ce commercial a un agent:</label>
+                                <select id="agent" name="agent" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                {% for agent in agents %}
+                                    <option value={{agent.id}}> {{agent.nom}} {{agent.prenom}} </option>
+                                {% endfor %}
                                 </select>
                             </p>
                         </div>
                         <!-- Modal footer -->
                         <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button data-modal-hide="medium-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-500">Sauvgarder</button>
+                            <button data-modal-hide="medium-modal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-500">Sauvgarder</button>
                             <button data-modal-hide="medium-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600 transition duration-500">Retourner</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
@@ -106,5 +115,4 @@
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
