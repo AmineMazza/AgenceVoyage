@@ -20,7 +20,8 @@ const offreBpension_complete=document.getElementById('offre_bpension_complete');
 const offre_prix_complete_pension=document.getElementById('Offre_prix_complete_pension');
 const offre_detail_complete_pension=document.getElementById('Offre_detail_complete_pension');
 const offreBvisite_medine=document.getElementById('offre_bvisite_medine');
-
+let  dateDepart=0;
+let Generatetitle='';
 // handle create offre for agent
 const foragent = document.querySelector("#forAgent");
 const usersinput = document.querySelector("#users-input");
@@ -145,11 +146,9 @@ checkbox.addEventListener("change", function(){
 
 offreBvisite_medine.addEventListener('change',function(){
     if(offreBvisite_medine.checked==true){
-        console.log('ed');
         hotel2.style.display= 'block';
     }
     else{
-        console.log('eed');
         hotel2.style.display= 'none';     
     }
 })
@@ -172,20 +171,26 @@ let i = 1 ;
 
 nextbutton.addEventListener("click",function(){
     if(i==1){
-        const title=document.getElementById('offre_titre');
-        const titleError=document.getElementById('title-error');
-           if(title.value===''){
-            titleError.innerText='oblige de remplir titre';
-            previousbutton.click();
-            previousbutton.style.display = 'none';
-            i=1;
-           }
-           else{
-            titleError.innerText='';
-            i++;
-           }
+        const forAgent=document.getElementById('forAgent');
+        const errorforAgent=document.getElementById('errorforAgent');
+        if(forAgent.checked==true){
+            const users_input=document.getElementById('users-input');
+            if(users_input.options[users_input.selectedIndex].text===""){
+                errorforAgent.innerText="error oblige de choiser un agent";
+                previousbutton.click();
+                previousbutton.style.display = 'none';
+                i=1;
+            }
+            else{
+                errorforAgent.innerText='';
+                i++;
+            }
+        }else{
+            errorforAgent.innerText='';
+              i++;
         }
-    else if(i==2){
+    }
+     else if(i==2){
         const hebergement = document.getElementById('offre_bhebergement');
         const infoHebergementError=document.getElementById('Hebergement');
         let destVal = destination.options[destination.selectedIndex].text;
@@ -254,7 +259,7 @@ nextbutton.addEventListener("click",function(){
         const DateYearAller =document.getElementById('offre_date_depart_date_year');
         const DateMonthAller =document.getElementById('offre_date_depart_date_month');
         const DateDayAller =document.getElementById('offre_date_depart_date_day');
-        const dateDepart=new Date(DateYearAller.value,DateMonthAller.value,DateDayAller.value);
+        dateDepart=new Date(DateYearAller.value,DateMonthAller.value,DateDayAller.value);
         const dateCurrent = new Date();
             //date retour
         const DateYearRetour =document.getElementById('offre_date_retour_date_year');
@@ -280,7 +285,7 @@ nextbutton.addEventListener("click",function(){
         const DateYearAller =document.getElementById('offre_date_depart_date_year');
         const DateMonthAller =document.getElementById('offre_date_depart_date_month');
         const DateDayAller =document.getElementById('offre_date_depart_date_day');
-        const dateDepart=new Date(DateYearAller.value,DateMonthAller.value,DateDayAller.value);
+        dateDepart=new Date(DateYearAller.value,DateMonthAller.value,DateDayAller.value);
         const dateCurrent = new Date();
         if(dateDepart.getTime()<dateCurrent.getTime()){
             DateError.innerText='error choisir un date valide';
@@ -323,8 +328,8 @@ nextbutton.addEventListener("click",function(){
     else if(i==7){
         const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
         const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
-
         const ErrorPension=document.getElementById('ErrorPension');
+ 
         if(offrebdemipension.checked===true || offreBpension_complete.checked === true){
             if(offrePrix_demi_pension.value==='' || offre_prix_complete_pension.value===''){
                 ErrorPension.innerText='error prix obligatior';
@@ -338,13 +343,41 @@ nextbutton.addEventListener("click",function(){
         }
         else{
             ErrorPension.innerText='';
-            i++;  
+            i++;
+           
         }
     }
+    else if(i==8){
+               // generate offre titre 
+               const chambre1=document.getElementById('offre_prix_un');
+               const day = String(dateDepart.getDate()).padStart(2, '0');
+               const month = String(dateDepart.getMonth() + 1).padStart(2, '0');  // Month is zero-based, so we add 1
+               const year = String(dateDepart.getFullYear()).slice(-2);
+               const formattedDate = `${day}/${month}/${year}`;
+                const title=document.getElementById('offre_titre');
+                Generatetitle='offre a:'+destination.options[destination.selectedIndex].text +'-depart a:'+ formattedDate +'-a partir de:'+chambre1.value;
+                console.log(Generatetitle);
+                title.value=Generatetitle;
+                i++;
+
+     }
+      else if(i==9){
+            const title=document.getElementById('offre_titre');
+            const titleError=document.getElementById('title-error');
+               if(title.value===''){
+                titleError.innerText='oblige de remplir titre';
+                previousbutton.click();
+                i=9;
+               }
+               else{
+                titleError.innerText='';
+                i++;
+               }
+            }
     else{
         i++;
     }
-    if(i >= 9)
+    if(i >= 10)
         nextbutton.style.display = 'none' ;
     else if(i<=1){
         previousbutton.style.display = 'none';
@@ -366,5 +399,7 @@ previousbutton.addEventListener("click",function(){
         nextbutton.disabled=false;
     }
 })
+
+
 
 // verification input
