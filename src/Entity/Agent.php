@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AgentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AgentRepository::class)]
@@ -45,6 +47,14 @@ class Agent
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
+
+    #[ORM\ManyToMany(targetEntity: Commercial::class, mappedBy: 'agents')]
+    private Collection $commercials;
+
+    public function __construct()
+    {
+        $this->commercials = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +182,33 @@ class Agent
     public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commercial>
+     */
+    public function getCommercials(): Collection
+    {
+        return $this->commercials;
+    }
+
+    public function addCommercial(Commercial $commercial): self
+    {
+        if (!$this->commercials->contains($commercial)) {
+            $this->commercials->add($commercial);
+            $commercial->addAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommercial(Commercial $commercial): self
+    {
+        if ($this->commercials->removeElement($commercial)) {
+            $commercial->removeAgent($this);
+        }
 
         return $this;
     }

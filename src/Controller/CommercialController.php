@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commercial;
 use App\Form\CommercialType;
+use App\Service\AgentApiService;
 use App\Service\CommercialApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommercialController extends AbstractController
 {
     #[Route('/', name: 'app_commercial_index', methods: ['GET'])]
-    public function index(CommercialApiService $CommercialApiService): Response
+    public function index(CommercialApiService $CommercialApiService, AgentApiService $agentApiService): Response
     {
-        return $this->render('commercial/index.html.twig', [
-            'commercials' => $CommercialApiService->getCommercials(),
-        ]);
+        if($this->isGranted('ROLE_AGENT')) $commercials = $CommercialApiService->getCommercialsAgent($this->getUser()->getAgent()->getId());
+        else{ 
+            $commercials = $CommercialApiService->getCommercials();
+            $agents = $agentApiService->getAgents();
+        }
+
+        $data = [
+            'commercials' => $commercials,  
+        ];
+        if($this->isGranted('ROLE_ADMIN')){
+            $data['agents'] = $agents;
+        }
+        return $this->render('commercial/index.html.twig', $data );
     }
 
     #[Route('/new', name: 'app_commercial_new', methods: ['GET', 'POST'])]
@@ -72,6 +83,15 @@ class CommercialController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$commercial->getId(), $request->request->get('_token'))) {
             $CommercialApiService->DeleteCommercial($commercial->getId());
         }
+
+        return $this->redirectToRoute('app_commercial_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/agent', name: 'app_commercial_agent', methods: ['POST'])]
+    public function linkAgent(Request $request, Commercial $commercial, CommercialApiService $CommercialApiService): Response
+    {
+        $idA = $request->request->get('agent');
+        $CommercialApiService->AddCommercialAgent($commercial->getId(), $idA);
 
         return $this->redirectToRoute('app_commercial_index', [], Response::HTTP_SEE_OTHER);
     }

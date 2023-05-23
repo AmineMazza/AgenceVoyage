@@ -3,52 +3,53 @@ let select = document.querySelector("#SelectMethod");
 let label = document.querySelector("#SelectLabel");
 let Commercialdiv = document.querySelector('#reservation_commercial');
 let commercials =  JSON.parse(document.querySelector("#CommercialData").value.replace('$', ' '));
+let numVoyageur = document.querySelector("#num-voyageurs");
+let data;
+let choicesChambre = `<option value=""></option>`;
+let choicesPension = `<option value=""></option>`;
+
+async function getOffre(){
+    let linkTab = window.location.href.split('/');
+    let idO = linkTab[linkTab.length-2];
+    let response;
+    response = await fetch('/api/offres/'+idO, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    data = await response.json()      
+    if('prixUn' in data){
+        choicesChambre += `<option value=${data.prixUn}>chambre seul</option>`;
+    }
+    if('prixDouble' in data){
+        choicesChambre += `<option value=${data.prixDouble}>chambre double</option>`;
+    }
+    if('prixTriple' in data){
+        choicesChambre += `<option value=${data.prixTriple}>chambre triple</option>`;
+    }
+    if('prixQuad' in data){
+        choicesChambre += `<option value=${data.prixQuad}>chambre quad</option>`;
+    }
+    if('prixQuint' in data){
+        choicesChambre += `<option value=${data.prixQunit}>chambre quint</option>`;
+    }
+    if(data.bdemiPension){
+        choicesPension += `<option value=${data.prixDemiPension}>Demi pension</option>`;
+    }
+    if(data.bpensionComplete){
+        choicesPension += `<option value=${data.prixCompletePension}>Pension complete</option>`;
+    }
+}
+getOffre()
 
 isCommercial.addEventListener("input",()=>isCommercialEvent());
 
-select.addEventListener("change", ()=>{selectEvent()})
+numVoyageur.addEventListener('input',()=>{numVoyageurEvent()})
 
 function isCommercialEvent(){
     if(isCommercial.checked){
-        select.disabled = false;
         document.querySelector('.commercial-info').style.display = "block";
-        select.style.display = "block"
-        label.style.display = "block"
-    }
-    else{
-        select.selectedIndex = 0;
-        selectEvent();
-        select.disabled = true;
-        document.querySelector('.commercial-info').style.display = "none";
-        select.style.display = "none"
-        label.style.display = "none"
-    }
-}
-
-function selectEvent(){
-    if(select.options[select.selectedIndex].value == "new"){
-        Commercialdiv.innerHTML = `
-        <div id="reservation_id_commercial">
-            <div class="relative mb-2">
-                <input id="reservation_id_commercial_nom" type="text" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" name="reservation[id_commercial][nom]" placeholder=" " required="required" maxlength="50"/>
-                <label class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1" for="reservation_id_commercial_nom">Nom du commercial</label>
-            </div>
-            <div class="relative mb-2">
-                <input id="reservation_id_commercial_prenom" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " type="text" name="reservation[id_commercial][prenom]" required="required" maxlength="50"/>
-                <label class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1" for="reservation_id_commercial_prenom">Prenom du Commercial</label>
-            </div>
-            <div class="relative mb-2">
-                <input id="reservation_id_commercial_telephone" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " type="text" name="reservation[id_commercial][telephone]" type="text" name="reservation[id_commercial][telephone]" required="required" maxlength="20"/>
-                <label class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1" for="reservation_id_commercial_telephone">Telephone</label>
-            </div>
-            <div class="relative mb-2">
-                <input id="reservation_id_commercial_adresse" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " type="text" name="reservation[id_commercial][adresse]" type="text" name="reservation[id_commercial][adresse]" maxlength="255"/>
-                <label class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1" for="reservation_id_commercial_adresse">Adresse</label>
-            </div>
-        </div>
-        `;
-    }
-    else if(select.options[select.selectedIndex].value == 'exist'){
         let options = `<option value=""></option>`;
         commercials.forEach(commercial => {
             options+= `
@@ -60,12 +61,55 @@ function selectEvent(){
         <select id="reservation_id_commercial" name="reservation[id_commercial]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="required">
             ${options}
         </select>
-        `;        
+        `; 
     }
-    else if(select.options[select.selectedIndex].value == 'null'){
-        Commercialdiv.innerHTML = ``;
+    else{
+        Commercialdiv.innerHTML = '';
+        document.querySelector('.commercial-info').style.display = "none";
     }
 }
 
+
+function numVoyageurEvent(){
+    document.querySelector("#voyageurInfo").innerHTML = ``;
+    let voyageurHTML = `
+    <div id="reservation_voyageurs___name__" class="flex">\
+        <div>
+            <label for="reservation_voyageurs___name___nom" class="required">Nom</label>
+            <input type="text" id="reservation_voyageurs___name___nom" name="reservation[voyageurs][__name__][nom]" required="required" maxlength="50" />
+        </div>
+        <div>
+            <label for="reservation_voyageurs___name___prenom" class="required">Prenom</label>
+            <input type="text" id="reservation_voyageurs___name___prenom" name="reservation[voyageurs][__name__][prenom]" required="required" maxlength="50" />
+        </div>
+        <div>
+            <label for="reservation_voyageurs___name___cin">Cin</label>
+            <input type="text" id="reservation_voyageurs___name___cin" name="reservation[voyageurs][__name__][cin]" maxlength="20" />
+        </div>
+        <div>
+            <label for="reservation_voyageurs___name___num_passport">Num passport</label>
+            <input type="text" id="reservation_voyageurs___name___num_passport" name="reservation[voyageurs][__name__][num_passport]" maxlength="100" />
+        </div>
+        <div>
+            <select id="reservation_voyageurs___name___prix" name="reservation[voyageurs][__name__][prix]">
+                ${choicesChambre}
+            </select>
+        </div>
+        <div>
+            <select id="reservation_voyageurs___name___pension" name="reservation[voyageurs][__name__][pension]">
+                ${choicesPension}
+            </select>
+        </div>
+    </div>
+    `;
+    let num = parseInt(numVoyageur.value);
+
+    for(i = 0; i<num; i++){
+        document.querySelector("#voyageurInfo").innerHTML += voyageurHTML.replace(/__name__/g , i);
+    }
+
+}
+
+
 isCommercialEvent();
-selectEvent();
+numVoyageurEvent();
