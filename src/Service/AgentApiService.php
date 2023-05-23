@@ -84,7 +84,6 @@ class AgentApiService extends AbstractController {
             ],
             'json' => [
                 'idUser' => 'api/users/'.$idU,
-                'nom' => $agent->getId(),
                 'agence' => $agent->getAgence(),
                 'nom' => $agent->getNom(),
                 'prenom' => $agent->getPrenom(),
@@ -133,21 +132,22 @@ class AgentApiService extends AbstractController {
         return false;
     }
 
-    public function DeleteAgent($id) : bool
+    public function DeleteAgent($agent) : bool
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
-        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/agents/'.$id,[
+        $response = $this->client->request('DELETE', 'http://127.0.0.1/api/agents/'.$agent->getId(),[
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
         ]);
         if ($response->getStatusCode() === 200) {
+
             return true;
         }
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->DeleteAgent($id);
+            $this->DeleteAgent($agent);
         }
         return false;
     }
