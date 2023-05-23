@@ -16,23 +16,16 @@
             <!-- Item 1 -->
             <div id="1" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item="active">
                 <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Titre</span> de l'offre:</h1>
-                    <div class="relative w-1/2 m-auto">
-                        {{ form_widget(form.titre, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                            'placeholder': " " } }) }}
-                        <label for="offre[titre]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Titre</label>
-                    </div>
-                     <label for="" id='title-error' class="text-red-500"></label>
-                </div>
-                {% if is_granted('ROLE_ADMIN') %}    
+                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Relier</span> cet offre a un agent:</h1>
+                    {% if is_granted('ROLE_ADMIN') %}    
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="forAgent" class="sr-only peer" name="forAgent">
                         <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Pour un agent</span>
                     </label>
-                {% endif %}
-                {{ form_widget(form.id_user,{ 'id': 'users-input' ,'attr': {'class': 'hidden'}}) }}
-               
+                    {% endif %}
+                    {{ form_widget(form.id_user,{ 'id': 'users-input' ,'attr': {'class': 'hidden m-auto mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                </div>
             </div>
 
             <!-- Item 2 -->
@@ -396,6 +389,20 @@
 
             <!-- Item 9 -->
             <div id="9" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Titre</span> de l'offre:</h1>
+                    <div class="relative w-1/2 m-auto">
+                        {{ form_widget(form.titre, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                            'placeholder': " " } }) }}
+                        <label for="offre[titre]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Titre</label>
+                    </div>
+                     <label for="" id='title-error' class="text-red-500"></label>
+                </div>
+               
+            </div>
+
+            <!-- Item 10 -->
+            <div id="10" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
                 <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> supplémentaires:</h1>
                     <div class="flex">
