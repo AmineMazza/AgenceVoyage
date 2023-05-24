@@ -269,8 +269,32 @@ class CommercialApiService extends AbstractController {
         return false;
     }
 
-    public function DeleteCommercial($id) : bool
+    public function DeleteCommercial($id)
     {
+        $commercial = $this->getCommercialJSON($id);
+        if(!empty($commercial->idUser)){
+            if(count($commercial->agents)==0){
+                // D 1
+                $this->DeleteCommercialPerm($id);
+            }
+            else{
+                // S D 1
+                $this->DeleteCommercialExist($commercial);
+            }
+        }
+        else{
+            if(count($commercial->agents)>1){
+                // S D 2
+                $this->DeleteCommercialExist($commercial);
+            }
+            else{
+                // D 2
+                $this->DeleteCommercialPerm($id);
+            }
+        }
+    }
+
+    public function DeleteCommercialPerm($id) : bool {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('DELETE', 'http://127.0.0.1/api/commercials/'.$id,[
             'headers' => [
@@ -284,6 +308,39 @@ class CommercialApiService extends AbstractController {
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->DeleteCommercial($id);
+        }
+        return false;
+    }
+
+    public function DeleteCommercialExist($commercial) : bool {
+        $json = [];
+        if($this->isGranted('ROLE_ADMIN')){
+            $json = ['idUser' => null];
+        }
+        elseif($this->isGranted('ROLE_AGENT')){
+            $i = 0;
+            $json['agents'] = [];
+            foreach ($commercial->agents as $value){
+                if(!str_contains($value,$this->getUser()->getAgent()->getId())){
+                    $json['agents'][$i]=$value;
+                    $i++;
+                }
+            }
+        }
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/commercials/'.$commercial->id,[
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => $json
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->DeleteCommercialExist($commercial);
         }
         return false;
     }
