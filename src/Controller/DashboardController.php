@@ -64,9 +64,30 @@ class DashboardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $extraFields = $form->getExtraData();
+            $mantant = 0;
             
             // dd($extraFields);
-            if($extraFields != []){
+            $i = 0;
+            if($extraFields['voyageur'] != []){
+                foreach ($extraFields['voyageur'] as $value){
+                    if($value['prix']!=""){
+                        $mantant += (int)$value['prix'];
+                        $i++;
+                    }
+                    if($value['pension']!=""){
+                        $mantant += (int)$value['pension'];
+                    }
+                    
+                }
+                if($i!=$reservation->getNumVoyageurs()){
+                    $mantant += ($offre->getPrixUn())*($reservation->getNumVoyageurs()-$i);
+                }
+            }
+            else{
+                $mantant = ($offre->getPrixUn())*($reservation->getNumVoyageurs());
+            }
+            $reservation->setMontantTotal($mantant);
+            if(array_key_exists('isCommercial',$extraFields)){
                 if($extraFields['isCommercial'] == 'on'){
                     $idR = $ReservationApiService->AddReservation($reservation, $_route_params['idO'],$extraFields['id_commercial']);
                 }

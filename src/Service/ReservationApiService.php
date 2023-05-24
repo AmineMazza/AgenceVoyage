@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class ReservationApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private OffreApiService $offreApiService, private CallApiService $callApiService, private CommercialApiService $commercialApiService, private UserApiService $userApiService){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private OffreApiService $offreApiService, private CallApiService $callApiService, private CommercialApiService $commercialApiService, private UserApiService $userApiService, private VoyageurApiService $voyageurApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -97,6 +97,7 @@ class ReservationApiService extends AbstractController {
             'dateReservation' => (new \DateTime())->format('Y-m-d\TH:i:sP'),
             'numVoyageurs' => $reservation->getNumVoyageurs(),
             'remarque' => $reservation->getRemarque(),
+            'montantTotal' => $reservation->getMontantTotal(),
             'mntCommission' => $reservation->getMntCommission(),
             'avanceCommission' => $reservation->getAvanceCommission(),
             'dateAvanceCommission' => (($reservation->getAvanceCommission()!=null) ? (new \DateTime())->format('Y-m-d\TH:i:sP') : null ),
@@ -112,6 +113,11 @@ class ReservationApiService extends AbstractController {
         if ($response->getStatusCode() === 201) {
             $foreignKeyResponseData = json_decode($response->getContent(), true);
             $foreignKeyId = $foreignKeyResponseData['id'];
+            foreach($reservation->getVoyageurs() as $voyageur){
+                if($voyageur->getNom() != null && $voyageur->getPrenom() != null){
+                    $this->voyageurApiService->AddVoyageur($voyageur, $foreignKeyId);
+                }
+            }
             return $foreignKeyId;
         }
         else if ($response->getStatusCode() === 401) {

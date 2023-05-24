@@ -56,6 +56,9 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_avance_commission = null;
 
+    #[ORM\Column]
+    private ?float $montant_total = null;
+
     public function __construct()
     {
         $this->avances = new ArrayCollection();
@@ -237,6 +240,18 @@ class Reservation
     public function setDateAvanceCommission(?\DateTimeInterface $date_avance_commission): self
     {
         $this->date_avance_commission = $date_avance_commission;
+
+        return $this;
+    }
+
+    public function getMontantTotal(): ?float
+    {
+        return $this->montant_total;
+    }
+
+    public function setMontantTotal(float $montant_total): self
+    {
+        $this->montant_total = $montant_total;
 
         return $this;
     }

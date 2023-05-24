@@ -134,7 +134,7 @@ class OffreApiService extends AbstractController {
             'prixCompletePension' => $offre->isBpensionComplete() ? $offre->getPrixCompletePension() : null,
             'detailCompletePension' => $offre->isBpensionComplete() ? $offre->getDetailCompletePension() : null,
             'bvisiteMedine' => $offre->isBvisiteMedine(),
-            'prix' => $offre->getPrixUn(),
+            'prixUn' => $offre->getPrixUn(),
             'prixDouble' => $offre->getPrixDouble(),
             'prixTriple' => $offre->getPrixTriple(),
             'prixQuad' => $offre->getPrixQuad(),
@@ -150,7 +150,6 @@ class OffreApiService extends AbstractController {
             'detailVols' => $offre->getDetailVols(),
             'image' => $offre->getImage(),
         ];
-
         $response = $this->client->request('POST', 'http://127.0.0.1/api/offres', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
@@ -191,6 +190,7 @@ class OffreApiService extends AbstractController {
             'prixCompletePension' => $offre->isBpensionComplete() ? $offre->getPrixCompletePension() : null,
             'detailCompletePension' => $offre->isBpensionComplete() ? $offre->getDetailCompletePension() : null,
             'bvisiteMedine' => $offre->isBvisiteMedine(),
+            'prixUn' => $offre->getPrixUn(),
             'prixDouble' => $offre->getPrixDouble(),
             'prixTriple' => $offre->getPrixTriple(),
             'prixQuad' => $offre->getPrixQuad(),

@@ -42,14 +42,6 @@ class DestinationController extends AbstractController
 
     }
 
-    #[Route('/{id}', name: 'app_destination_show', methods: ['GET'])]
-    public function show(DestinationApiService $destinationApiService, CallApiService $callApiService, array $_route_params): Response
-    {
-        return $this->render('destination/show.html.twig', [
-            'destination' => $destinationApiService->getDestination($_route_params['id']),
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_destination_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DestinationApiService $destinationApiService, CallApiService $callApiService, array $_route_params): Response
     {
