@@ -14,24 +14,18 @@ let reservationRemarque=document.getElementById('reservation_remarque');
 let AjoutBtn=document.getElementById('AjoutBtn');
 let remplieIsValid=true;
 function displayBtn(){
-    "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white";
-    "mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500";
         reservationRemarque.disabled = true;
-        reservationRemarque.classList.add("text-gray-400","bg-transparent",'cursor-not-allowed',"hover:bg-gray-200","hover:text-gray-900","rounded-lg","text-sm","p-1.5","ml-auto ","inline-flex","items-center","dark:hover:bg-gray-600", "dark:hover:text-white");
-            //** */
+        reservationRemarque.style.cursor = "not-allowed";
+        //** */
         RemplissezBtn.disabled = true;
-        RemplissezBtn.style.backgroundColor = "#f2f2f2";
-        RemplissezBtn.style.color = "#999999";
         RemplissezBtn.style.cursor = "not-allowed";
-         //** */
+        //** */
         isCommercial.disabled = true;
-        isCommercial.style.backgroundColor = "#f2f2f2";
-        isCommercial.style.color = "#999999";
-        isCommercial.style.cursor = "not-allowed";
-       //** */
+        //** */
        AjoutBtn.disabled = true;
-       AjoutBtn.classList.add('text-white','bg-blue-400','dark:bg-blue-500','cursor-not-allowed','font-medium','rounded-lg','text-sm','px-5','py-2.5','text-center');
+       AjoutBtn.style.cursor = "not-allowed";
 
+       
 }
 window.addEventListener('load', function() {
 let num = parseInt(numVoyageur.value);
@@ -40,18 +34,13 @@ if(num <= 0 || isNaN(num) ){
 }
 else{
     reservationRemarque.disabled = false;
-    reservationRemarque.style.backgroundColor = "";
-    reservationRemarque.style.color = "";
     reservationRemarque.style.cursor = "";
     RemplissezBtn.disabled = false;
-    RemplissezBtn.style.backgroundColor = "";
-    RemplissezBtn.style.color = "";
     RemplissezBtn.style.cursor = "";
     isCommercial.disabled = false;
-    isCommercial.style.backgroundColor = "";
-    isCommercial.style.color = "";
     isCommercial.style.cursor = "";
-    reservationRemarque.classList.remove("text-gray-400","bg-transparent",'cursor-not-allowed',"hover:bg-gray-200","hover:text-gray-900","rounded-lg","text-sm","p-1.5","ml-auto ","inline-flex","items-center","dark:hover:bg-gray-600", "dark:hover:text-white");
+    AjoutBtn.disabled=false;
+    AjoutBtn.style.cursor = "";
 
 }
 });
@@ -64,10 +53,8 @@ SauvegarderBtn.addEventListener('click',function(){
     const reservationInputChampres=document.querySelectorAll('.reservationInputChampre');
     remplieIsValid = true;
     reservationInputs.forEach((reservationinput,index)=>{
-        console.log('loop',index);
         if (index === 0 || index === 1 || index === 2 || index === 3){
          if(reservationinput.value === ""){
-            console.log('false');
             remplieIsValid = false;
         }
          }
@@ -80,13 +67,14 @@ SauvegarderBtn.addEventListener('click',function(){
 
     if(remplieIsValid==true){
         AjoutBtn.disabled = false;
-       AjoutBtn.classList.remove('bg-blue-400','dark:bg-blue-500','cursor-not-allowed');
+       AjoutBtn.style.cursor = "not-allowed";
+
     }
     else{
         errorReservation.innerText = "veuillez remplir les chomp de premier voyageur.";
-        AjoutBtn.disabled = true;
-        AjoutBtn.classList.add('text-white','bg-blue-400','dark:bg-blue-500','cursor-not-allowed','font-medium','rounded-lg','text-sm','px-5','py-2.5','text-center'); 
-    }
+       AjoutBtn.style.cursor = "";
+
+        }
 });
 //** */
 
@@ -116,12 +104,15 @@ closeRemplier.addEventListener('click',function(){
     });
     if(remplieIsValid==true){
         AjoutBtn.disabled = false;
-       AjoutBtn.classList.remove('bg-blue-400','dark:bg-blue-500','cursor-not-allowed');
+        AjoutBtn.style.cursor = "";
+     
     }
     else{
         errorReservation.innerText = "veuillez remplir les chomp de premier voyageur.";
         AjoutBtn.disabled = true;
-        AjoutBtn.classList.add('text-white','bg-blue-400','dark:bg-blue-500','cursor-not-allowed','font-medium','rounded-lg','text-sm','px-5','py-2.5','text-center'); 
+       AjoutBtn.style.cursor = "not-allowed";
+
+
     }
 
 })
@@ -230,16 +221,10 @@ function numVoyageurEvent(){
     }
     else{
         reservationRemarque.disabled = false;
-        reservationRemarque.style.backgroundColor = "";
-        reservationRemarque.style.color = "";
         reservationRemarque.style.cursor = "";
         RemplissezBtn.disabled = false;
-        RemplissezBtn.style.backgroundColor = "";
-        RemplissezBtn.style.color = "";
         RemplissezBtn.style.cursor = "";
         isCommercial.disabled = false;
-        isCommercial.style.backgroundColor = "";
-        isCommercial.style.color = "";
         isCommercial.style.cursor = "";
     }
     for(i = 0; i<num; i++){
