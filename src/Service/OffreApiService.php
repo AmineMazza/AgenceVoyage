@@ -17,10 +17,8 @@ class OffreApiService extends AbstractController {
 
     public function getOffres() : array
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/offres',[
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
         ]);
