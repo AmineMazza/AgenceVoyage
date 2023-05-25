@@ -163,6 +163,18 @@ hebergement.addEventListener("change", function(){
     }
 })
 
+offrebdemipension.addEventListener('click',function(){
+const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
+    if(offrebdemipension.checked===false){
+        offrePrix_demi_pension.value='';
+    }
+});
+offreBpension_complete.addEventListener('click',function(){
+    const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
+        if(offre_prix_complete_pension.checked===false){
+            offre_prix_complete_pension.value='';
+        }
+});
 
 previousbutton.style.display = 'none' ;
 let i = 1 ;
@@ -307,9 +319,31 @@ nextbutton.addEventListener("click",function(){
         const offrePrix_demi_pension=document.getElementById('offre_prix_demi_pension');
         const offre_prix_complete_pension=document.getElementById('offre_prix_complete_pension');
         const ErrorPension=document.getElementById('ErrorPension');
- 
-        if(offrebdemipension.checked===true || offreBpension_complete.checked === true){
+       
+        if(offrebdemipension.checked===true && offreBpension_complete.checked === true){
             if(offrePrix_demi_pension.value==='' || offre_prix_complete_pension.value===''){
+                ErrorPension.innerText='error prix obligatior';
+                previousbutton.click();
+                i=7;
+            }else{
+                ErrorPension.innerText='';
+                i++;   
+            }
+
+        }
+        else if(offrebdemipension.checked===true){
+            if(offrePrix_demi_pension.value===''){
+                ErrorPension.innerText='error prix obligatior';
+                previousbutton.click();
+                i=7;
+            }
+            else{
+                ErrorPension.innerText='';
+                i++;   
+            }
+        }
+        else if(offreBpension_complete.checked === true){
+            if(offre_prix_complete_pension.value===''){
                 ErrorPension.innerText='error prix obligatior';
                 previousbutton.click();
                 i=7;
@@ -340,6 +374,7 @@ nextbutton.addEventListener("click",function(){
 
      }
       else if(i==9){
+        
             const title=document.getElementById('offre_titre');
             const titleError=document.getElementById('title-error');
                if(title.value===''){
