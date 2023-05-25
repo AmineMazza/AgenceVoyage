@@ -62,7 +62,6 @@ class OffreType extends AbstractType
                 'allow_delete' => true,
                 'error_bubbling' => false
             ])
-            ->add('baller_retour',null ,['required' => false])
             ->add('bhebergement',null,['required' => false])
             ->add('bvisa',null,['required' => false])
             ->add('bdemi_pension',null,['required' => false])

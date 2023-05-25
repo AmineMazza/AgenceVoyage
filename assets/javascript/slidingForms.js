@@ -115,7 +115,7 @@ destination.addEventListener("change",()=>{destinationEvent()})
 function destinationEvent(){
     let destVal = destination.options[destination.selectedIndex].text;
     if(destVal == "Omra"  || destVal == "Hajj" || destVal == "Omra_combine"){
-        document.querySelector("#visiteMedine").style.display = "inline flex"
+        document.querySelector("#visiteMedine").style.display = "flex"
         if(offreBvisite_medine.checked == true){
             document.querySelector("#hbar1").style.display = "block";
             hotel2.style.display = "block";
@@ -138,21 +138,11 @@ function destinationEvent(){
 }
 destinationEvent();
 
-checkbox.checked = true ;
-checkbox.addEventListener("change", function(){
-    if(checkbox.checked == true){
-        bar.style.display = 'block'
-        retour.style.display = 'block'
-    }else{
-        bar.style.display = 'none'
-        retour.style.display = 'none'
-    }
-    
-})
 /*** */
 
 offreBvisite_medine.addEventListener('change',function(){
     if(offreBvisite_medine.checked==true){
+        console.log(hotel2);
         document.querySelector("#hbar1").style.display = "block";
         hotel2.style.display= 'block';
     }
