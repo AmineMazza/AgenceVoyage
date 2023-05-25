@@ -4,7 +4,7 @@
 
 {% block body %}
 {# card carousel #}
-<div class="carousel carousel-center rounded-box bg-[url('/assets/images/bg1.png')] h-[30rem] w-full px-60 m-auto space-x-4 pb-10 cursor-pointer">
+<div class="carousel carousel-center rounded-box bg-[url({{asset('/assets/images/bg1.png')}})] h-[30rem] w-full px-60 m-auto space-x-4 pb-10 cursor-pointer">
   {% for offre in offres %}
     {% if offre.image is defined and offre.bcoupCoeur  %}
         <div class="carousel-item bg-gradient-to-t from-gray-100 rounded-lg hover:bg-gray-200 transition duration-500 z-40">
