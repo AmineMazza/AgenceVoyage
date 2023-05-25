@@ -4,10 +4,10 @@
 
 {% block body %}
 {# card carousel #}
-<div class="carousel carousel-center rounded-box h-[30rem] w-4/5 m-auto space-x-4 pb-10 cursor-pointer">
+<div class="carousel carousel-center rounded-box bg-[url('/assets/images/bg1.png')] h-[30rem] w-full px-60 m-auto space-x-4 pb-10 cursor-pointer">
   {% for offre in offres %}
     {% if offre.image is defined and offre.bcoupCoeur  %}
-        <div class="carousel-item bg-gradient-to-t from-gray-100 rounded-lg hover:scale-105 transition duration-500 z-40">
+        <div class="carousel-item bg-gradient-to-t from-gray-100 rounded-lg hover:bg-gray-200 transition duration-500 z-40">
             <div class="w-[18.75rem] h-auto p-3 space-y-2 relative">
                 <a href="{{ path('app_offre_show', {'id': offre.id}) }}">
                 <div class="bg-blue-600 w-full h-1/2 rounded-xl">
@@ -46,5 +46,71 @@
 
 {# filters #}
 {# offers list #}
-offre
+<div class="grid grid-cols-2 gap-8 m-8">
+
+    {% for offre in offresNoBcoupCoeur %}
+        <div class="flex justify-between items-center bg-white rounded-lg shadow-lg p-6 hover:scale-105 transition duration-500">
+        <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="mr-8 hover:cursor-pointer">
+            <div class="text-lg font-bold mb-2">{{ offre.titre }}</div>
+            <div class="flex text-gray-600 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
+                </svg>
+                : {{ offre.idDestination }} 
+            </div>
+            <div class="inline-flex items-center text-gray-600 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg>
+                : {{ offre.dateDepart ? offre.dateDepart|date('Y-m-d H:i') : '' }} &#160;
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>&#160;{{ offre.dateRetour ? offre.dateRetour|date('Y-m-d H:i') : '' }}
+            </div>
+            {% if offre.getPrixUn() is not null  %}
+            <div class="text-lg flex items-center font-semibold text-emerald-700"><span class="text-gray-500 italic text-sm font-medium mr-2">a partir de:</span> {{ offre.getPrixUn() }} MAD</div>
+            {% else %}
+                {% if offre.getPrixDouble() is not null %}
+                    <div class="text-lg font-bold text-green-800">{{ offre.getPrixDouble() }} MAD</div>
+                {% else %}
+                    {% if offre.getPrixTriple() is not null %}
+                        <div class="text-lg font-bold text-green-800">{{ offre.getPrixTriple()   }} MAD</div>
+                    {% else %}
+                        {% if offre.getPrixQuad() is not null %}
+                            <div class="text-lg font-bold text-green-800">{{ offre.getPrixQuad() }} MAD</div>
+                        {% else %}
+                            {% if offre.getPrixQuint() is not null %}
+                                <div class="text-lg font-bold text-green-800">{{ offre.getPrixQuint() }} MAD</div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %} 
+                {% endif %}
+            {% endif %}
+        </a>
+        {% if offre.image is defined %}
+            <img data-modal-target="popup-modal" id='clickableImage' data-modal-toggle="popup-modal" src="{{ offre.image }}" alt="" class="w-32 h-32 object-cover rounded-lg hover:cursor-pointer">
+           
+        {% else %}
+            <div class="w-32 h-32 bg-gray-300 rounded-lg"></div>
+        {% endif %}
+        </div>
+
+         <div id="popup-modal"  tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button" class="absolute top-2.5 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                            <svg aria-hidden="true" id="ClosePopUp" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="p-2 text-center rounded-lg" id="displayImage"></div>
+                    </div>
+                </div>
+            </div>
+        
+    {% else %}
+        <div class="text-gray-600">No records found</div>
+    {% endfor %}
+    </div>
+    <a href="{{ path('app_offre_index', {'value':'all'}) }}" class="flex items-center justify-center mt-4 mb-12 text-center font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+        S'avoir plus?
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
+    </a>
 {% endblock %}
