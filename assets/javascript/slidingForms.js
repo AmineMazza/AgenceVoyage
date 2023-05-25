@@ -102,34 +102,41 @@ imageOffre.addEventListener('change', function(event) {
 
 
 /**************************** */
-if(destination.options[destination.selectedIndex].text != "Omra"  || destination.options[destination.selectedIndex].text != "Hajj" || destination.options[destination.selectedIndex].text != "Omra_combine"){
-    hotel0.style.display = "block";
-    hotel1.style.display = "none";
-    hotel2.style.display = "none";
-    hbar0.style.display = 'none';
-    hbar1.style.display = 'none';
-}
+// if(destination.options[destination.selectedIndex].text != "Omra"  || destination.options[destination.selectedIndex].text != "Hajj" || destination.options[destination.selectedIndex].text != "Omra_combine"){
+//     hotel0.style.display = "block";
+//     hotel1.style.display = "none";
+//     hotel2.style.display = "none";
+//     hbar0.style.display = 'none';
+//     hbar1.style.display = 'none';
+// }
 
-destination.addEventListener("change",function(){
+destination.addEventListener("change",()=>{destinationEvent()})
+
+function destinationEvent(){
     let destVal = destination.options[destination.selectedIndex].text;
     if(destVal == "Omra"  || destVal == "Hajj" || destVal == "Omra_combine"){
-        if(offreBvisite_medine.checked==true){
+        document.querySelector("#visiteMedine").style.display = "inline flex"
+        if(offreBvisite_medine.checked == true){
+            document.querySelector("#hbar1").style.display = "block";
             hotel2.style.display = "block";
-         }
+        }
         else{
-        hotel2.style.display = 'none' ;
+            document.querySelector("#hbar1").style.display = "none";
+            hotel2.style.display = 'none' ;
         }
         hotel0.style.display = 'block' ;
         hotel1.style.display = 'block' ;
         hbar0.style.display = 'block' ;
-        hbar1.style.display = 'block' ;
     }else{
+        offreBvisite_medine.checked = false;
+        document.querySelector("#visiteMedine").style.display = "none"
         hotel1.style.display = 'none';
         hotel2.style.display = 'none';
         hbar0.style.display = 'none';
         hbar1.style.display = 'none';
-     }
-})
+    }
+}
+destinationEvent();
 
 checkbox.checked = true ;
 checkbox.addEventListener("change", function(){
@@ -146,9 +153,11 @@ checkbox.addEventListener("change", function(){
 
 offreBvisite_medine.addEventListener('change',function(){
     if(offreBvisite_medine.checked==true){
+        document.querySelector("#hbar1").style.display = "block";
         hotel2.style.display= 'block';
     }
     else{
+        document.querySelector("#hbar1").style.display = "none";
         hotel2.style.display= 'none';     
     }
 })

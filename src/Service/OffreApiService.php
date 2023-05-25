@@ -214,9 +214,6 @@ class OffreApiService extends AbstractController {
             'json' => $json,
         ]);
         if ($response->getStatusCode() === 200) {
-            foreach ($offre->getHotels() as $key => $value) {
-                $this->hotelApiService->UpdateHotel($value);
-            }
             return true;
         }
         else if ($response->getStatusCode() === 401) {
