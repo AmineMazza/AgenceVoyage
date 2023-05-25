@@ -261,10 +261,7 @@ nextbutton.addEventListener("click",function(){
     }
     }
     else if(i==3){
-        let retour = document.getElementById('offre_baller_retour');
-          //date twig error
          const DateError=document.getElementById('DateError');
-        if(retour.checked == true){
         const DateYearAller =document.getElementById('offre_date_depart_date_year');
         const DateMonthAller =document.getElementById('offre_date_depart_date_month');
         const DateDayAller =document.getElementById('offre_date_depart_date_day');
@@ -289,24 +286,6 @@ nextbutton.addEventListener("click",function(){
             DateError.innerText='';
             i++;
         }
-    }
-    else{
-        const DateYearAller =document.getElementById('offre_date_depart_date_year');
-        const DateMonthAller =document.getElementById('offre_date_depart_date_month');
-        const DateDayAller =document.getElementById('offre_date_depart_date_day');
-        dateDepart=new Date(DateYearAller.value,DateMonthAller.value,DateDayAller.value);
-        const dateCurrent = new Date();
-        if(dateDepart.getTime()<dateCurrent.getTime()){
-            DateError.innerText='error choisir un date valide';
-                 previousbutton.click();
-                 i=3;
-        }
-        else{
-            DateError.innerText='';
-            i++;
-        }
-    }
-
     }
     else if(i==4){
         const chambre1=document.getElementById('offre_prix_un');
