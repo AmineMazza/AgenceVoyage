@@ -19,20 +19,12 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(OffreApiService $offreApiService,OffreRepository $offreRepository): Response
     {
-<<<<<<< HEAD
             $offreNOBcoupCoeur=$offreRepository->getOffresNoBcoupCoeur();
             $offreBcoupCoeur=$offreRepository->getOffresBcoupCoeur();
-         return $this->render('home/index.html.twig', [
+             return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'offres' => $offreBcoupCoeur,
             'offresNoBcoupCoeur'=> $offreNOBcoupCoeur,
-=======
-
-        
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'offres' => $offreApiService->getOffres(),
->>>>>>> 32d7a98df5eec1fdb61d50d5c90a585c871feb57
         ]);
     }
 }
