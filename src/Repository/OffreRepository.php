@@ -53,14 +53,21 @@ public function PaginationQuery(string $value="all"): array
     return $queryBuilder->getQuery()->getResult();
 }
 
-public function getOffres(): array
+public function getOffresNoBcoupCoeur(): array
 {
-    $queryBuilder = $this->createQueryBuilder('o')
-        ->andWhere('o.bcoup_coeur = :value')
-        ->setParameter('value', 0)
+        $queryBuilder = $this->createQueryBuilder('o')
         ->orderBy('o.id', 'ASC')
+        ->andWhere('o.bcoup_coeur =:value')
+        ->setParameter('value', false)
         ->setMaxResults(10);
+    return $queryBuilder->getQuery()->getResult();
+}
 
+public function getOffresBcoupCoeur(): array
+{
+        $queryBuilder = $this->createQueryBuilder('o')
+        ->andWhere('o.bcoup_coeur = :value')
+        ->setParameter('value', true);
     return $queryBuilder->getQuery()->getResult();
 }
 
