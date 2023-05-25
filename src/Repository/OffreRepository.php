@@ -53,6 +53,16 @@ public function PaginationQuery(string $value="all"): array
     return $queryBuilder->getQuery()->getResult();
 }
 
+public function getOffres(): array
+{
+    $queryBuilder = $this->createQueryBuilder('o')
+        ->andWhere('o.bcoup_coeur = :value')
+        ->setParameter('value', 0)
+        ->orderBy('o.id', 'ASC')
+        ->setMaxResults(10);
+
+    return $queryBuilder->getQuery()->getResult();
+}
 
 public function filterOffre(string $destination='',float $prixMin = 0.0,?\DateTimeInterface $date = null): array
 {

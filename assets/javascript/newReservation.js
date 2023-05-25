@@ -64,17 +64,16 @@ SauvegarderBtn.addEventListener('click',function(){
             remplieIsValid=false;
         }
     });
-
+    console.log(remplieIsValid);
     if(remplieIsValid==true){
         AjoutBtn.disabled = false;
-       AjoutBtn.style.cursor = "not-allowed";
-
+        AjoutBtn.style.cursor = "";
     }
     else{
         errorReservation.innerText = "veuillez remplir les chomp de premier voyageur.";
-       AjoutBtn.style.cursor = "";
-
-        }
+        AjoutBtn.disabled = true;
+        AjoutBtn.style.cursor = "not-allowed";
+    }
 });
 //** */
 
@@ -105,14 +104,11 @@ closeRemplier.addEventListener('click',function(){
     if(remplieIsValid==true){
         AjoutBtn.disabled = false;
         AjoutBtn.style.cursor = "";
-     
     }
     else{
         errorReservation.innerText = "veuillez remplir les chomp de premier voyageur.";
         AjoutBtn.disabled = true;
-       AjoutBtn.style.cursor = "not-allowed";
-
-
+        AjoutBtn.style.cursor = "not-allowed";
     }
 
 })

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\OffreRepository;
 use App\Service\CallApiService;
 use App\Service\MessageApiService;
 use App\Service\OffreApiService;
@@ -16,11 +17,11 @@ class HomeController extends AbstractController
 
 
     #[Route('/home', name: 'app_home')]
-    public function index(OffreApiService $offreApiService): Response
+    public function index(OffreApiService $offreApiService,OffreRepository $offreRepository): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'offres' => $offreApiService->getOffres(),
+            'offres' => $offreRepository->getOffres(),
         ]);
     }
 }
