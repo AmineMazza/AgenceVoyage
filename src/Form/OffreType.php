@@ -27,17 +27,17 @@ class OffreType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2024k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
                             'image/jpg',
                             'image/heic',
                         ],
-                        'minWidth' => 1080,
-                        'minHeight' => 1920,
-                        'maxWidth' => 1080,
-                        'maxHeight' => 1920,
+                        // 'minWidth' => 1080,
+                        // 'minHeight' => 1920,
+                        // 'maxWidth' => 1080,
+                        // 'maxHeight' => 1920,
                         'mimeTypesMessage' => 'Please upload a valid image file (PNG, JPEG, JPG)',
                         'maxWidthMessage' => 'The image width has to be {{ max_width }} pixels.',
                         'maxHeightMessage' => 'The image height has to be {{ max_height }} pixels.',
