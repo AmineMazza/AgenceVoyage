@@ -3,18 +3,19 @@
 {% block title %}Offre{% endblock %}
 
 {% block body %}
-    <div class="w-5/6 h-[40rem] m-auto rounded-xl border-b border-gray-400 shadow-2xl flex">
-        <div class="w-3/4 p-4 relative">
-            <div class="pb-1 mb-1 flex justify-between border-b border-gray-300 rounded-lg mt-2">
+    <div class="w-11/12  m-auto rounded-xl border-b border-gray-400 shadow-2xl flex">
+        <div class="w-3/4 p-4 relative space-y-8">
+            <div class="pb-1 mb-1 flex justify-between border-b border-gray-300  mt-2">
                 <div class="font-semibold text-xl">{{ offre.titre }}</div>
                 <div class="italic text-gray-400">{{ offre.id }}</div>
             </div>
-            <div class="border-b-transparent border border-gray-200 relative rounded-lg p-4 mt-16">
+            <div class="border-b-transparent border border-gray-200 relative rounded-lg p-4">
                 <p class="text-blue-500 font-semibold bg-white absolute -top-3 left-1/2 transform -translate-x-1/2 px-2">Informations basique: </p>
                 <div class="flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525" /></svg>
                     : {{ offre.getIdDestination().pays }}
                 </div>
+               
                 <div class="flex items-center justify-between">
                     <div>Date: </div>
                     <div class="flex items-center">
@@ -35,7 +36,7 @@
                         {% endif %}
                         <svg data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400 cursor-pointer" staticModal" data-modal-toggle="staticModal""><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
                         <div id="tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            s'avoir plus ?
+                            Cliquer pour s'avoir plus ?
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </div>
@@ -106,11 +107,11 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     {% for hotel in offre.hotels %}
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.lieu }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.etoile }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.distance }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.getNombreNuits() }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.name ? hotel.name : '-' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.lieu ? hotel.lieu : '-' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.etoile ? hotel.etoile : '-' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.distance ? hotel.distance : '-' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ hotel.getNombreNuits() ? hotel.getNombreNuits() : '-' }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -146,37 +147,109 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="flex items-center justify-center">
-                                Viste de MEDINE:            
-                                {% if offre.bvisiteMedine %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                {% else %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
-                                {% endif %}
-                            </div>
+                            {% if offre.getIdDestination().pays == "Omra" or offre.getIdDestination().pays == "Hajj" or offre.getIdDestination().pays == "Omra combine" %}
+                                <div class="flex items-center justify-center">
+                                    Viste de MEDINE:            
+                                    {% if offre.bvisiteMedine %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="border-b-transparent border border-gray-200 relative rounded-lg p-4 mt-4">
-                <p class="text-blue-500 font-semibold bg-white absolute -top-3 left-1/2 transform -translate-x-1/2 px-2">Payement: </p>
+                <p class="text-blue-500 font-semibold bg-white absolute -top-3 left-1/2 transform -translate-x-1/2 px-2">Pension: </p>
                 <div class="flex items-center justify-between">
-                    Demi pension:            
+                    Demi pension:   
                     {% if offre.bdemiPension %}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <div class="flex items-center">
+                            <span class="text-emerald-600 mr-2 font-semibold">{{ offre.prixDemiPension }} MAD</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <svg data-tooltip-target="tooltip-dpen" data-tooltip-placement="bottom" data-modal-target="defaultModal" data-modal-toggle="defaultModal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400 cursor-pointer" ><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                            <div id="tooltip-dpen" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                Cliquer pour s'avoir plus
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        <!-- demipension modal -->
+                        <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative w-full max-w-2xl max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                            Demi Pension
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="p-6 space-y-6">
+                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                            {{ offre.detailCompletePension ? offre.detailCompletePension : "Aucun detail sur demi pension" }}
+                                        </p>
+                                        <p class="text-center text-lg font-semibold leading-relaxed text-emerald-500 dark:text-gray-400">
+                                            <span class="italic text-xs font-small text-gray-400">prix: </span>{{ offre.prixDemiPension }} MAD
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% else %}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
                     {% endif %}
                 </div>
                 <div class="flex items-center justify-between">
-                    Pension complete:            
+                    <span>Pension complete:</span>
                     {% if offre.bpensionComplete %}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <div class="flex items-center">
+                            <span class="text-emerald-600 mr-2 font-semibold">{{ offre.prixCompletePension }} MAD</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <svg data-tooltip-target="tooltip-penc" data-tooltip-placement="bottom" data-modal-target="defaultModal01" data-modal-toggle="defaultModal01" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400 cursor-pointer" ><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                            <div id="tooltip-penc" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                Cliquer pour s'avoir plus
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        {# Pension complete modal #}
+                        <div id="defaultModal01" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative w-full max-w-2xl max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                            Pension Complete
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal01">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="p-6 space-y-6">
+                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                            {{ offre.detailDemiPension ? offre.detailDemiPension : "Aucun detail sur demi pension" }}
+                                        </p>
+                                        <p class="text-center text-lg font-semibold leading-relaxed text-emerald-500 dark:text-gray-400">
+                                            <span class="italic text-xs font-small text-gray-400">prix: </span>{{ offre.prixCompletePension }} MAD
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% else %}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
                     {% endif %}
                 </div>
-                {% if offre.prix_un is defined  %}
+                {# {% if offre.prix_un is defined  %}
                     <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-bold border border-t-transparent border-gray-300 rounded-lg inline-block px-4 py-1">A partir de: {{ offre.prixUn }} <span class="text-green-600">MAD</span></div>
                 {% else %}
                     {% if offre.prix_double is defined %}
@@ -194,30 +267,35 @@
                             {% endif %}
                         {% endif %} 
                     {% endif %}
-                {% endif %}
+                {% endif %} #}
             </div>
-            <div class="absolute bottom-0 flex">
-                <a href="{{ path('app_offre_index', {'value':'all'}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
-                    retour à la liste des offres
-                </a>
-                {% if app.user is not null %}    
-                    {% if is_granted('ROLE_ADMIN') or (offre.getIdUser().getId() == app.user.id) %}    
-                    <a href="{{ path('app_myoffres_reserver', {'idO': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
-                        reserver
-                    </a>
-                    <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
-                        Editer offre
-                    </a>
-                    <a href="{{ path('app_hotel_index', {'idH': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
-                        Editer hotels
-                    </a>
-                    {% endif %}
-                    <a href="{{ path('app_message_plusinfo', {'idO': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+            <div class="border-b-transparent border border-gray-200 relative rounded-lg p-4 mt-4">
+                <p class="text-blue-500 font-semibold bg-white absolute -top-3 left-1/2 transform -translate-x-1/2 px-2">Details: </p>
+                <div class="flex items-center justify-between mb-4">
+                    <h1>Vol:</h1>
+                    <div class="w-3/4 border border-b-transparent rounded-lg p-3 text-gray-700 text-center ">{{ offre.detailVols ? offre.detailVols : '-' }}</div>
+                </div>
+                <div class="flex items-center justify-between ">
+                    <h1>Voyage:</h1>
+                    <div class="w-3/4 border border-b-transparent rounded-lg p-3 text-gray-700 text-center">{{ offre.detailVols ? offre.detailVoyage : '-' }}</div>
+                </div>
+            </div>
+            <div class="flex justify-between space-x-4 m-auto ">
+                <div class="flex space-x-4">
+                    {% if app.user is not null %}    
+                        {% if is_granted('ROLE_ADMIN') or (offre.getIdUser().getId() == app.user.id) %}    
+                        <a href="{{ path('app_myoffres_reserver', {'idO': offre.id}) }}" class="flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 transition duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
+                            reserver
+                        </a>
+                        <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 transition duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                            Modifier offre
+                        </a>
+                        {% endif %}
+                </div>
+                    <a href="{{ path('app_message_plusinfo', {'idO': offre.id}) }}" class="flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 transition duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
                         Demander plus d'information
                     </a>
                 {% endif %}
@@ -232,4 +310,8 @@
             {% endif %}
         </div>
     </div>
+    <a href="{{ path('app_offre_index', {'value':'all'}) }}" class="flex items-center justify-center text-lg mt-8 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+        retour à la liste des offres
+    </a>
 {% endblock %}
