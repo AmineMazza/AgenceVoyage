@@ -171,4 +171,26 @@ class ReservationApiService extends AbstractController {
         }
         return false;
     }
+
+    public function UpdateReservationMontant($idR,$montant) : bool
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
+        $response = $this->client->request('PUT', 'http://127.0.0.1/api/reservations/'.$idR, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+            'json' => [
+                'montantTotal' => $montant,
+            ],
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        else if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->UpdateReservationMontant($idR,$montant);
+        }
+        return false;
+    }
 }
