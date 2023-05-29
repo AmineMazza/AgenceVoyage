@@ -4,7 +4,7 @@ titleOffres.forEach(title => {
   const originalText = title.textContent;  // Get the original text content
 
   // Display only the first 10 characters
-  const truncatedText = originalText.substring(0, 25);
+  const truncatedText = originalText.substring(0, 30);
 
   // Update the text content of the title
   title.textContent = truncatedText+"...";
