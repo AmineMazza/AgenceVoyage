@@ -5,6 +5,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Avance;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -15,7 +16,7 @@ class AvanceApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getAvances($idR) : array
+    public function getAvances($idR) : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/avances',[
@@ -31,7 +32,16 @@ class AvanceApiService extends AbstractController {
             $this->callApiService->getJWTRefreshToken();
             $this->getAvances($idR);
         }
-        return $response->toArray();
+        $avances = new ArrayCollection();
+        foreach ($response->toArray() as $key => $data) {
+            $avance = new Avance();
+            $avance->setId($data['id']);
+            $avance->setMontant($data['montant']);
+            $avance->setRefRecu($data['ref_recu']);
+            $avance->setDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date']));
+            $avances->add($avance);
+        }
+        return $avances;
     }
 
     public function getAvance($id) : Avance
@@ -53,7 +63,6 @@ class AvanceApiService extends AbstractController {
         $avance->setMontant($data->montant);
         $avance->setRefRecu($data->ref_recu);
         $avance->setDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date));
-        $avance->setIdReservation($data->idReservation);
         return $avance;
     }
 
@@ -73,7 +82,6 @@ class AvanceApiService extends AbstractController {
                 'refRecu' => uniqid(),
             ],
         ]);
-        dd($response);
         if ($response->getStatusCode() === 201) {
             return true;
         }
