@@ -25,19 +25,27 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'app_dashboard')]
     public function index(OffreRepository $offreRepository,AgentRepository $agentRepository,CommercialRepository $commercialRepository,MessageRepository $messageRepository,ReservationRepository $reservationRepository): Response
     {
-        $offres=$offreRepository->countOffre();
-        $agent=$agentRepository->countAgent();
-        $messages=$messageRepository->countMessage();
-        $commercial=$commercialRepository->countCommercial();
-        $reservation=$reservationRepository->countReservation();
-        return $this->render('dashboard/index.html.twig', [
-            'controller_name' => 'DashboardController',
-            'offres'=> $offres,
-            'agent'=>$agent,
-            'messages'=>$messages,
-            'commercial'=>$commercial,
-            'reservation'=>$reservation,
-        ]);
+        if($this->isGranted("ROLE_ADMIN")){
+            return $this->render('dashboard/index.html.twig', [
+                'controller_name' => 'DashboardController',
+                'offres'=> $offreRepository->countOffre(),
+                'agent'=>$agentRepository->countAgent(),
+                'messages'=>$messageRepository->countMessage(),
+                'commercial'=>$commercialRepository->countCommercial(),
+                'reservation'=>$reservationRepository->countReservation(),
+            ]);
+        }
+        elseif($this->isGranted("ROLE_AGENT")){
+            return $this->render('dashboard/index.html.twig', [
+                'controller_name' => 'DashboardController',
+                'offres'=> $offreRepository->countOffre(),
+                'agent'=>$agentRepository->countAgent(),
+                'messages'=>$messageRepository->countMessage(),
+                'commercial'=>$commercialRepository->countCommercial(),
+                'reservation'=>$reservationRepository->countReservation(),
+            ]);
+        }
+        
     }
 
     #[Route('/myOffres', name: 'app_myoffres')]
@@ -69,13 +77,47 @@ class DashboardController extends AbstractController
             // dd($extraFields);
             $i = 0;
             if($extraFields['voyageur'] != []){
-                foreach ($extraFields['voyageur'] as $value){
+                foreach ($extraFields['voyageur'] as $key => $value){
                     if($value['prix']!=""){
-                        $mantant += (int)$value['prix'];
+                        if($value['prix'] == 'prixUn'){
+                            $reservation->getVoyageurs()[$key]->setChambre("chambre seul");
+                            $reservation->getVoyageurs()[$key]->setMontant($offre->getPrixUn());
+                            $mantant += $offre->getPrixUn();
+                        }
+                        elseif($value['prix'] == 'prixDouble'){
+                            $reservation->getVoyageurs()[$key]->setChambre("chambre double");
+                            $reservation->getVoyageurs()[$key]->setMontant($offre->getPrixDouble());
+                            $mantant += $offre->getPrixDouble();
+                        }
+                        elseif($value['prix'] == 'prixTriple'){
+                            $reservation->getVoyageurs()[$key]->setChambre("chambre triple");
+                            $reservation->getVoyageurs()[$key]->setMontant($offre->getPrixTriple());
+                            $mantant += $offre->getPrixTriple();
+                        }
+                        elseif($value['prix'] == 'prixQuad'){
+                            $reservation->getVoyageurs()[$key]->setChambre("chambre double");
+                            $reservation->getVoyageurs()[$key]->setMontant($offre->getPrixQuad());
+                            $mantant += $offre->getPrixQuad();
+                        }
+                        elseif($value['prix'] == 'prixQuint'){
+                            $reservation->getVoyageurs()[$key]->setChambre("chambre quint");
+                            $reservation->getVoyageurs()[$key]->setMontant($offre->getPrixQuint());
+                            $mantant += $offre->getPrixQuint();
+                        }
                         $i++;
                     }
-                    if($value['pension']!=""){
-                        $mantant += (int)$value['pension'];
+                    if($value['pension'] != ""){
+                        if($value['pension'] == 'demiPension'){
+                            $reservation->getVoyageurs()[$key]->setPension("demi pension");
+                            $reservation->getVoyageurs()[$key]->setMontant($reservation->getVoyageurs()[$key]->getMontant()+$offre->getPrixDemiPension());
+                            $mantant += $offre->getPrixDemiPension  ();
+                        }
+                        elseif($value['pension'] == 'pensionComplete'){
+                            $reservation->getVoyageurs()[$key]->setPension("pension complete");
+                            $reservation->getVoyageurs()[$key]->setMontant($reservation->getVoyageurs()[$key]->getMontant()+$offre->getPrixCompletePension());
+                            $mantant += $offre->getPrixCompletePension();
+                        }
+                        
                     }
                     
                 }
