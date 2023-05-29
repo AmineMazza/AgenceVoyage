@@ -54,6 +54,16 @@ class MessageRepository extends ServiceEntityRepository
             
         return $queryBuilder->getQuery()->getResult();
     }    
+
+    public function CountMessagesByUser(int $id): array
+    {
+            $queryBuilder = $this->createQueryBuilder('o')
+            ->select('COUNT(o.id)');
+            $queryBuilder->leftJoin('o.id_offre', 'c')
+            ->andWhere('c.id_user = :id')
+            ->setParameter('id', $id);
+        return $queryBuilder->getQuery()->getResult();
+    } 
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

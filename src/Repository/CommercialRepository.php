@@ -45,6 +45,17 @@ class CommercialRepository extends ServiceEntityRepository
     
         return $queryBuilder->getQuery()->getSingleScalarResult();
     }
+
+
+    public function countCommercialByUser(int $id): int
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+        ->select('COUNT(p.id)')
+        ->leftJoin('p.agents', 't')
+        ->andWhere('t.id IN (:tagIds)')
+        ->setParameter('tagIds', $id);
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
 //    /**
 //     * @return Commercial[] Returns an array of Commercial objects
 //     */

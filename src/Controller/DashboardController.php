@@ -35,14 +35,14 @@ class DashboardController extends AbstractController
                 'reservation'=>$reservationRepository->countReservation(),
             ]);
         }
-        elseif($this->isGranted("ROLE_AGENT")){
+        else if($this->isGranted("ROLE_AGENT")){
             return $this->render('dashboard/index.html.twig', [
+                'agent'=>null,
                 'controller_name' => 'DashboardController',
-                'offres'=> $offreRepository->countOffre(),
-                'agent'=>$agentRepository->countAgent(),
-                'messages'=>$messageRepository->countMessage(),
-                'commercial'=>$commercialRepository->countCommercial(),
-                'reservation'=>$reservationRepository->countReservation(),
+                'offres'=> $offreRepository->countOffreByUser($this->getUser()->getId()),
+                'messages'=>$messageRepository->CountMessagesByUser($this->getUser()->getId())[0][1],
+                'commercial'=>$commercialRepository->countCommercialByUser($this->getUser()->getAgent()->getId()),
+                'reservation'=>$reservationRepository->countReservationByUser($this->getUser()->getId()),
             ]);
         }
         

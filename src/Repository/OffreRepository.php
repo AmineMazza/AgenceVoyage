@@ -107,6 +107,14 @@ public function countOffre(): int
     return $queryBuilder->getQuery()->getSingleScalarResult();
 }
 
+public function countOffreByUser(int $id): int
+{
+    $queryBuilder = $this->createQueryBuilder('o')
+        ->select('COUNT(o.id) as offreCount')
+        ->andWhere('o.id_user = :id')
+        ->setParameter('id', $id);
+    return $queryBuilder->getQuery()->getSingleScalarResult();
+}
 //    public function findOneBySomeField($value): ?Offre
 //    {
 //        return $this->createQueryBuilder('o')
