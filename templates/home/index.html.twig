@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello HomeController!{% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('JsHome') }}
+{% endblock %}
 {% block body %}
 {# card carousel #}
 <h1 class=" text-4xl text-center ml-20 font-extrabold text-gray-900 my-6 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r  from-blue-500 to-emerald-600">Découvrez</span> nos meilleurs offres.</h1>
@@ -15,7 +18,7 @@
                     <img src="{{ offre.image }}" alt="affiche" class="object-cover bg-blue-600 w-full h-full rounded-xl">
                 </div>
                 <div class="border-b rounded-b-xl pb-2">
-                    <h1 class="text-md font-medium text-justify">{{ offre.titre }}</h1>
+                    <h1 class="titleOffre text-md font-medium text-justify">{{ offre.titre }}</h1>
                 </div>
                 <div class="flex text-gray-600 items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-600">
