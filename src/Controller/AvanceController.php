@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Avance;
+use App\Entity\Reservation;
 use App\Form\AvanceType;
 use App\Service\AvanceApiService;
 use App\Service\PdfService;
@@ -18,8 +19,8 @@ class AvanceController extends AbstractController
     #[Route('/', name: 'app_avance_index', methods: ['GET'])]
     public function index(AvanceApiService $avanceRepository,array $_route_params, ReservationApiService $reservationApiService): Response
     {
+        $reservation =  $reservationApiService->getReservation($_route_params['idR']);
         if(!$this->isGranted('ROLE_ADMIN')){
-            $reservation =  $reservationApiService->getReservation($_route_params['idR']);
             if ($reservation->getId() == null ) {
                 return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -29,9 +30,17 @@ class AvanceController extends AbstractController
                 }
             }
         }
+        $avances = $avanceRepository->getAvances($_route_params['idR']);
+        $totalAvance = 0;
+        foreach($avances as $avance){
+            $totalAvance += $avance->getMontant();
+        }
         return $this->render('avance/index.html.twig', [
-            'avances' => $avanceRepository->getAvances($_route_params['idR']),
+            'avances' => $avances,
             'idR' => $_route_params['idR'],
+            'totalAvance' => $totalAvance,
+            'montantTotal' => $reservation->getMontantTotal(),
+            'reste' => $reservation->getMontantTotal()-$totalAvance,
         ]);
     }
 
@@ -39,8 +48,8 @@ class AvanceController extends AbstractController
     public function new(Request $request,array $_route_params , AvanceApiService $avanceRepository, ReservationApiService $reservationApiService): Response
     {
         $avance = new Avance();
+        $reservation =  $reservationApiService->getReservation($_route_params['idR']);
         if($this->isGranted('ROLE_ADMIN')){
-            $reservation =  $reservationApiService->getReservation($_route_params['idR']);
             if ($reservation->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
                 return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -50,7 +59,12 @@ class AvanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avanceRepository->AddAvance($avance,$_route_params['idR']);
+            $avances = $avanceRepository->getAvances($_route_params['idR']);
+            $TotalAvance = 0;
+            foreach($avances as $avan){
+                $TotalAvance += $avan->getMontant();
+            }
+            if(($reservation->getMontantTotal()-($TotalAvance+$avance->getMontant()))>=0) $avanceRepository->AddAvance($avance,$_route_params['idR']);
 
             return $this->redirectToRoute('app_avance_index', ['idR' => $_route_params['idR']], Response::HTTP_SEE_OTHER);
         }
