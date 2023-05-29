@@ -16,14 +16,6 @@
                     : {{ offre.getIdDestination().pays }}
                 </div>
                 <div class="flex items-center justify-between">
-                    Aller Retour: 
-                    {% if offre.ballerrEtour %}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    {% else %}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-600"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
-                    {% endif %}
-                </div>
-                <div class="flex items-center justify-between">
                     <div>Date: </div>
                     <div class="flex items-center">
                         {{ offre.dateDepart ? offre.dateDepart|date('Y-m-d H:i') : '' }} 
@@ -215,7 +207,19 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
                         reserver
                     </a>
+                    <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+                        Editer offre
+                    </a>
+                    <a href="{{ path('app_hotel_index', {'idH': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+                        Editer hotels
+                    </a>
                     {% endif %}
+                    <a href="{{ path('app_message_plusinfo', {'idO': offre.id}) }}" class="flex items-center text-center m-3 font-medium text-blue-600 dark:text-blue-500 hover:underline ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+                        Demander plus d'information
+                    </a>
                 {% endif %}
             </div>
         </div>

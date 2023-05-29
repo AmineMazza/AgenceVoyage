@@ -33,9 +33,6 @@ class Offre
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private ?\DateTimeInterface $date_retour = null;
 
-    #[ORM\Column]
-    private ?bool $baller_retour = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $bhebergement = null;
 
@@ -183,18 +180,6 @@ class Offre
     public function setDateRetour(\DateTimeInterface $date_retour): self
     {
         $this->date_retour = $date_retour;
-
-        return $this;
-    }
-
-    public function isBallerRetour(): ?bool
-    {
-        return $this->baller_retour;
-    }
-
-    public function setBallerRetour(bool $baller_retour): self
-    {
-        $this->baller_retour = $baller_retour;
 
         return $this;
     }
