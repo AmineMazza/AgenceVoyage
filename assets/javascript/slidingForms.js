@@ -118,14 +118,14 @@ function destinationEvent(){
         document.querySelector("#visiteMedine").style.display = "flex"
         if(offreBvisite_medine.checked == true){
             document.querySelector("#hbar1").style.display = "block";
-            hotel2.style.display = "block";
+            hotel1.style.display = "block";
         }
         else{
             document.querySelector("#hbar1").style.display = "none";
-            hotel2.style.display = 'none' ;
+            hotel1.style.display = 'none' ;
         }
         hotel0.style.display = 'block' ;
-        hotel1.style.display = 'block' ;
+        hotel2.style.display = 'block' ;
         hbar0.style.display = 'block' ;
     }else{
         offreBvisite_medine.checked = false;
@@ -144,11 +144,11 @@ offreBvisite_medine.addEventListener('change',function(){
     if(offreBvisite_medine.checked==true){
         console.log(hotel2);
         document.querySelector("#hbar1").style.display = "block";
-        hotel2.style.display= 'block';
+        hotel1.style.display= 'block';
     }
     else{
         document.querySelector("#hbar1").style.display = "none";
-        hotel2.style.display= 'none';     
+        hotel1.style.display= 'none';     
     }
 })
 hebergement.checked = true ;
