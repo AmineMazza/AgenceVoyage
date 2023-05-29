@@ -24,6 +24,7 @@ let  dateDepart=0;
 let Generatetitle='';
 // handle create offre for agent
 const foragent = document.querySelector("#forAgent");
+if(foragent!=null){
 const usersinput = document.querySelector("#users-input");
 foragent.addEventListener("change",()=>{
     if(foragent.checked) usersinput.style.display = 'block';
@@ -32,6 +33,7 @@ foragent.addEventListener("change",()=>{
         usersinput.style.display = 'none';
     }
 })
+}
 
 // handle pension
 
@@ -182,6 +184,7 @@ let i = 1 ;
 
 nextbutton.addEventListener("click",function(){
     if(i==1){
+        if(foragent!=null){
         const forAgent=document.getElementById('forAgent');
         const errorforAgent=document.getElementById('errorforAgent');
         if(forAgent.checked==true){
@@ -199,6 +202,9 @@ nextbutton.addEventListener("click",function(){
         }else{
             errorforAgent.innerText='';
               i++;
+        }}
+        else{
+            i++;
         }
     }
      else if(i==2){
