@@ -1,7 +1,7 @@
-let isCommercial=  document.querySelector("#isCommercial")
-let select = document.querySelector("#SelectMethod");
-select.style.display = "none";
+let isCommercial=  document.querySelector("#isCommercial");
 isCommercial.disabled = true;
+document.querySelector("#RemplissezBtn").disabled = true;
+document.querySelector("#RemplissezBtn").style.display = "none";
 
 if(isCommercial.checked){
     document.querySelector('.commercial-info').style.display = "block"; 

@@ -125,25 +125,25 @@ async function getOffre(){
     });
     data = await response.json()      
     if('prixUn' in data){
-        choicesChambre += `<option value=${data.prixUn}>chambre seul</option>`;
+        choicesChambre += `<option value="prixUn">chambre seul</option>`;
     }
     if('prixDouble' in data){
-        choicesChambre += `<option value=${data.prixDouble}>chambre double</option>`;
+        choicesChambre += `<option value="prixDouble">chambre double</option>`;
     }
     if('prixTriple' in data){
-        choicesChambre += `<option value=${data.prixTriple}>chambre triple</option>`;
+        choicesChambre += `<option value="prixTriple">chambre triple</option>`;
     }
     if('prixQuad' in data){
-        choicesChambre += `<option value=${data.prixQuad}>chambre quad</option>`;
+        choicesChambre += `<option value="prixQuad">chambre quad</option>`;
     }
     if('prixQuint' in data){
-        choicesChambre += `<option value=${data.prixQunit}>chambre quint</option>`;
+        choicesChambre += `<option value="prixQuint">chambre quint</option>`;
     }
     if(data.bdemiPension){
-        choicesPension += `<option value=${data.prixDemiPension}>Demi pension</option>`;
+        choicesPension += `<option value="demiPension">Demi pension</option>`;
     }
     if(data.bpensionComplete){
-        choicesPension += `<option value=${data.prixCompletePension}>Pension complete</option>`;
+        choicesPension += `<option value="pensionComplete">Pension complete</option>`;
     }
 }
 getOffre()
