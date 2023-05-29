@@ -123,7 +123,6 @@ class OffreApiService extends AbstractController {
             'titre' => $offre->getTitre(),
             'dateDepart' => $offre->getDateDepart()->format('Y-m-d\TH:i:sP'),
             'dateRetour' => $offre->getDateRetour()->format('Y-m-d\TH:i:sP'),
-            'ballerRetour' => $offre->isBallerrEtour(),
             'bhebergement' => $offre->isBhebergement(),
             'bvisa' => $offre->isBvisa(),
             'bdemiPension' => $offre->isBdemiPension(),
