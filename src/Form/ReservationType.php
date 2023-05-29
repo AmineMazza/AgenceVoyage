@@ -24,6 +24,9 @@ class ReservationType extends AbstractType
                 'entry_type' => VoyageurType::class,
                 'label' => false,
                 'required' => false,
+                'attr' => [
+                    'class' => 'hidden',
+                ],
                 'entry_options' => ['label' => false],
                 'by_reference' => false,
                 'allow_add' => true,

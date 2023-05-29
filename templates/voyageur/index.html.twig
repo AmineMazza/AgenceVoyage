@@ -5,7 +5,11 @@
 {% block body %}
     <div class="flex justify-between mx-10 my-8">
         <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-blue-500">Voyageurs</span> </h1>
-        <a href="{{ path('app_voyageur_new', {'idR': idR}) }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">ajouter</a>
+        {% if (numVoyaveurs - numVoyaveursExists) > 0 %}
+            <a href="{{ path('app_voyageur_new', {'idR': idR}) }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">ajouter</a>
+        {% else %}
+            <a href="{{ path('app_voyageur_new', {'idR': idR}) }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300 cursor-not-allowed">ajouter</a>
+        {% endif %}
     </div>
     <table class="table w-max m-auto rounded-xl">
         <thead class="bg-gray-50 border-b border-gray-200">
@@ -13,12 +17,10 @@
                 <th class="px-4 py-3">Id</th>
                 <th class="px-4 py-3">Nom complet</th>
                 <th class="px-4 py-3">Cin</th>
-                <th class="px-4 py-3">Email</th>
-                <th class="px-4 py-3">Telephone</th>
-                <th class="px-4 py-3">Adresse</th>
+                <th class="px-4 py-3">Chambre</th>
+                <th class="px-4 py-3">Pension</th>
                 <th class="px-4 py-3">N&deg; passport</th>
-                <th class="px-4 py-3">Date E&deg; passport</th>
-                <th class="px-4 py-3">Date naissance</th>
+                <th class="px-4 py-3">Montant</th>
                 <th class="px-4 py-3">Actions</th>
             </tr>
         </thead>
@@ -28,12 +30,10 @@
                 <td class="px-4 py-3 text-center">{{ voyageur.id }}</td>
                 <td class="px-4 py-3 text-center">{{ voyageur.nom }} {{ voyageur.prenom }}</td>
                 <td class="px-4 py-3 text-center">{{ voyageur.cin }}</td>
-                <td class="px-4 py-3 text-center">{{ voyageur.email }}</td>
-                <td class="px-4 py-3 text-center">{{ voyageur.telephone }}</td>
-                <td class="px-4 py-3 text-center">{{ voyageur.adresse }}</td>
+                <td class="px-4 py-3 text-center">{{ voyageur.chambre }}</td>
+                <td class="px-4 py-3 text-center">{{ voyageur.pension ? voyageur.pension : '-' }}</td>
                 <td class="px-4 py-3 text-center">{{ voyageur.numPassport }}</td>
-                <td class="px-4 py-3 text-center">{{ voyageur.dateFinPassport ? voyageur.dateFinPassport|date('Y-m-d') : '' }}</td>
-                <td class="px-4 py-3 text-center">{{ voyageur.dateNaissance ? voyageur.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td class="px-4 py-3 text-center">{{ voyageur.montant }}</td>
                 <td class="px-4 py-3 text-center">
                  <div class="flex items-center space-x-2">
                     <div class="inline-flex rounded-md shadow-sm" role="group">

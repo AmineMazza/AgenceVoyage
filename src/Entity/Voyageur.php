@@ -50,6 +50,15 @@ class Voyageur
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_naissance = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pension = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $chambre = null;
+
+    #[ORM\Column]
+    private ?float $montant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,6 +185,42 @@ class Voyageur
     public function setDateNaissance(?\DateTimeInterface $date_naissance): self
     {
         $this->date_naissance = $date_naissance;
+
+        return $this;
+    }
+
+    public function getPension(): ?string
+    {
+        return $this->pension;
+    }
+
+    public function setPension(?string $pension): self
+    {
+        $this->pension = $pension;
+
+        return $this;
+    }
+
+    public function getChambre(): ?string
+    {
+        return $this->chambre;
+    }
+
+    public function setChambre(string $chambre): self
+    {
+        $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): self
+    {
+        $this->montant = $montant;
 
         return $this;
     }

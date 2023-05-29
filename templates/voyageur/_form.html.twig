@@ -81,7 +81,38 @@
                 </div>
             </div>
         </div>
-
+        <div class="relative">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selectionner une chambre</label>
+            <select id="voyageur_chambre" name="voyageur[chambre]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="prixUn">chambre seul</option>
+            {% if offre.prixDouble is not null %}
+                <option value="prixDouble">chambre double</option>
+            {% endif %}    
+            {% if offre.prixTriple is not null %}
+                <option value="prixTriple">chambre triple</option>
+            {% endif %}
+            {% if offre.prixQuad is not null %}
+                <option value="prixQuad">chambre quad</option>
+            {% endif %}
+            {% if offre.prixQuint is not null %}
+                <option value="prixQuint">chambre quint</option>
+            {% endif %}
+            </select>
+        </div>
+        {% if offre.bpensionComplete or offre.bdemiPension %}
+        <div class="relative">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selectionner une pension</label>
+            <select id="voyageur_pension" name="voyageur[pension]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value=""></option>
+            {% if offre.bdemiPension %}
+                <option value="demiPension">Demi-pension</option>
+            {% endif %}    
+            {% if offre.bpensionComplete %}
+                <option value="pensionComplete">Pension complete</option>
+            {% endif %}
+            </select>
+        </div>
+        {% endif %}
 
         <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 block m-auto">{{ button_label|default('Ajouter') }}</button>
     {{ form_end(form) }}
