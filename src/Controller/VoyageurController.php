@@ -59,6 +59,10 @@ class VoyageurController extends AbstractController
     {
         $voyageur = new Voyageur();
         $reservation =  $reservationApiService->getReservation($_route_params['idR']);
+        $voyageurs = $VoyageurApiService->getVoyageurs($_route_params['idR']);
+        if($reservation->getNumVoyageurs() == count($voyageurs)){
+            return $this->redirectToRoute('app_voyageur_index', ['idR' => $_route_params['idR']], Response::HTTP_SEE_OTHER);
+        }
         if($this->isGranted('ROLE_ADMIN')){
             if ($reservation->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
                 return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
