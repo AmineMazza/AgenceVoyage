@@ -70,10 +70,10 @@ class AvanceApiService extends AbstractController {
                 'idReservation' => '/api/reservations/'.$idR,
                 'date' => $date->format('Y-m-d\TH:i:sP'),
                 'montant' => $avance->getMontant(),
-                'refRecu' => $avance->getRefRecu(),
+                'refRecu' => uniqid(),
             ],
         ]);
-        // dd($response);
+        dd($response);
         if ($response->getStatusCode() === 201) {
             return true;
         }
@@ -94,7 +94,6 @@ class AvanceApiService extends AbstractController {
             ],
             'json' => [
                 'montant' => $avance->getMontant(),
-                'refRecu' => $avance->getRefRecu(),
             ],
         ]);
         if ($response->getStatusCode() === 200) {

@@ -13,7 +13,6 @@ class AvanceType extends AbstractType
     {
         $builder
             ->add('montant')
-            ->add('ref_recu')
         ;
     }
 

@@ -41,6 +41,7 @@ class ReservationApiService extends AbstractController {
             $reservation->setMntCommission((!empty($data['Mnt_commission']) ? $data['Mnt_commission'] : null));
             $reservation->setAvanceCommission((!empty($data['avance_commission']) ? $data['avance_commission'] : null));
             $reservation->setDateAvanceCommission((!empty($data['date_avance_commission']) ? (\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date_avance_commission'])) : null));
+            $reservation->setMontantTotal($data['montantTotal']);
             $arr_param = explode('/',$data['idOffre']);
             $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
             $arr_param = explode('/',$data['idUser']);
@@ -77,6 +78,7 @@ class ReservationApiService extends AbstractController {
         $reservation->setMntCommission((!empty($data->Mnt_commission) ? $data->Mnt_commission : null));
         $reservation->setAvanceCommission((!empty($data->avance_commission) ? $data->avance_commission : null));
         $reservation->setDateAvanceCommission((!empty($data->date_avance_commission) ? \DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date_avance_commission) : null));
+        $reservation->setMontantTotal($data->montantTotal);
         $arr_param = explode('/',$data->idOffre);
         $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
         $arr_param = explode('/',$data->idUser);
