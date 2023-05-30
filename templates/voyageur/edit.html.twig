@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Voyageur{% endblock %}
-
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    {{ parent() }}
+    {{ encore_entry_script_tags('Voyageur') }}
+{% endblock %}
 {% block body %}
-    <h1 class="text-center my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">VOYAGEUR NUMERO <span class="text-blue-600 dark:text-blue-500">#{{ voyageur.id }}</span></h1>
+    <h1 class="text-center my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">VOYAGEUR NUMERO <span class="text-blue-600 dark:text-blue-500" id="voyageurID">#{{ voyageur.id }}</span></h1>
 
     {{ include('voyageur/_form.html.twig', {'button_label': 'Update'}) }}
 
