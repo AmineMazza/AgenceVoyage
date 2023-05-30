@@ -16,7 +16,7 @@ class HomeController extends AbstractController
 {
 
 
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(OffreApiService $offreApiService,OffreRepository $offreRepository): Response
     {
             $offreNOBcoupCoeur=$offreRepository->getOffresNoBcoupCoeur();
