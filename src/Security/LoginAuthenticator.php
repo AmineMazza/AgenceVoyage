@@ -54,7 +54,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         $token->setAttribute('JWTToken',$jwtToken['token']);
         $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
         $redirectResponse = new RedirectResponse($this->urlGenerator->generate('app_home'));
-        $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'));
+        $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'), '/', null, false, false);
         $redirectResponse->headers->setCookie($cookie);
         return $redirectResponse;
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
