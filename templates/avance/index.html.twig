@@ -5,21 +5,43 @@
 {% block body %}
     <div class="flex justify-between mx-10 my-8">
         <h1 class=" text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-blue-500">Avances</span> </h1>
-        {% if reste >=0 %}
+        {% if reste >0 %}
             <a href="{{ path('app_avance_new', {'idR': idR }) }}" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300">ajouter</a>
         {% else %}
-            
+            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="text-white bg-gradient-to-br from-blue-600 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition duration-300 cursor-not-allowed">ajouter</button>
+            <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="p-6 text-center">
+                            <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Vous ne pouvez pas ajouter une avance.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     </div>
-
-    <table class="table w-full m-auto rounded-xl">
+    <div class="flex justify-between m-auto w-96">
+        <div class="text-base font-medium dark:text-white">Avancement</div>
+        <div class="text-base font-medium text-gray-400 dark:text-white ">{{totalAvance}}/{{montantTotal}}</div>
+    </div>
+    <progress class="progress w-96 block m-auto" value="{{totalAvance}}" max="{{montantTotal}}"></progress>
+    <div class="flex items-center justify-end space-x-3 mr-16 my-4">
+        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white"><span class="flex w-2.5 h-2.5 bg-black rounded-full mr-1.5 flex-shrink-0"></span>Avance</span>
+        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white"><span class="flex w-2.5 h-2.5 bg-gray-400 rounded-full mr-1.5 flex-shrink-0"></span>Montant Total</span>
+    </div>
+    <table class="table w-11/12 m-auto rounded-xl">
         <thead class="bg-gray-50 border-b border-gray-200">
             <tr class="text-xs text-left font-medium text-gray-500 uppercase tracking-wider"><tr>
-                <th class="px-4 py-3">Id</th>
-                <th class="px-4 py-3">Montant</th>
-                <th class="px-4 py-3">Date</th>
-                <th class="px-4 py-3">Reference du recu</th>
-                <th class="px-4 py-3">actions</th>
+                <th class="px-4 py-3 text-center">Id</th>
+                <th class="px-4 py-3 text-center">Montant</th>
+                <th class="px-4 py-3 text-center">Date</th>
+                <th class="px-4 py-3 text-center">Reference du recu</th>
+                <th class="px-4 py-3 text-center">actions</th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -56,8 +78,8 @@
                                 </div>
                                 <div data-popper-arrow></div>
                             </div>
-                            <a href="{{ path('app_avance_recu', {'id': avance.id, 'idR': idR}) }}" data-popover-target="popover-recu" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent border-gray-200 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                            <a href="{{ path('app_avance_recu', {'id': avance.id, 'idR': idR}) }}" data-popover-target="popover-recu" data-popover-placement="top" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-l-transparent rounded-r-lg border-gray-200 hover:bg-gray-100 hover:text-emerald-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" /></svg>
                             </a>
                             <div data-popover id="popover-recu" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                                 <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
