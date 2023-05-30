@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use App\Service\CallApiService;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -52,8 +53,10 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         $jwtToken = $this->CallApiService->getJWTToken($request->request->all()['password']);
         $token->setAttribute('JWTToken',$jwtToken['token']);
         $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
-        // dd($token);
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        $redirectResponse = new RedirectResponse($this->urlGenerator->generate('app_home'));
+        $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'));
+        $redirectResponse->headers->setCookie($cookie);
+        return $redirectResponse;
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
