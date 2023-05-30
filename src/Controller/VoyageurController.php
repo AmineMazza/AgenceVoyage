@@ -95,17 +95,20 @@ class VoyageurController extends AbstractController
                     $voyageur->setChambre("chambre quint");
                     $montant = $reservation->getIdOffre()->getPrixQuint();
                 }
-
-                if($extarData['pension'] != ''){
-                    if($extarData['pension'] == 'demiPension'){
-                        $voyageur->setPension("demi pension");
-                        $montant += $reservation->getIdOffre()->getPrixDemiPension();
+                if(isset($extarData['pension'])){
+                    if($extarData['pension'] != ''){
+                        if($extarData['pension'] == 'demiPension'){
+                            $voyageur->setPension("demi pension");
+                            $montant += $reservation->getIdOffre()->getPrixDemiPension();
+                        }
+                        elseif($extarData['pension'] == 'pensionComplete'){
+                            $voyageur->setPension("pension complete");
+                            $montant += $reservation->getIdOffre()->getPrixCompletePension();
+                        }
                     }
-                    elseif($extarData['pension'] == 'pensionComplete'){
-                        $voyageur->setPension("pension complete");
-                        $montant += $reservation->getIdOffre()->getPrixCompletePension();
-                    }
+                    else $voyageur->setPension("");
                 }
+                else $voyageur->setPension("");
 
             }
             $voyageur->setMontant($montant);
@@ -167,17 +170,20 @@ class VoyageurController extends AbstractController
                     $voyageur->setChambre("chambre quint");
                     $montant = $voyageur->getIdReservation()->getIdOffre()->getPrixQuint();
                 }
-
-                if($extarData['pension'] != ''){
-                    if($extarData['pension'] == 'demiPension'){
-                        $voyageur->setPension("demi pension");
-                        $montant += $voyageur->getIdReservation()->getIdOffre()->getPrixDemiPension();
+                if(isset($extarData['pension'])){
+                    if($extarData['pension'] != ''){
+                        if($extarData['pension'] == 'demiPension'){
+                            $voyageur->setPension("demi pension");
+                            $montant += $voyageur->getIdReservation()->getIdOffre()->getPrixDemiPension();
+                        }
+                        elseif($extarData['pension'] == 'pensionComplete'){
+                            $voyageur->setPension("pension complete");
+                            $montant += $voyageur->getIdReservation()->getIdOffre()->getPrixCompletePension();
+                        }
                     }
-                    elseif($extarData['pension'] == 'pensionComplete'){
-                        $voyageur->setPension("pension complete");
-                        $montant += $voyageur->getIdReservation()->getIdOffre()->getPrixCompletePension();
-                    }
+                    else $voyageur->setPension("");
                 }
+                else $voyageur->setPension("");
 
             }
             $voyageur->setMontant($montant);
