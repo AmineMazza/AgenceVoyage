@@ -57,14 +57,17 @@ class AvanceController extends AbstractController
         
         $form = $this->createForm(AvanceType::class, $avance);
         $form->handleRequest($request);
+        $avances = $avanceRepository->getAvances($_route_params['idR']);
+        $totalAvance = 0;
+        foreach($avances as $avan){
+            $totalAvance += $avan->getMontant();
+        }
+        if($reservation->getMontantTotal() == $totalAvance){
+            return $this->redirectToRoute('app_avance_index', ['idR' => $_route_params['idR']], Response::HTTP_SEE_OTHER);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avances = $avanceRepository->getAvances($_route_params['idR']);
-            $TotalAvance = 0;
-            foreach($avances as $avan){
-                $TotalAvance += $avan->getMontant();
-            }
-            if(($reservation->getMontantTotal()-($TotalAvance+$avance->getMontant()))>=0) $avanceRepository->AddAvance($avance,$_route_params['idR']);
+            if(($reservation->getMontantTotal()-($totalAvance+$avance->getMontant()))>=0) $avanceRepository->AddAvance($avance,$_route_params['idR']);
 
             return $this->redirectToRoute('app_avance_index', ['idR' => $_route_params['idR']], Response::HTTP_SEE_OTHER);
         }
@@ -94,10 +97,14 @@ class AvanceController extends AbstractController
         // if ($avance->getIdReservation()->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN") ) {
         //     return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         // }
-        // dd($avance->getIdReservation()->getId());
+        $totalAvance = 0;
+        foreach($avance->getIdReservation()->getAvances() as $avance){
+            $totalAvance += $avance->getMontant();
+        }
 
         $html = $this->renderView('avance/recu.html.twig', [
             'avance' => $avance,
+            'totalAvance' => $totalAvance,
         ]);
         // dd($html);
         $pdfService->showPdf($html);

@@ -7,13 +7,21 @@
 <body>
     <img class="h-8 mr-3" src="https://www.norsys.fr/sites/all/themes/custom/norsys/logo.png?v=2" alt="Flowbite Logo"/>
     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Norsys</span>
-    <div class="w-full m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="m-auto bg-white rounded-lg shadow">
         <div class="flex flex-col items-center pb-10">
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white italic">RESERVATION#ID: {{ avance.getIdReservation().getId() }}</h5>
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white italic">ID: {{ avance.id }}</h5>
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white italic text-center">RESERVATION#REF: {{ avance.getIdReservation().getId() }}</h5>
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white italic text-center">ID: {{ avance.id }}</h5>
+            <div class="text-center mt-2 flex">
+                <p class="font-semibold">Montant total de la reservation</p>
+                <p class="text-gray-500">{{ avance.getIdReservation().montantTotal }} DH</p>
+            </div>
             <div class="text-center mt-2 flex">
                 <p class="font-semibold">Montant d'avance:</p>
-                <p class="text-gray-500">{{ avance.montant ? avance.montant : '-' }}</p>
+                <p class="text-gray-500">{{ avance.montant }} DH</p>
+            </div>
+            <div class="text-center mt-2 flex">
+                <p class="font-semibold">Montant reste:</p>
+                <p class="text-gray-500">{{ totalAvance }} DH</p>
             </div>
             <div class="text-center mt-2">
                 <p class="font-semibold">Date d'avance:</p>
