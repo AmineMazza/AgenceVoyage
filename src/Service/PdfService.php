@@ -23,10 +23,10 @@ class PdfService {
     }
 
     public function showPdf($html){
-        
+        // dd($html);
         $this->domPdf->loadHtml($html);
 
-        $this->domPdf->setPaper([0, 0,  220, 350],'portrait');
+        $this->domPdf->setPaper([0, 0,  240, 370], 'portrait');
 
 
         $this->domPdf->render();
