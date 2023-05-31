@@ -6,17 +6,18 @@ namespace App\Service;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Entity\Message;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class MessageApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService){
+    public function __construct(private HttpClientInterface $client, TokenStorageInterface $tokenStorage, private CallApiService $callApiService, private OffreApiService $offreApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getMessages() : array
+    public function getMessages() : ArrayCollection
     {
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $response = $this->client->request('GET', 'http://127.0.0.1/api/messages',[
@@ -29,7 +30,59 @@ class MessageApiService extends AbstractController {
             $this->callApiService->getJWTRefreshToken();
             $this->getMessages();
         }
-        return $response->toArray();
+        $messages = new ArrayCollection();
+        foreach($response->toArray() as $data) {
+            if(!isset($data['idOffre'])){
+                $message = new Message();
+                $message->setId($data['id']);
+                $message->setNom($data['nom'] ? $data['nom'] : null);
+                $message->setEmail($data['email']);
+                $message->setTelephone($data['telephone'] ? $data['telephone'] : null);
+                $message->setMessage($data['message']);
+                $message->setDateEnvoi(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date_envoi']));
+                if(isset($data['bsatatus'])) $message->setBstatus($data['bsatatus']);
+                else $message->setBstatus(false);
+                $messages->add($message);
+            }
+        }
+        return $messages;
+    }
+
+    public function getMessagesAgent() : ArrayCollection
+    {
+        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
+        $response = $this->client->request('GET', 'http://127.0.0.1/api/messages',[
+            'headers' => [
+                'Authorization' => 'Bearer ' . $jwtToken,
+                'Accept' => 'application/json',
+            ],
+        ]);
+        if ($response->getStatusCode() === 401) {
+            $this->callApiService->getJWTRefreshToken();
+            $this->getMessages();
+        }
+        $messages = new ArrayCollection();
+        foreach($response->toArray() as $data) {
+            if(isset($data['idOffre'])){
+                $message = new Message();
+                $arr_param = explode('/',$data['idOffre']);
+                $message->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
+                if($message->getIdOffre()->getIdUser()->getId() == $this->getUser()->getId()){
+                    $message->setId($data['id']);
+                    $message->setNom($data['nom'] ? $data['nom'] : null);
+                    $message->setEmail($data['email']);
+                    $message->setTelephone($data['telephone'] ? $data['telephone'] : null);
+                    $message->setMessage($data['message']);
+                    $message->setDateEnvoi(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data['date_envoi']));
+                    if(isset($data['bsatatus'])) $message->setBstatus($data['bsatatus']);
+                    else $message->setBstatus(false);
+                    $messages->add($message);
+                }
+            }
+            
+           
+        }
+        return $messages;
     }
 
     public function getMessage($id) : Message
@@ -52,8 +105,8 @@ class MessageApiService extends AbstractController {
         $message->setEmail($data->email);
         $message->setTelephone($data->telephone ? $data->telephone : null);
         $message->setMessage($data->message);
-        $message->setDateEnvoi($data->date_envoi);
-        $message->setDateEnvoi($data->bsatatus);
+        $message->setDateEnvoi(\DateTime::createFromFormat('Y-m-d\TH:i:sP',$data->date_envoi));
+        $message->setBstatus($data->bsatatus);
         return $message;
     }
 

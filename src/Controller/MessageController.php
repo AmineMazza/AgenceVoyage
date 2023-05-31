@@ -16,8 +16,10 @@ class MessageController extends AbstractController
     #[Route('dashboard/message/', name: 'app_message_index', methods: ['GET'])]
     public function index(MessageApiService $MessageApiService): Response
     {
+        if($this->isGranted("ROLE_ADMIN")) $messages = $MessageApiService->getMessages();
+        else $messages = $MessageApiService->getMessagesAgent();
         return $this->render('message/index.html.twig', [
-            'messages' => $MessageApiService->getMessages(),
+            'messages' => $messages,
         ]);
     }
 
