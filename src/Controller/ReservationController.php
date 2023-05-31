@@ -18,7 +18,7 @@ class ReservationController extends AbstractController
     public function index(ReservationApiService $ReservationApiService, Security $security): Response
     {
         if ($this->isGranted("ROLE_ADMIN")) $data = $ReservationApiService->getReservations();
-        else $data = $ReservationApiService->getReservations(['id_user' => $this->getUser()->getId()]);
+        else $data = $ReservationApiService->getReservations($this->getUser()->getId());
         return $this->render('reservation/index.html.twig', [
             'reservations' => $data,
         ]);

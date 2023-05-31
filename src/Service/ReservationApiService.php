@@ -16,19 +16,20 @@ class ReservationApiService extends AbstractController {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getReservations($params = null) : ArrayCollection
+    public function getReservations($idU = null) : ArrayCollection
     {
+        if($idU == null) $url = 'http://127.0.0.1/api/reservations';
+        else $url = 'http://127.0.0.1/api/reservations?id_user='.$idU;
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
-        $response = $this->client->request('GET', 'http://127.0.0.1/api/reservations',[
+        $response = $this->client->request('GET', $url,[
             'headers' => [
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
-                'query' => $params,
             ],
         ]);
         if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
-            $this->getReservations();
+            $this->getReservations($idU);
         }
         $reservations = new ArrayCollection();
         foreach ($response->toArray() as $key => $data) {
@@ -46,11 +47,6 @@ class ReservationApiService extends AbstractController {
             $reservation->setIdOffre($this->offreApiService->getOffre($arr_param[count($arr_param)-1]));
             $arr_param = explode('/',$data['idUser']);
             $reservation->setIdUser($this->userApiService->getOneUser($arr_param[count($arr_param)-1]));
-            if(!empty($data['idCommercial'])){
-                $arr_param = explode('/',$data['idCommercial']);
-                $reservation->setIdCommercial($this->commercialApiService->getCommercial($arr_param[count($arr_param)-1]));
-            }
-            // dd($reservation);
             $reservations->add($reservation);
         }
         return $reservations;
