@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
         $agent->setPrenom("agentPre");
         $agent->setTelephoneMobile("0743216532");
         $agent->setAdresse("433 lot tfkt");
-        $agent->setAbonnememt("premium");
+        $agent->setAbonnement("premium");
         $agent->setBstatus(true);
         $agent->setIdUser($userAgent);
 
