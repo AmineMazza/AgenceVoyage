@@ -26,7 +26,7 @@ class PdfService {
         // dd($html);
         $this->domPdf->loadHtml($html);
 
-        $this->domPdf->setPaper([0, 0,  240, 370], 'portrait');
+        $this->domPdf->setPaper([0, 0,  240, 390], 'portrait');
 
 
         $this->domPdf->render();
