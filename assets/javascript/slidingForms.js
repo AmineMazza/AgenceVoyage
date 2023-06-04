@@ -116,6 +116,11 @@ destination.addEventListener("change",()=>{destinationEvent()})
 
 function destinationEvent(){
     let destVal = destination.options[destination.selectedIndex].text;
+    const hotels_2_name=document.getElementById('offre_hotels_2_name');
+    const hotels_2_lieu=document.getElementById('offre_hotels_2_lieu');
+    const hotels_2_distance=document.getElementById('offre_hotels_2_distance');
+    const hotels_2_nuits=document.getElementById('offre_hotels_2_nombre_nuits');
+    const hotels_2_etoile=document.getElementById('offre_hotels_2_etoile');
     if(destVal == "Omra"  || destVal == "Hajj" || destVal == "Omra_combine"){
         document.querySelector("#visiteMedine").style.display = "flex"
         if(offreBvisite_medine.checked == true){
@@ -130,6 +135,11 @@ function destinationEvent(){
         hotel2.style.display = 'block' ;
         hbar0.style.display = 'block' ;
     }else{
+        hotels_2_name.value = '';
+        hotels_2_lieu.value = '';
+        hotels_2_distance.value = '';
+        hotels_2_nuits.value = '';
+        hotels_2_etoile.value = '';
         offreBvisite_medine.checked = false;
         document.querySelector("#visiteMedine").style.display = "none"
         hotel1.style.display = 'none';
@@ -143,12 +153,21 @@ destinationEvent();
 /*** */
 
 offreBvisite_medine.addEventListener('change',function(){
+    const hotels_1_name=document.getElementById('offre_hotels_1_name');
+    const hotels_1_lieu=document.getElementById('offre_hotels_1_lieu');
+    const hotels_1_distance=document.getElementById('offre_hotels_1_distance');
+    const hotels_1_nuits=document.getElementById('offre_hotels_1_nombre_nuits');
+    const hotels_1_etoile=document.getElementById('offre_hotels_1_etoile');
     if(offreBvisite_medine.checked==true){
-        console.log(hotel2);
         document.querySelector("#hbar1").style.display = "block";
         hotel1.style.display= 'block';
     }
     else{
+        hotels_1_name.value = '';
+        hotels_1_lieu.value = '';
+        hotels_1_distance.value = '';
+        hotels_1_nuits.value = '';
+        hotels_1_etoile.value = '';
         document.querySelector("#hbar1").style.display = "none";
         hotel1.style.display= 'none';     
     }
@@ -223,15 +242,15 @@ nextbutton.addEventListener("click",function(){
                 const hotels_1_distance=document.getElementById('offre_hotels_1_distance');
                 const hotels_1_nuits=document.getElementById('offre_hotels_1_nombre_nuits');
                 const hotels_1_etoile=document.getElementById('offre_hotels_1_etoile');
-                    if((hotels_0_name.value==='' || hotels_0_lieu.value==='' || hotels_0_distance.value==='' || hotels_0_nuits.value==='' || hotels_0_etoile.value==='') || (hotels_1_name.value==='' || hotels_1_lieu.value==='' || hotels_1_distance.value==='' || hotels_1_nuits.value==='' || hotels_1_etoile.value==='')){
+                if((hotels_0_name.value==='' || hotels_0_lieu.value==='' || hotels_0_distance.value==='' || hotels_0_nuits.value==='' || hotels_0_etoile.value==='') || ( offreBvisite_medine.checked && (hotels_1_name.value==='' || hotels_1_lieu.value==='' || hotels_1_distance.value==='' || hotels_1_nuits.value==='' || hotels_1_etoile.value===''))){
                     infoHebergementError.innerText='oblige de remplir tous les champs (minimum des hotile)';
                     previousbutton.click();
                     i=2;
-                    }
-                    else{
-                        infoHebergementError.innerText='';
-                        i++;
-                    }
+                }
+                else{
+                    infoHebergementError.innerText='';
+                    i++;
+                }
             }
             else if(destVal===""){
                 infoHebergementError.innerText='oblige de choisir un destination';
