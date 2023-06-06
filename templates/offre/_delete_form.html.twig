@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_offre_delete', {'id': offre.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('app_offre_delete', {'id': offre.id}) }}" onsubmit="return confirm('Les réservations seront également supprimées, êtes-vous sûr de vouloir supprimer cette offre?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ offre.id) }}">
     <button class="flex items-center text-red-600 hover:text-white border border-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 transition duration-500">Delete</button>
 </form>

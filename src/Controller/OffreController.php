@@ -104,10 +104,10 @@ class OffreController extends AbstractController
             $offreApiService->DeleteOffre($_route_params['id']);
         }
 
-        return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);
     }
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
-    public function index(array $_route_params,OffreApiService $offreApiService,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
+    public function index(array $_route_params,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    if(isset($_GET['btnClear'])){
         $pagination = $paginator->paginate(
             $OffreRepository->PaginationQuery($_route_params['value']),

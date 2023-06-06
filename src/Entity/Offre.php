@@ -87,7 +87,7 @@ class Offre
     #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Hotel::class, orphanRemoval: true)]
     private Collection $hotels;
 
-    #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Message::class, orphanRemoval: true)]
     private Collection $messages;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -104,7 +104,7 @@ class Offre
     #[ORM\JoinColumn(nullable: false)]
     private ?Destination $id_destination = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Reservation::class)]
+    #[ORM\OneToMany(mappedBy: 'id_offre', targetEntity: Reservation::class, orphanRemoval: true)]
     private Collection $reservations;
 
     #[ORM\Column(nullable: true)]
