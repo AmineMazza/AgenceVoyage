@@ -51,8 +51,12 @@ class DashboardController extends AbstractController
     #[Route('/myOffres', name: 'app_myoffres')]
     public function myoffres(OffreApiService $offreApiService): Response
     {
+        if($this->isGranted("ROLE_ADMIN")){
+            $offres = $offreApiService->getOffres();
+        }
+        else $offres = $offreApiService->getOffresParams(['id_user'=>$this->getUser()->getId()]);
         return $this->render('dashboard/myoffres.html.twig', [
-            'offres' => $offreApiService->getOffresParams(['id_user'=>$this->getUser()->getId()]),
+            'offres' => $offres,
         ]);
     }
 
