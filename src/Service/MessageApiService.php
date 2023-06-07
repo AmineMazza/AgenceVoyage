@@ -112,7 +112,6 @@ class MessageApiService extends AbstractController {
 
     public function AddMessage($message,$idO = null) : bool
     {
-        $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken");
         $json = [
             'nom' => $message->getNom(),
             'email' => $message->getEmail(),
@@ -124,7 +123,6 @@ class MessageApiService extends AbstractController {
         if($idO != null) $json['idOffre'] = '/api/offres/'.$idO;
         $response = $this->client->request('POST', 'http://127.0.0.1/api/messages', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
             'json' => $json,
