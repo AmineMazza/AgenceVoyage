@@ -47,16 +47,28 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        
+        $jwtToken = $this->CallApiService->getJWTToken($request->request->all()['password']);        
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
+            if(isset($jwtToken['token'])){
+                $response = new RedirectResponse($targetPath);
+                $token->setAttribute('JWTToken',$jwtToken['token']);
+                $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
+                $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'), '/', null, false, false);
+                $response->headers->setCookie($cookie);
+                return $response;
+            }
+            else new RedirectResponse($this->urlGenerator->generate('app_logout'));
         }
-        $jwtToken = $this->CallApiService->getJWTToken($request->request->all()['password']);
-        $token->setAttribute('JWTToken',$jwtToken['token']);
-        $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
-        $redirectResponse = new RedirectResponse($this->urlGenerator->generate('app_home'));
-        $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'), '/', null, false, false);
-        $redirectResponse->headers->setCookie($cookie);
-        return $redirectResponse;
+        if(isset($jwtToken['token'])){
+            $token->setAttribute('JWTToken',$jwtToken['token']);
+            $token->setAttribute('JWTRefreshToken',$jwtToken['refresh_token']);
+            $redirectResponse = new RedirectResponse($this->urlGenerator->generate('app_home'));
+            $cookie = new Cookie('jwt_token', $jwtToken['token'], strtotime('+7 day'), '/', null, false, false);
+            $redirectResponse->headers->setCookie($cookie);
+            return $redirectResponse;
+        }
+        else new RedirectResponse($this->urlGenerator->generate('app_logout'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
