@@ -55,7 +55,7 @@ security:
         - { path: ^/api/(users|agents)$, roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: ^/api/(offres|destinations|users|hotels), roles: PUBLIC_ACCESS, methods: [GET] }
         - { path: ^/api/messages, roles: PUBLIC_ACCESS, methods: [POST] }
-        - { path: ^/api/$, roles: ROLE_ADMIN }
+        - { path: ^/api$, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: [ROLE_ADMIN,ROLE_AGENT] }
         - { path: ^/dashboard/(agent|destination), roles: ROLE_ADMIN }
         - { path: ^/dashboard,       roles: [ROLE_ADMIN,ROLE_AGENT] }

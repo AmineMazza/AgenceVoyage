@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Votre newsletter</title>
+  <style>
+    /* Styles CSS inline pour assurer une meilleure compatibilité */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+    }
+    .news h1{
+      background-color:rgb(7,29,57); 
+      padding: 30px 30px 30px 300px;
+      color: #ffffff;
+      height:40px;
+    }
+    h1 {
+      color: #333333;
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    p {
+      color: #666666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .footer h3 {
+      font-size: 12px;
+      background-color: rgb(7,29,57); 
+      padding: 20px 20px 20px 20px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="news">
+      <h1>Welcome To Newsletter</h1>
+    </div>
+  <img src="https://www.norsys.fr/sites/all/themes/custom/norsys/logo.png?v=2" class="h-8 mr-3" alt="Flowbite Logo" />
+  <img src="https://www.norsys.fr/sites/all/themes/custom/norsys/logo.png?v=2" class="h-8 mr-3" alt="Flowbite Logo" style="margin-left:600px" />
+
+  <h1>Objet : Explorez le monde avec nos offres de voyage exclusives !</h1>
+  {# <h1>Image de la newsletter</h1>
+    <img src={{'assets\img\travel-concept-with-landmarks.jpg' width="500px" height="150px" alt="image"}}> #}
+    <p>Bonjour</p>
+    <p>L'été est là et il est temps de s'évader vers de nouvelles destinations extraordinaires !</p>
+    <p>Chez Norsys , nous sommes ravis de vous présenter nos offres de voyage exclusives qui vous feront rêver.</p>
+    <p>Préparez-vous à vivre des expériences inoubliables et à créer des souvenirs qui dureront toute une vie.
+    <p>Voici un aperçu de ce qui vous attend :</p>
+   
+    <h3> Offre : <p>{{newsletter.name}}</p></h3>
+    <h3> Categorie : <p>{{newsletter.categories.name}}</p></h3>
+    <h3> Contenu : <p>{{newsletter.content|raw}}</p> </h3>
+  
+    <p>N'oubliez pas de consulter notre site Web régulièrement pour découvrir de nouvelles offres et des idées de voyage inspirantes.</p>
+    {# <p>Pour vous désinscrire, cliquez sur ce lien
+        <a href="{{ absolute_url(path('unsubscribe', {id: user.id, newsletter:newsletter.id, token: user.validationToken})) }}">
+          {{ absolute_url(path('unsubscribe', {id: user.id, newsletter:newsletter.id, token: user.validationToken})) }}
+        </a>
+    </p> #}
+    <div class="footer">
+      <h3>AmineMAZZA</h3>
+    </div>
+  </div>
+</body>
+</html>
