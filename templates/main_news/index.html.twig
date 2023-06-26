@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Main Newsletters{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('message') %}
+         <div>{{message}}</div>
+    {% endfor %}
+{% endblock %}

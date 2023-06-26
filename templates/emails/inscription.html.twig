@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Votre newsletter</title>
+  <style>
+    /* Styles CSS inline pour assurer une meilleure compatibilité */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+    }
+    h1 {
+      color: #333333;
+      font-size: 24px;
+      margin-top: 0;
+    }
+    p {
+      color: #666666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .footer h3 {
+      color: #999999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+   <a class="flex items-center">
+      <img src="https://www.norsys.fr/sites/all/themes/custom/norsys/logo.png?v=2" class="h-8 mr-3" alt="Flowbite Logo" />
+      {# <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-indigo-950">Norsys</span> #}
+    </a>
+  <h1>Votre inscription à la newsletter</h1>
+  {# <h1>Image de la newsletter</h1>
+    <img src={{'assets\img\travel-concept-with-landmarks.jpg' width="500px" height="150px" alt="image"}}> #}
+    <p>Bonjour</p>
+    <p>Vous recevrez des newsletters de nos offres</p>
+    <p>N'oubliez pas à cliquer sur le lien pour activer les newsletters :</p>
+    {# <a class="button">Cliquez ici pour recevoir les newsletters :</a><br><br> #}
+    <a class="button" href="{{ absolute_url(path('confirm', {id: user.id, token: token})) }}">
+    Cliquez ici pour activer la réception des newsletters
+    {# {{ absolute_url(path('confirm', {id: user.id, token: token})) }} #}
+    </a>
+
+    <div class="footer">
+      <h3>AmineMazza</h3>
+    </div>
+  </div>
+</body>
+</html>
