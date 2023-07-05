@@ -57,7 +57,7 @@ security:
         - { path: ^/api/messages, roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: ^/api$, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: [ROLE_ADMIN,ROLE_AGENT] }
-        - { path: ^/dashboard/(agent|destination), roles: ROLE_ADMIN }
+        - { path: ^/dashboard/(agent|destination), roles: PUBLIC_ACCESS }
         - { path: ^/dashboard,       roles: [ROLE_ADMIN,ROLE_AGENT] }
         - { path: ^/offre/new, roles: [ROLE_ADMIN,ROLE_AGENT]}
         - { path: ^/offre/id/edit, roles: [ROLE_ADMIN,ROLE_AGENT]}
