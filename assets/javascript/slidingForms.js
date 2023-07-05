@@ -226,7 +226,7 @@ nextbutton.addEventListener("click",function(){
             i++;
         }
     }
-     else if(i==2){
+     else if(i==1){
         const hebergement = document.getElementById('offre_bhebergement');
         const infoHebergementError=document.getElementById('Hebergement');
         let destVal = destination.options[destination.selectedIndex].text;
@@ -245,7 +245,7 @@ nextbutton.addEventListener("click",function(){
                 if((hotels_0_name.value==='' || hotels_0_lieu.value==='' || hotels_0_distance.value==='' || hotels_0_nuits.value==='' || hotels_0_etoile.value==='') || ( offreBvisite_medine.checked && (hotels_1_name.value==='' || hotels_1_lieu.value==='' || hotels_1_distance.value==='' || hotels_1_nuits.value==='' || hotels_1_etoile.value===''))){
                     infoHebergementError.innerText='oblige de remplir tous les champs (minimum des hotile)';
                     previousbutton.click();
-                    i=2;
+                    i=1;
                 }
                 else{
                     infoHebergementError.innerText='';
@@ -255,7 +255,7 @@ nextbutton.addEventListener("click",function(){
             else if(destVal===""){
                 infoHebergementError.innerText='oblige de choisir un destination';
                 previousbutton.click();
-                i=2; 
+                i=1; 
             }
             else {
                     const hotels_0_name=document.getElementById('offre_hotels_0_name');
@@ -267,7 +267,7 @@ nextbutton.addEventListener("click",function(){
                         if(hotels_0_name.value==='' || hotels_0_lieu.value==='' || hotels_0_distance.value==='' || hotels_0_nuits.value==='' || hotels_0_etoile.value===''){
                         infoHebergementError.innerText='oblige de remplir tous les champs';
                         previousbutton.click();
-                        i=2;
+                        i=1;
                         }
                         else{
                             infoHebergementError.innerText='';
@@ -279,7 +279,7 @@ nextbutton.addEventListener("click",function(){
         if(destVal===""){
             infoHebergementError.innerText='oblige de choisir un destination';
             previousbutton.click();
-            i=2; 
+            i=1; 
         }
         else{
         infoHebergementError.innerText='';
@@ -415,7 +415,7 @@ nextbutton.addEventListener("click",function(){
     else{
         i++;
     }
-    if(i >= 10)
+    if(i >= 5)
         nextbutton.style.display = 'none' ;
     else if(i<=1){
         previousbutton.style.display = 'none';

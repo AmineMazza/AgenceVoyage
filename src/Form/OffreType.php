@@ -75,7 +75,7 @@ class OffreType extends AbstractType
             ->add('prix_double',NumberType::class,['required' => false])
             ->add('prix_triple',NumberType::class,['required' => false])
             ->add('prix_quad',NumberType::class,['required' => false])
-            ->add('prix_quint',NumberType::class,['required' => false])
+            // ->add('prix_quint',NumberType::class,['required' => false])
             ->add('detail_voyage',TextareaType::class, ['required' => false])
             ->add('detail_vols',TextareaType::class, ['required' => false])
             ->add('bpassport',null,['required' => false])
