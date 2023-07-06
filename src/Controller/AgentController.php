@@ -19,6 +19,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/dashboard/agent')]
 class AgentController extends AbstractController
 {
+    
     #[Route('/', name: 'app_agent_index', methods: ['GET'])]
     public function index(AgentApiService $agentApiService): Response
     {
