@@ -9,9 +9,9 @@
 {% block body %}
 
 {# card carousel #}
-<h1 class=" text-4xl text-center ml-20 font-extrabold text-gray-900 my-6 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r  from-blue-500 to-emerald-600">Découvrez</span> nos meilleurs offres.</h1>
+<h1 class=" text-4xl text-center ml-20 mb-2 font-extrabold text-gray-900 my-6 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r  from-blue-500 to-emerald-600">Sélection</span> Coups De Coeur</h1>
 {# <div class="carousel carousel-center rounded-box h-[30rem] w-11/12 m-auto space-x-4 pb-10 cursor-pointer"> #}
-<div class="carousel rounded-box bg-blue-500 h-[28rem]  px-60 m-14 space-x-4 pb-5 cursor-pointer">
+<div class="carousel rounded-box bg-blue-500 h-[28rem] px-60 m-14 space-x-4 pb-5 cursor-pointer">
   
   {% for offre in offres %}
     {% if offre.image is defined and offre.bcoupCoeur  %}
@@ -83,7 +83,7 @@
 {# bare de rocherch #}
 
 <h1 class=" text-4xl text-center font-extrabold text-gray-900 my-6 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r  from-blue-500 to-emerald-600">
-        Voyages</span> à venir.
+        Barre</span> de recherche
 </h1>
 <form method="GET" class="w-full flex justify-center space-x-8">
             <!-- Dropdown menu -->
@@ -129,6 +129,9 @@
                 <span class="sr-only">Clear</span>
             </button>
 </form>
+<h1 class=" text-4xl text-center font-extrabold text-gray-900 my-6 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r  from-blue-500 to-emerald-600">
+        Voyages</span> à venir
+</h1>
 <div class="grid grid-cols-2 gap-8 m-8">
 {# offers list #}
     {% for offre in offresNoBcoupCoeur %}
