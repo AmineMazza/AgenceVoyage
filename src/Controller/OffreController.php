@@ -2,20 +2,22 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Offre;
+use DateTimeImmutable;
 use App\Form\OffreType;
-use App\Repository\OffreRepository;
+use FontLib\Table\Type\name;
 use App\Service\HotelApiService;
 use App\Service\OffreApiService;
-use Exception;
+use App\Repository\OffreRepository;
+use App\Service\DestinationApiService;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use DateTimeImmutable;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/offre')]
 class OffreController extends AbstractController
@@ -106,15 +108,16 @@ class OffreController extends AbstractController
 
         return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);
     }
+   
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
-    public function index(array $_route_params,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
+    public function index(DestinationApiService $destinationApiService,array $_route_params,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    if(isset($_GET['btnClear'])){
         $pagination = $paginator->paginate(
             $OffreRepository->PaginationQuery($_route_params['value']),
-            $request->query->get('page', 1),
+            $request->query->get('page', 1), 
             8
         );
-    }
+        }
         else if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix'])) {
             if($_GET['SearchOffreDate']!=''){   
         $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
@@ -141,6 +144,7 @@ class OffreController extends AbstractController
         }
   
         return $this->render('offre/index.html.twig', [
+            'destinations' => $destinationApiService->getDestinations(),
             'pagination' => $pagination,
         ]);
     }

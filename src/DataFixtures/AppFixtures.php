@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
         $userAgent->setRoles(["ROLE_AGENT"]);
         $userAgent->setPassword($this->hasher->hashPassword($userAgent,"agent"));
         $manager->persist($user);
+
         $agent = new Agent();
         $agent->setAgence("Agence1");
         $agent->setNom("agentNom");
@@ -38,7 +39,6 @@ class AppFixtures extends Fixture
         $agent->setAbonnement("premium");
         $agent->setBstatus(true);
         $agent->setIdUser($userAgent);
-
         $manager->persist($agent);
 
         $manager->flush();
