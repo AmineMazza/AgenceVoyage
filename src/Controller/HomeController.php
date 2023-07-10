@@ -40,11 +40,28 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(OffreApiService $offreApiService,OffreRepository $offreRepository ,DestinationRepository $destinationRepository): Response
+    public function index(OffreApiService $offreApiService,array $_route_params,OffreRepository $offreRepository ,DestinationRepository $destinationRepository, PaginatorInterface $paginator,Request $request): Response
     {
             $offreNOBcoupCoeur=$offreRepository->getOffresNoBcoupCoeur();
             $offreBcoupCoeur=$offreRepository->getOffresBcoupCoeur();
             $DR = $destinationRepository->getDestinations();
+            if(isset($_GET['SearchHome']) && isset($_GET['searchOffDestination'])){
+                $pagination = $paginator->paginate(
+                    $offreRepository->PaginationQuery("all"),
+                    $request->query->get('page', 1), 
+                    8
+                );
+                return $this->redirectToRoute('app_offre_index',[
+                    "value" => 'all',
+                    'searchOffDestination' => $_GET['searchOffDestination'],
+                    'SearchOffreMinPrix' => $_GET['SearchOffreMinPrix'],
+                    'SearchOffreDate' => $_GET['SearchOffreDate'],
+                    'pagination' => $pagination,
+                ]);   
+            }else if(($_GET['searchOffDestination']) == 'all'){
+                
+                return $this->redirectToRoute('app_offre_index',[ 'value' => 'all',]);
+            }
              return $this->render('home/index.html.twig', [
             'destinations' => $DR,
             'controller_name' => 'HomeController',
@@ -125,46 +142,6 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('app_main_news');
     }
 
-    #[Route('/offre/type/{value}', name: 'app_offre_index', methods: ['GET'])]
-    public function SercheOffre($value, DestinationRepository $DR, OffreRepository $OffreRepository,PaginatorInterface $paginator, Request $request, array $_route_params): Response
-    {
-        if(isset($_GET['ClearHome'])){
-            $pagination = $paginator->paginate(
-                $OffreRepository->PaginationQuery($_route_params['value']),
-                $request->query->get('page', 1), 
-                8
-            );
-            }else if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix'])) {
-                if($_GET['SearchOffreDate']!=''){   
-            $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
-                $pagination = $paginator->paginate(
-                    $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix'],$date),
-                    $request->query->get('page', 1),
-                    8
-                );
-            }
-            else{
-                $pagination = $paginator->paginate(
-                    $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix']),
-                    $request->query->get('page', 1),
-                    8
-                );
-            }
-            }
-            else{
-          $pagination = $paginator->paginate(
-                $OffreRepository->PaginationQuery($_route_params['value']),
-                $request->query->get('page', 1),
-                8
-            );
-            }
-      
-            return $this->render('offre/index.html.twig', [
-                'destinations' => $DR->findAll(),
-                'pagination' => $pagination,
-            ]);
-
-        }
 
 
 
