@@ -2,27 +2,30 @@
 
 namespace App\Controller;
 
+use Twig\Environment;
+use DateTimeImmutable;
 use App\Service\CallApiService;
 use App\Service\OffreApiService;
+use App\Entity\Newsletters\Users;
+use App\Form\NewslettersUsersType;
 use App\Service\MessageApiService;
 use App\Repository\OffreRepository;
+use Symfony\Component\Mailer\Mailer;
 use App\Service\DestinationApiService;
+use ApiPlatform\Doctrine\Odm\Paginator;
+use App\Entity\Newsletters\Newsletters;
+use Symfony\Component\Mailer\Transport;
+use App\Repository\DestinationRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Persistence\ManagerRegistry;
-use Twig\Environment;
-use App\Entity\Newsletters\Newsletters;
-use App\Entity\Newsletters\Users;
-use Symfony\Component\Mailer\Transport;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\Mailer;
-use App\Form\NewslettersUsersType;
-
 
 class HomeController extends AbstractController
 {
@@ -37,12 +40,30 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(DestinationApiService $destinationApiService,OffreApiService $offreApiService,OffreRepository $offreRepository): Response
+    public function index(OffreApiService $offreApiService,array $_route_params,OffreRepository $offreRepository ,DestinationRepository $destinationRepository, PaginatorInterface $paginator,Request $request): Response
     {
             $offreNOBcoupCoeur=$offreRepository->getOffresNoBcoupCoeur();
             $offreBcoupCoeur=$offreRepository->getOffresBcoupCoeur();
+            $DR = $destinationRepository->getDestinations();
+            if(isset($_GET['SearchHome']) && isset($_GET['searchOffDestination'])){
+                $pagination = $paginator->paginate(
+                    $offreRepository->PaginationQuery("all"),
+                    $request->query->get('page', 1), 
+                    8
+                );
+                return $this->redirectToRoute('app_offre_index',[
+                    "value" => 'all',
+                    'searchOffDestination' => $_GET['searchOffDestination'],
+                    'SearchOffreMinPrix' => $_GET['SearchOffreMinPrix'],
+                    'SearchOffreDate' => $_GET['SearchOffreDate'],
+                    'pagination' => $pagination,
+                ]);   
+            }else if(($_GET['searchOffDestination']) == 'all'){
+                
+                return $this->redirectToRoute('app_offre_index',[ 'value' => 'all',]);
+            }
              return $this->render('home/index.html.twig', [
-            'destinations' => $destinationApiService->getDestinations(),
+            'destinations' => $DR,
             'controller_name' => 'HomeController',
             'offres' => $offreBcoupCoeur,
             'offresNoBcoupCoeur'=> $offreNOBcoupCoeur,
@@ -120,6 +141,8 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('app_main_news');
     }
+
+
 
 
 }
