@@ -5,262 +5,162 @@
 {% if form_errors(form.image) %}
     <div class="alert alert-danger">{{ form_errors(form.image) }}</div>
 {% endif %}
-<div class="flex justify-around m-10">
-    {# <div class="w-1/4 inline" >
-        <h1 class="my-4 ml-10 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">créer une</span> nouvelle offre.</h1>
-        <img src="https://www.getillustrations.com/packs/zima-3d-illustrations-for-websites-and-apps/characters/_1x/workflow,%20office%20_%20man,%20computer,%20work,%20job,%20wireless,%20online,%20work%20from%20home_md.png" alt="">
-    </div> #}
-    <div id="controls-carousel" class="relative w-screen drop-shadow-2xl mt-6" data-carousel="static">
-        <!-- Carousel wrapper -->
-        <div class="relative overflow-hidden rounded-lg md:h-screen">
-            <!-- Item 1 -->
-            <div id="1" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item="active">
-                <div class=" -my-44 absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+   <!--Container-->
+    <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-5">
+        <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
+            {# <p class="text-base font-bold py-2 lg:pb-6 text-gray-700 dark:text-white">Menu</p> #}
+            <div class="block lg:hidden sticky inset-0">
+                <button id="menu-toggle" class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-blue-500 appearance-none focus:outline-none">
+                    <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="w-full sticky inset-0 hidden max-h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 my-2 lg:my-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20" style="top:6em;" id="menu-content">
+                <ul class="list-reset py-2 md:py-0">
+                    <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent font-bold border-blue-500">
+                        <a href='#section1' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
+                            <span class="pb-1 md:pb-0 text-sm">Section 1</span>
+                        </a>
+                    </li>
+                    <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
+                        <a href='#section2' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
+                            <span class="pb-1 md:pb-0 text-sm">Section 2</span>
+                        </a>
+                    </li>
+                    <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
+                        <a href='#section3' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
+                            <span class="pb-1 md:pb-0 text-sm">Section 3</span>
+                        </a>
+                    </li>
+                    <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
+                        <a href='#section4' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
+                            <span class="pb-1 md:pb-0 text-sm">Section 4</span>
+                        </a>
+                    </li>
+
+                    <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
+                        <a href='#section5' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
+                            <span class="pb-1 md:pb-0 text-sm">Section 5</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--Section container-->
+        <section class="w-full lg:w-4/5">
+
+            <!--Title-->
+            <h1 class="flex items-center font-sans font-bold break-normal text-gray-700 dark:text-white px-2 text-xl mt-12 lg:mt-0 md:text-2xl">
+				Pour ajouter une offre :
+			</h1>
+
+            <!--divider-->
+            <hr class="bg-gray-300 my-12">
+
+            <!--Title-->
+            <h2 id='section1' class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 1</h2>
+
+            <!--Card-->
+            <div class="p-8 mt-6 lg:mt-0 leading-normal shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+               <div class="block w-full top-1/2 ml-70">
+                    <h1 class="mb-8 mt-5 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
                     {% if is_granted('ROLE_ADMIN') %}
-                         <span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Relier</span> cet offre a un agent:</h1>
+                         Relier cet offre a un agent:</h1>
                     {% else %}
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Faites glisser</span> vers la droite pour remplir les champs.</h1>
+                    <span class="text-transparent bg-clip-text bg-blue-600 dark:text-white">Ajouter une offre</span> en tant que agent</h1>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}    
-                    <label class="relative inline-flex items-center cursor-pointer">
+                    <label class="relative inline-flex items-center cursor-pointer ml-20">
                         <input type="checkbox" id="forAgent" class="sr-only peer" name="forAgent">
-                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Pour un agent</span>
+                        <div class="w-11 h-6 bg-gray-200  rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-white peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-white">Pour un agent</span>
                     </label>
                     {% endif %}
-                        {{ form_widget(form.id_user,{ 'id': 'users-input' ,'attr': {'class': 'hidden m-auto mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-                    <label for="" id='errorforAgent' class="text-red-500"></label>
-                </div>
-
-                <!-- Item 1-2 -->
-                <div class="absolute mt-28 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> sur l'hebergement:</h1>
-                   
-                    <div class="flex justify-center mb-4 mt-2">
-                        <div class="flex items-center mr-3 w-1/4 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bhebergement, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hebergement</label>
-                        </div>
-                        <div class="flex items-center mx-3 w-1/4 px-2 border border-gray-200 rounded-lg dark:border-gray-700">
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Destination: </label>
-                            {{form_widget(form.id_destination, {
-                                    'attr': {'class': 'bg-gray-50 mx-1 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
-                            }) }}
-                        </div>
-                        <div id='visiteMedine' class="flex items-center ml-3 w-1/4 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bvisite_medine, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">visite de medine</label>
-                        </div>
-                    </div>
-            
-                    <div id="hotels" class="flex justify-center">
-                        
-                        <div id="offre_hotels_0" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_0_name" value="{{offre.hotels is not empty ? offre.hotels[0].name : null}}" name="offre[hotels][0][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_0_lieu" value="{{offre.hotels is not empty ? offre.hotels[0].lieu : null}}" name="offre[hotels][0][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_0_distance" value="{{offre.hotels is not empty ? offre.hotels[0].distance : null}}" name="offre[hotels][0][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_0_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_0_nombre_nuits" value="{{offre.hotels is not empty ? offre.hotels[0].nombreNuits : null}}" name="offre[hotels][0][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_0_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_0_etoile" value="{{offre.hotels is not empty ? offre.hotels[0].etoile : null}}" name="offre[hotels][0][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                        <div id="hbar0" class="border-l-2 mx-4"></div>
-                        <div id="offre_hotels_1" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_1_name" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].name : null) : null}}" name="offre[hotels][1][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_1_lieu" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].lieu : null) : null}}" name="offre[hotels][1][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_1_distance" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].distance : null) : null}}" name="offre[hotels][1][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_1_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_1_nombre_nuits" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].nombreNuits : null) : null}}" name="offre[hotels][1][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_1_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_1_etoile"  value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].etoile : null) : null}}" name="offre[hotels][1][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                        <div id="hbar1" class="border-l-2 mx-4"></div>
-                        <div id="offre_hotels_2" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_2_name"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].name : null) : null}}" name="offre[hotels][2][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_2_lieu"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].lieu : null) : null}}" name="offre[hotels][2][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_2_distance"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].distance : null) : null}}" name="offre[hotels][2][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_2_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_2_nombre_nuits"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].nombreNuits : null) : null}}" name="offre[hotels][2][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_2_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_2_etoile"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].etoile : null) : null}}" name="offre[hotels][2][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <label for="" id='Hebergement' class="text-red-500"></label>
+                    {{ form_widget(form.id_user,{ 'id': 'users-input' ,'attr': {'class': 'hidden mt-4 ml-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                             <label for="" id='errorforAgent' class="text-red-500"></label>
                 </div>
             </div>
+            <!--/Card-->
 
-            <!-- Item 2 -->
-            {# <div id="2" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> sur l'hebergement:</h1>
-                    <div class="flex justify-center mb-4 ">
-                        <div class="flex items-center mr-3 w-1/4 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bhebergement, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hebergement</label>
+            <!--divider-->
+            <hr class="bg-gray-300 my-12">
+
+            <!--Title-->
+            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 2</h2>
+
+            <!--Card-->
+            <div id='section2' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                                Titre de l'offre
+                            </label>
                         </div>
-                        <div class="flex items-center mx-3 w-1/4 px-2 border border-gray-200 rounded-lg dark:border-gray-700">
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Destination: </label>
-                            {{form_widget(form.id_destination, {
-                                    'attr': {'class': 'bg-gray-50 mx-1 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+                        <div class="md:w-72">
+                             {{ form_widget(form.titre, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                            'placeholder': " " } }) }}
+                        </div>
+                    </div>
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                                Image
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                             {{ form_widget(form.image, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                            'placeholder': " " } }) }}
+                        </div>
+                    </div>
+                    
+
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
+                                Destination
+                            </label>
+                        </div>
+                       {{form_widget(form.id_destination, {
+                                    'attr': {'class': 'bg-gray-50 mx-1 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                             }) }}
-                        </div>
-                        <div id='visiteMedine' class="flex items-center ml-3 w-1/4 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bvisite_medine, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">visite de medine</label>
-                        </div>
                     </div>
-                    
-                    <div id="hotels" class="flex justify-center">
-                        
-                        <div id="offre_hotels_0" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_0_name" value="{{offre.hotels is not empty ? offre.hotels[0].name : null}}" name="offre[hotels][0][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_0_lieu" value="{{offre.hotels is not empty ? offre.hotels[0].lieu : null}}" name="offre[hotels][0][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_0_distance" value="{{offre.hotels is not empty ? offre.hotels[0].distance : null}}" name="offre[hotels][0][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_0_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_0_nombre_nuits" value="{{offre.hotels is not empty ? offre.hotels[0].nombreNuits : null}}" name="offre[hotels][0][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_0_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_0_etoile" value="{{offre.hotels is not empty ? offre.hotels[0].etoile : null}}" name="offre[hotels][0][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_0_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                        <div id="hbar0" class="border-l-2 mx-4"></div>
-                        <div id="offre_hotels_1" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_1_name" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].name : null) : null}}" name="offre[hotels][1][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_1_lieu" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].lieu : null) : null}}" name="offre[hotels][1][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_1_distance" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].distance : null) : null}}" name="offre[hotels][1][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_1_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_1_nombre_nuits" value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].nombreNuits : null) : null}}" name="offre[hotels][1][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_1_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_1_etoile"  value="{{offre.hotels is not empty ? (offre.hotels[1] is defined ? offre.hotels[1].etoile : null) : null}}" name="offre[hotels][1][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_1_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                        <div id="hbar1" class="border-l-2 mx-4"></div>
-                        <div id="offre_hotels_2" class="w-1/4">
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_2_name"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].name : null) : null}}" name="offre[hotels][2][name]" maxlength="255" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="text" id="offre_hotels_2_lieu"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].lieu : null) : null}}" name="offre[hotels][2][lieu]" maxlength="59" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_lieu" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Lieu</label>
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="relative mb-2 mr-1">
-                                    <input type="text" id="offre_hotels_2_distance"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].distance : null) : null}}" name="offre[hotels][2][distance]" inputmode="decimal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_2_distance" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Distance</label>
-                                </div>
-                                <div class="relative mb-2 ml-1">
-                                    <input type="number" id="offre_hotels_2_nombre_nuits"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].nombreNuits : null) : null}}" name="offre[hotels][2][nombre_nuits]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                    <label for="offre_hotels_2_nombre_nuits" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre nuits</label>
-                                </div>
-                            </div>
-                            <div class="relative mb-2">
-                                <input type="number" id="offre_hotels_2_etoile"  value="{{offre.hotels is not empty ? (offre.hotels[2] is defined ? offre.hotels[2].etoile : null) : null}}" name="offre[hotels][2][etoile]" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "/>
-                                <label for="offre_hotels_2_etoile" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Etoile</label>
-                            </div>
-                        </div>
-                    </div>
-                             <label for="" id='Hebergement' class="text-red-500"></label>
-                </div>
-            </div> #}
 
-            <!-- Item 3 -->
-            <div id="2" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="-my-40 absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> sur le vol:</h1>
-                    
-                    {# <div class="flex justify-center">
-                        <div class="flex items-center mr-3 w-1/5 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.baller_retour, {
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
+                                Hebergement
+                            </label>
+                        </div>
+                        <label class="inline-flex items-center">
+                                   {{form_widget(form.bhebergement, {
                                 'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
                             })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Aller Retour</label>
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oui</label>
+                        </label>
+                    </div>
+                     <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
+                                visite Medine
+                            </label>
                         </div>
-                    </div> #}
+                        <label class="inline-flex items-center">
+                                   {{form_widget(form.bvisite_medine, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oui</label>
+                        </label>
+                    </div>
+                    <div class="md:flex mb-6">
+                     <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
+                                Dates
+                            </label>
+                        </div>
                     <div class="flex">
-                        <div class="w-1/2 m-auto">
+                        <div class="w-96 m-auto">
                             <h1 class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">date de depart:</h1>
                             <div class="">
                                 {{ form_widget(form.date_depart.children.date.year, {
@@ -283,9 +183,9 @@
                                 }) }}
                             </div>
                         </div>
-                        <div id="bar" class="w-0.5 bg-gray-400 rounded-full"></div>
+                        {# <div id="bar" class="w-0.5 bg-gray-400 rounded-full"></div> #}
                         <div id="retour" class="w-1/2">
-                            <h1 class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">date de retour:</h1>
+                            <h1 class="w-96 py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">date de retour:</h1>
                             <div>
                                 {{ form_widget(form.date_retour.children.date.year, {
                                     'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
@@ -307,125 +207,132 @@
                                 }) }}
                             </div>
                         </div>
-                     
                     </div>
-                        <label for="" id='DateError' class="text-red-500"></label>
-                </div>
-
-            <!-- Item 3-2 -->
-                 <div class="absolute mt-40 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ">
-                     <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Prix</span> par personne:</h1>
-                    <div class="">
-                    <div class="flex mb-4">
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_un, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">une personne</label>
-                        </div>
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_double, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_double]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">deux personnes</label>
-                        </div>
                     </div>
-                   
-                    <div class="flex mb-4">
-                        <div class="relative w-1/3 m-auto" >
-                            {{ form_widget(form.prix_triple, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_triple]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">trois personnes</label>
-                        </div>
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_quad, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_quad]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">quatre personnes</label>
-                        </div>
-                    
-                    </div>
-                               <label for="" id='ChambreError' class="text-red-500"></label>
-                    </div>
-                </div>
-                
             </div>
+            <!--/Card-->
 
-            <!-- Item 4 -->
-            {# <div id="4" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Prix</span> par personne:</h1>
-                <div class="">
-                    <div class="flex mb-4">
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_un, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">une personne</label>
-                        </div>
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_double, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_double]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">deux personnes</label>
-                        </div>
-                    </div>
-                   
-                    <div class="flex mb-4">
-                        <div class="relative w-1/3 m-auto" >
-                            {{ form_widget(form.prix_triple, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_triple]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">trois personnes</label>
-                        </div>
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_quad, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_quad]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">quatre personnes</label>
-                        </div>
-                        <div class="relative w-1/3 m-auto">
-                            {{ form_widget(form.prix_quint, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                'placeholder': " " } }) }}
-                            <label for="offre[prix_quint]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">cinq personnes</label>
-                        </div>
-                    </div>
-                               <label for="" id='ChambreError' class="text-red-500"></label>
-                    </div>
-                </div>
-            </div> #}
+            <!--divider-->
+            <hr class="bg-gray-300 my-12">
 
-            <!-- Item 5 -->
-            <div id="3" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="-my-40 absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl">les<span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500"> exigences:</span></h1>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="flex items-center mr-3  m-auto w-1/2 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bpassport, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Passport</label>
+            <!--Title-->
+            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 3</h2>
+
+            <!--Card-->
+            <div id='section3' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+                  <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
+                                Détail du vol
+                            </label>
                         </div>
-                        <div class="flex items-center mr-3 w-1/2 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bvisa, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                        <div class="md:w-2/3">
+                            {{form_widget(form.detail_vols, {
+                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                        'placeholder': "Écrivez vos pensées ici ...",
+                                        'rows': '4'
+                                }
                             })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Visa</label>
-                        </div>
-                        <div class="flex items-center mr-3 m-auto w-1/2 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bpass_vacinial, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pass vaccinal</label>
-                        </div>
-                        <div class="flex items-center mr-3 w-1/2 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                            {{form_widget(form.bphotos, {
-                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                            })}}
-                            <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Photos</label>
                         </div>
                     </div>
-                    <label for="" id='ErrorVisa' class="text-red-500"></label>
-                </div>
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
+                                Détail du voyage
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                            {{form_widget(form.detail_voyage, {
+                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                        'placeholder': "Écrivez vos pensées ici ...",
+                                        'rows': '4'
+                                }
+                            })}}
+                        </div>
+                    </div>
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                                Prix
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                           {{ form_widget(form.prix_un, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                                'placeholder': "une personne" } }) }}
+                        </div>
+                        <div class="md:w-2/3 ml-2">
+                           {{ form_widget(form.prix_double, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                                'placeholder': "deux personnes" } }) }}
+                        </div>
+                        <div class="md:w-2/3 ml-2">
+                           {{ form_widget(form.prix_triple, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                                'placeholder': "trois personnes" } }) }}
+                        </div>
+                        <div class="md:w-2/3 ml-2">
+                           {{ form_widget(form.prix_quad, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+                                                                'placeholder': "quatre personnes" } }) }}
+                        </div>
+                    </div>
+            </div>
+            <!--/Card-->
 
-            <!-- Item 5-2 -->
-                <div class="absolute mt-36 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Pensions:</span></h1>
-                    <div class="flex items-center">
-                        <div class="w-1/2 space-y-3">
+            <!--divider-->
+            <hr class="bg-gray-300 my-12">
+
+            <!--Title-->
+            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 4</h2>
+
+            <!--Card-->
+            <div id='section4' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+                    <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-checkbox">
+                                les exigences:
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <div>
+                                <label class="">
+                                   {{form_widget(form.bpassport, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Passport</label>
+                                </label>
+                            </div>
+                             <div>
+                                <label class="">
+                                   {{form_widget(form.bvisa, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Visa</label>
+                                </label>
+                            </div>
+                             <div>
+                                <label class="">
+                                   {{form_widget(form.bpass_vacinial, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pass vaccinal</label>
+                                </label>
+                            </div>
+                             <div>
+                                <label class="">
+                                   {{form_widget(form.bphotos, {
+                                'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
+                            })}}
+                                    <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Photos</label>
+                                </label>
+                            </div>                           
+                        </div>
+                    </div>
+                     <div class="md:flex mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-checkbox">
+                                les Pensions:
+                            </label>
+                        </div>
+                          <div class="flex items-center">
+                        <div class="w-72 space-y-3">
                             <div  class="flex items-center mt-4 m-auto w-2/3 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
                                 {{form_widget(form.bdemi_pension, {
                                     'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
@@ -443,7 +350,7 @@
                                 <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Details</label>
                             </div>
                         </div>
-                        <div class="w-1/2 space-y-3 border-l ">
+                        <div class="w-80 space-y-3 border-l">
                             <div class="flex items-center mt-4 m-auto w-2/3 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
                                 {{form_widget(form.bpension_complete, {
                                         'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
@@ -463,90 +370,20 @@
                         </div>
 
                     </div>
-                    <label for="" id='ErrorPension' class="text-red-500"></label>
-                    
-                </div>
-            </div>
-
-            <!-- Item 6 titre offre-->
-            <div id="4" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-               
-                <div class="-my-40 absolute  block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Titre</span> de l'offre:</h1>
-                    <div class="relative w-1/2 m-auto">
-                        {{ form_widget(form.titre, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                            'placeholder': " " } }) }}
-                        <label for="offre[titre]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Titre</label>
-                    </div>
-                     <label for="" id='title-error' class="text-red-500"></label>
-                </div>  
-            <!-- Item 6-2 image Offre-->
-                <div class="absolute mt-20 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">L'affiche</span> de l'offre:</h1>
-
-                    {# <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label> #}
-                    <img src="{{ asset('/assets/images/noimage.png') }}" alt="no Profile Image" id="imageInputOffre" class="m-auto h-10"> 
-                    {{form_widget(form.image,{
-                        'attr': {'class': 'hidden w-2/3 m-auto text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}
-                    }) }}
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (RES. 1920x1080px).</p>
-                       <label for="" id='errorImageOffre' class="text-red-500"></label>
-                </div>
-                    
-            </div>
-
-            <!-- Item 7 -->
-            {# <div id="7" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Pensions:</span></h1>
-                    <div class="flex items-center">
-                        <div class="w-1/2 space-y-3">
-                            <div  class="flex items-center mt-4 m-auto w-2/3 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                                {{form_widget(form.bdemi_pension, {
-                                    'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                                })}}
-                                <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Demi pension</label>
-                            </div>
-                            <div class="relative w-2/3 m-auto" id='Offre_prix_demi_pension'>
-                                {{ form_widget(form.prix_demi_pension, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                    'placeholder': " " } }) }}
-                                <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Prix demi pension</label>
-                            </div>
-                            <div class="relative w-2/3 m-auto" id='Offre_detail_demi_pension' >
-                                {{ form_widget(form.detail_demi_pension, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                    'placeholder': " " } }) }}
-                                <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Details</label>
-                            </div>
-                        </div>
-                        <div class="w-1/2 space-y-3 border-l ">
-                            <div class="flex items-center mt-4 m-auto w-2/3 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
-                                {{form_widget(form.bpension_complete, {
-                                        'attr': {'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'}
-                                }) }}
-                                <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pension complete</label>
-                            </div>
-                            <div class="relative w-2/3 m-auto" id="Offre_prix_complete_pension">
-                                {{ form_widget(form.prix_complete_pension, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                    'placeholder': " " } }) }}
-                                <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Prix pension complete</label>
-                            </div>
-                            <div class="relative w-2/3 m-auto" id="Offre_detail_complete_pension">
-                                {{ form_widget(form.detail_complete_pension, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                                    'placeholder': " " } }) }}
-                                <label for="offre[prix_un]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Details</label>
-                            </div>
-                        </div>
 
                     </div>
-                    <label for="" id='ErrorPension' class="text-red-500"></label>
-                    
-                </div>
-            </div> #}
+            </div>
+            <!--/Card-->
 
-            <!-- Item 8 informations sur la publication -->
-            <div id="5" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="-my-40 absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations sur</span> la publication:</h1>
+            <!--divider-->
+            <hr class="bg-gray-300 my-12">
+
+            <!--Title-->
+            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 5</h2>
+
+            <!--Card-->
+            <div id='section5' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+
                     <div class="flex justify-center">
                         <div class="flex items-center mr-3 w-1/5 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
                             {{form_widget(form.bcoup_coeur, {
@@ -561,7 +398,7 @@
                             <label for="checkbox" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Publier</label>
                         </div>
                     </div>
-                    <div class="flex my-6">
+                     <div class="flex my-6">
                         <div class="w-1/2 m-auto">
                             <h1 class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">date de publication:</h1>
                             {{ form_widget(form.date_publication.children.year, {
@@ -574,7 +411,6 @@
                                 'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                             }) }}
                         </div>
-                        <div id="bar" class="w-0.5 bg-gray-400 rounded-full"></div>
                         <div id="retour" class="w-1/2">
                             <h1 class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">date de fin publication:</h1>
                             {{ form_widget(form.date_fin_publication.children.year, {
@@ -589,95 +425,135 @@
                         </div>
                         
                     </div>
-                
-                </div>
-            <!-- Item 8-2 informations supplémentaires-->
-                 <div class="absolute mt-36 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> supplémentaires:</h1>
-                    <div class="flex">
-                        <div class="w-1/2 p-2 pl-12">
-                            <label for="ofrre_detail_voyage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du voyage</label>
-                            {{form_widget(form.detail_voyage, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                        <div class="w-1/2 p-2 pr-12">
-                            <label for="ofrre_detail_vols" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du vol</label>
-                            {{form_widget(form.detail_vols, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                    </div>
-                    <button id="BtnSave" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        {{ button_label|default('Ajouter Offre') }}
+                <div class="pt-8">
+                   <button id="BtnSave" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-80 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        {{ button_label|default('Ajouter offre') }}
                         <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </button>
                 </div>
+
             </div>
+            <!--/Card-->
 
-            <!-- Item 9 -->
-            {# <div id="9" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">Titre</span> de l'offre:</h1>
-                    <div class="relative w-1/2 m-auto">
-                        {{ form_widget(form.titre, {'attr' : {'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
-                                                            'placeholder': " " } }) }}
-                        <label for="offre[titre]" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Titre</label>
-                    </div>
-                     <label for="" id='title-error' class="text-red-500"></label>
-                </div>
-            </div> #}
+        </section>
+        <!--/Section container-->
 
-            <!-- Item 10 -->
-            {# <div id="6" class="text-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hidden duration-700 ease-in-out" data-carousel-item>
-                <div class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <h1 class="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-blue-500">informations</span> supplémentaires:</h1>
-                    <div class="flex">
-                        <div class="w-1/2 p-2 pl-12">
-                            <label for="ofrre_detail_voyage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du voyage</label>
-                            {{form_widget(form.detail_voyage, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                        <div class="w-1/2 p-2 pr-12">
-                            <label for="ofrre_detail_vols" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">detail du vol</label>
-                            {{form_widget(form.detail_vols, {
-                                'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                        'placeholder': "Write your thoughts here...",
-                                        'rows': '8'
-                                }
-                            })}}
-                        </div>
-                    </div>
-                    <button id="BtnSave" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        {{ button_label|default('Save') }}
-                        <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    </button>
-                </div>
-            </div> #}
-        </div>
-        <!-- Slider controls -->
-        <button id="btn2" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full dark:bg-white/30 bg-white/30  group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                <span class="sr-only">Previous</span>
-            </span>
-        </button>
-        <button id="btn1" type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full dark:bg-white/30 bg-white/30  group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="sr-only">Next</span>
-            </span>
-        </button>
-    </div>
-</div>
+
+      </div>
+      {{ form_end(form) }}
+      <!--/container-->
 {{ form_end(form) }}
+{% block javascripts %}
+   <!-- Toggle dropdown list -->
+<script>
+/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+var userMenuDiv = document.getElementById("userMenu");
+var userMenu = document.getElementById("userButton");
+
+ var helpMenuDiv = document.getElementById("menu-content");
+ var helpMenu = document.getElementById("menu-toggle");
+
+document.onclick = check;
+
+function check(e){
+  var target = (e && e.target) || (event && event.srcElement);
+
+  //User Menu
+  if (!checkParent(target, userMenuDiv)) {
+	// click NOT on the menu
+	if (checkParent(target, userMenu)) {
+	  // click on the link
+	  if (userMenuDiv.classList.contains("invisible")) {
+		userMenuDiv.classList.remove("invisible");
+	  } else {userMenuDiv.classList.add("invisible");}
+	} else {
+	  // click both outside link and outside menu, hide menu
+	  userMenuDiv.classList.add("invisible");
+	}
+  }
+
+   //Help Menu
+   if (!checkParent(target, helpMenuDiv)) {
+	// click NOT on the menu
+	if (checkParent(target, helpMenu)) {
+	  // click on the link
+	  if (helpMenuDiv.classList.contains("hidden")) {
+		helpMenuDiv.classList.remove("hidden");
+	  } else {helpMenuDiv.classList.add("hidden");}
+	} else {
+	  // click both outside link and outside menu, hide menu
+	  helpMenuDiv.classList.add("hidden");
+	}
+   }
+
+}
+
+function checkParent(t, elm) {
+  while(t.parentNode) {
+	if( t == elm ) {return true;}
+	t = t.parentNode;
+  }
+  return false;
+}
+
+</script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- Scroll Spy -->
+<script>
+/* http://jsfiddle.net/LwLBx/ */
+
+// Cache selectors
+var lastId,
+    topMenu = $("#menu-content"),
+    topMenuHeight = topMenu.outerHeight()+175,
+    // All list items
+    menuItems = topMenu.find("a"),
+    // Anchors corresponding to menu items
+    scrollItems = menuItems.map(function(){
+      var item = $($(this).attr("href"));
+      if (item.length) { return item; }
+    });
+
+// Bind click handler to menu items
+// so we can get a fancy scroll animation
+menuItems.click(function(e){
+  var href = $(this).attr("href"),
+      offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+  $('html, body').stop().animate({ 
+      scrollTop: offsetTop
+  }, 300);
+  if (!helpMenuDiv.classList.contains("hidden")) {
+		helpMenuDiv.classList.add("hidden");
+	  }
+  e.preventDefault();
+});
+
+// Bind to scroll
+$(window).scroll(function(){
+   // Get container scroll position
+   var fromTop = $(this).scrollTop()+topMenuHeight;
+
+   // Get id of current scroll item
+   var cur = scrollItems.map(function(){
+     if ($(this).offset().top < fromTop)
+       return this;
+   });
+   // Get the id of the current element
+   cur = cur[cur.length-1];
+   var id = cur && cur.length ? cur[0].id : "";
+
+   if (lastId !== id) {
+       lastId = id;
+       // Set/remove active class
+       menuItems
+         .parent().removeClass("font-bold border-blue-600")
+         .end().filter("[href='#"+id+"']").parent().addClass("font-bold border-blue-600");
+   }                   
+});
+
+</script>
+{% endblock %}

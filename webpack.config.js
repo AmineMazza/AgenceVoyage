@@ -47,6 +47,7 @@ Encore
     .addEntry('CountMessage', './assets/javascript/CountMessage.js')
     .addEntry('JsHome', './assets/javascript/JsHome.js')
     .addEntry('Voyageur', './assets/javascript/Voyageur.js')
+    .addEntry('carousel', './assets/javascript/carousel.js')
 
  
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
