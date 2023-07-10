@@ -18,30 +18,32 @@
             </div>
             <div class="w-full sticky inset-0 hidden max-h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 my-2 lg:my-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20" style="top:6em;" id="menu-content">
                 <ul class="list-reset py-2 md:py-0">
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent font-bold border-blue-500">
                         <a href='#section1' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
-                            <span class="pb-1 md:pb-0 text-sm">Section 1</span>
+                            <span class="pb-1 md:pb-0 text-sm">Affectation</span>
                         </a>
                     </li>
+                    {% endif %}
                     <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
                         <a href='#section2' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
-                            <span class="pb-1 md:pb-0 text-sm">Section 2</span>
+                            <span class="pb-1 md:pb-0 text-sm">Détail d'offre</span>
                         </a>
                     </li>
                     <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
                         <a href='#section3' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
-                            <span class="pb-1 md:pb-0 text-sm">Section 3</span>
+                            <span class="pb-1 md:pb-0 text-sm">Détail Vol-Voyage</span>
                         </a>
                     </li>
                     <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
                         <a href='#section4' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
-                            <span class="pb-1 md:pb-0 text-sm">Section 4</span>
+                            <span class="pb-1 md:pb-0 text-sm">Les exigences</span>
                         </a>
                     </li>
 
                     <li class="py-1 md:my-2 hover:bg-blue-500 lg:hover:bg-transparent border-l-4 border-transparent">
                         <a href='#section5' class="block pl-4 align-middle dark:text-white text-gray-700 no-underline hover:text-blue-500">
-                            <span class="pb-1 md:pb-0 text-sm">Section 5</span>
+                            <span class="pb-1 md:pb-0 text-sm">Type d'offre</span>
                         </a>
                     </li>
                 </ul>
@@ -50,26 +52,24 @@
 
         <!--Section container-->
         <section class="w-full lg:w-4/5">
-
+ {% if is_granted('ROLE_ADMIN') %}
             <!--Title-->
             <h1 class="flex items-center font-sans font-bold break-normal text-gray-700 dark:text-white px-2 text-xl mt-12 lg:mt-0 md:text-2xl">
-				Pour ajouter une offre :
+			 Ajouter une offre :
 			</h1>
 
-            <!--divider-->
-            <hr class="bg-gray-300 my-12">
-
             <!--Title-->
-            <h2 id='section1' class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 1</h2>
-
+           
+                <h2 id='section1' class="font-sans mt-12 font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Affectation</h2>
+            {% endif %}
             <!--Card-->
-            <div class="p-8 mt-6 lg:mt-0 leading-normal shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+            <div class="p-8 mt-6 lg:mt-0 leading-normal shadow border border-blue-500 rounded border-t-8 border-b-0 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
                <div class="block w-full top-1/2 ml-70">
                     <h1 class="mb-8 mt-5 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
                     {% if is_granted('ROLE_ADMIN') %}
                          Relier cet offre a un agent:</h1>
                     {% else %}
-                    <span class="text-transparent bg-clip-text bg-blue-600 dark:text-white">Ajouter une offre</span> en tant que agent</h1>
+                    <span class="text-transparent bg-clip-text bg-blue-600 dark:text-white">Ajouter une offre :</span></h1>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}    
                     <label class="relative inline-flex items-center cursor-pointer ml-20">
@@ -84,14 +84,11 @@
             </div>
             <!--/Card-->
 
-            <!--divider-->
-            <hr class="bg-gray-300 my-12">
-
             <!--Title-->
-            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 2</h2>
+            <h2 class="font-sans mt-12 font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Détail d'offre</h2>
 
             <!--Card-->
-            <div id='section2' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+            <div id='section2' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-0 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
                     <div class="md:flex mb-6">
                         <div class="md:w-1/3">
                             <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
@@ -212,14 +209,11 @@
             </div>
             <!--/Card-->
 
-            <!--divider-->
-            <hr class="bg-gray-300 my-12">
-
             <!--Title-->
-            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 3</h2>
+            <h2 class="font-sans mt-12 font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Détail Vol-Voyage</h2>
 
             <!--Card-->
-            <div id='section3' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+            <div id='section3' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-0 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
                   <div class="md:flex mb-6">
                         <div class="md:w-1/3">
                             <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
@@ -276,14 +270,11 @@
             </div>
             <!--/Card-->
 
-            <!--divider-->
-            <hr class="bg-gray-300 my-12">
-
             <!--Title-->
-            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 4</h2>
+            <h2 class="font-sans mt-12 font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Les exigences</h2>
 
             <!--Card-->
-            <div id='section4' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+            <div id='section4' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-0 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
                     <div class="md:flex mb-6">
                         <div class="md:w-1/3">
                             <label class="block dark:text-white font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-checkbox">
@@ -375,14 +366,11 @@
             </div>
             <!--/Card-->
 
-            <!--divider-->
-            <hr class="bg-gray-300 my-12">
-
             <!--Title-->
-            <h2 class="font-sans font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Section 5</h2>
+            <h2 class="font-sans mt-12 font-bold break-normal text-gray-700 dark:text-white px-2 pb-8 text-xl">Type d'offre</h2>
 
             <!--Card-->
-            <div id='section5' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-1 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
+            <div id='section5' class="p-8 mt-6 lg:mt-0 rounded shadow border border-blue-500 rounded border-t-8 border-b-0 border-l-0 border-r-0 dark:border-white bg-white dark:bg-gray-700">
 
                     <div class="flex justify-center">
                         <div class="flex items-center mr-3 w-1/5 pl-4 border border-gray-200 rounded-lg dark:border-gray-700">
