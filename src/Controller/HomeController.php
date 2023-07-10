@@ -58,9 +58,6 @@ class HomeController extends AbstractController
                     'SearchOffreDate' => $_GET['SearchOffreDate'],
                     'pagination' => $pagination,
                 ]);   
-            }else if(($_GET['searchOffDestination']) == 'all'){
-                
-                return $this->redirectToRoute('app_offre_index',[ 'value' => 'all',]);
             }
              return $this->render('home/index.html.twig', [
             'destinations' => $DR,
