@@ -38,6 +38,16 @@ class DestinationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+
+    public function getDestinations(string $value="all"): array
+    {
+        $queryBuilder = $this->createQueryBuilder(alias: 'd')
+            ->orderBy('d.id', 'ASC');
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
 
 //    /**
 //     * @return Destination[] Returns an array of Destination objects

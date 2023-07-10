@@ -11,6 +11,7 @@ use App\Service\HotelApiService;
 use App\Service\OffreApiService;
 use App\Repository\OffreRepository;
 use App\Service\DestinationApiService;
+use App\Repository\DestinationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -110,7 +111,7 @@ class OffreController extends AbstractController
     }
    
     #[Route('/type/{value}', name: 'app_offre_index', methods: ['GET'])]
-    public function index(DestinationApiService $destinationApiService,array $_route_params,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
+    public function index(DestinationRepository $DR,array $_route_params,PaginatorInterface $paginator,Request $request,OffreRepository $OffreRepository): Response
     {    if(isset($_GET['btnClear'])){
         $pagination = $paginator->paginate(
             $OffreRepository->PaginationQuery($_route_params['value']),
@@ -144,7 +145,7 @@ class OffreController extends AbstractController
         }
   
         return $this->render('offre/index.html.twig', [
-            'destinations' => $destinationApiService->getDestinations(),
+            'destinations' => $DR->findAll(),
             'pagination' => $pagination,
         ]);
     }
