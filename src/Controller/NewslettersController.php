@@ -144,39 +144,6 @@ class NewslettersController extends AbstractController
 
         return $this->redirectToRoute('app_main_news');
     }
-
-    #[Route('/categories', name: 'listcategories')]
-
-    public function listcategories(NewslettersRepository $newsletters, CategoriesRepository $categories, UsersRepository $users): Response
-    {
-        return $this->render('newsletters/categories.html.twig', [
-            'newsletters' => $newsletters->findAll(),
-            'categories' => $categories->findAll(),
-            'users' => $users->findAll()
-        ]);
-    }
-
-    #[Route('/AddCategories', name: 'app_categorie_new', methods: ['GET', 'POST'])]
-
-    public function addCategory(Request $request): Response
-        {
-            $categories = new Categories();
-            $form = $this->createForm(NewslettersCategoriesType::class, $categories);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->doctrine->getManager("default");
-                $em->persist($categories);
-                $em->flush();
-
-                return $this->redirectToRoute('listcategories');
-            }
-
-            return $this->render('newsletters/newcategorie.html.twig', [
-                'form' => $form->createView()
-            ]);
-        }
-
     
            
 
