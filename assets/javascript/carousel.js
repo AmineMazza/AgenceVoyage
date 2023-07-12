@@ -4,7 +4,7 @@ function goNext() {
     defaultTransform = defaultTransform + 398;
     var slider = document.getElementById("slider");
     if (Math.abs(defaultTransform) >= slider.scrollWidth / 1.7) defaultTransform = 0;
-    slider.style.transform = "translateX(" + defaultTransform + "3150px)";
+    slider.style.transform = "translateX(" + defaultTransform + "px)";
     }
 next.addEventListener("click", goNext);
 
