@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/collection/offre')]
+#[Route('/dashboard/collection/offre')]
 class CollectionOffreController extends AbstractController
 {
     #[Route('/', name: 'app_collection_offre_index', methods: ['GET'])]

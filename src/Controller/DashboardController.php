@@ -85,6 +85,7 @@ class DashboardController extends AbstractController
                 
             }
             $status = $offreApiService->addOffre($offre);
+            var_dump($status);
             if($status){
                 if($file){
                     try {
