@@ -92,21 +92,35 @@ class AvanceController extends AbstractController
     }
 
     #[Route('/Recu/{id}', name: 'app_avance_recu', methods: ['GET'])]
-    public function Recu(Avance $avance, PdfService $pdfService)
+    public function Recu(Avance $avance, PdfService $pdfService, Reservation $Reservation)
     {
         // if ($avance->getIdReservation()->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN") ) {
         //     return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         // }
+        // $totalAvance = 0;
+        // foreach($avance->getIdReservation()->getAvances() as $avance){
+        //     $totalAvance += $avance->getMontant();
+        // }
+
+        // $html = $this->renderView('avance/recu.html.twig', [
+        //     'totalAvance' => $totalAvance,
+        //     'avance' => $avance,
+        // ]);
+        $montantTotalReservation = $Reservation->getMontantTotal();
         $totalAvance = 0;
-        foreach($avance->getIdReservation()->getAvances() as $avance){
+    
+        foreach ($Reservation->getAvances() as $avance) {
             $totalAvance += $avance->getMontant();
         }
-
+    
+        $montantRestant = $montantTotalReservation - $totalAvance;
+    
         $html = $this->renderView('avance/recu.html.twig', [
-            'avance' => $avance,
+            'montantTotalReservation' => $montantTotalReservation,
             'totalAvance' => $totalAvance,
+            'montantRestant' => $montantRestant,
+            'avance' => $avance,
         ]);
-        // dd($html);
         $pdfService->showPdf($html);
     }
 

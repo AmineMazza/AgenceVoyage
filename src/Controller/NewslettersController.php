@@ -73,6 +73,26 @@ class NewslettersController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Newsletters $newsletter, NewslettersRepository $NewslettersRepository): Response
+    {
+        $form = $this->createForm(NewslettersType::class, $newsletter);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $NewslettersRepository->save($newsletter, true);
+
+            return $this->redirectToRoute('list', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('newsletters/edit.html.twig', [
+            'newsletter' => $newsletter,
+            'form' => $form,
+            // 'categories' => $categoriesRepository->findAll(),
+            // 'newsletters' => $newsletters->findAll(),
+            // 'users' => $users->findAll()
+        ]);
+    }
 
 
     #[Route('/send/{id}', name: 'send')]
