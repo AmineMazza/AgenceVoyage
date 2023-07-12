@@ -54,7 +54,7 @@ class HomeController extends AbstractController
                 return $this->redirectToRoute('app_offre_index',[
                     "value" => 'all',
                     'searchOffDestination' => $_GET['searchOffDestination'],
-                    'SearchOffreMinPrix' => $_GET['SearchOffreMinPrix'],
+                    'SearchOffreMaxPrix' => $_GET['SearchOffreMaxPrix'],
                     'SearchOffreDate' => $_GET['SearchOffreDate'],
                     'pagination' => $pagination,
                 ]);   

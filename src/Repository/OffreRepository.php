@@ -71,26 +71,26 @@ public function getOffresBcoupCoeur(): array
     return $queryBuilder->getQuery()->getResult();
 }
 
-public function filterOffre(string $destination='',float $prixMin = 0.0,?\DateTimeInterface $date = null): array
+public function filterOffre(string $destination='',float $prixMax = 0.0,?\DateTimeInterface $date = null): array
 {
     $queryBuilder = $this->createQueryBuilder('o')
         ->orderBy('o.id', 'ASC');
 
-    if ($destination != '' && $prixMin != 0) {
+    if ($destination != 'Choisissez une destination' && $prixMax != 0) {
         $queryBuilder->leftJoin('o.id_destination', 'c')
             ->andWhere('c.pays = :destination')
-            ->andWhere('o.prix_un >= :prixMin')
+            ->andWhere('o.prix_un <= :prixMax')
             ->setParameter('destination', $destination)
-            ->setParameter('prixMin', $prixMin);
-    } else if ($destination != '' && $prixMin==0) {
+            ->setParameter('prixMax', $prixMax);
+    } else if ($destination != 'Choisissez une destination' && $prixMax==0) {
         $queryBuilder->leftJoin('o.id_destination', 'c')
             ->andWhere('c.pays like :destination')
             ->setParameter('destination', '%' . $destination . '%');
-    } else if ($prixMin != 0 && $destination==='') {
-        $queryBuilder->andWhere('o.prix_un >= :prixMin')
-            ->setParameter('prixMin', $prixMin);
+    } else if ($prixMax != 0 && $destination==='Choisissez une destination') {
+        $queryBuilder->andWhere('o.prix_un <= :prixMax')
+            ->setParameter('prixMax', $prixMax);
     }
-    if ($date instanceof \DateTimeInterface) {
+    if ($date instanceof \DateTimeInterface && $destination==='Choisissez une destination') {
         $queryBuilder
             ->andWhere('o.date_depart >= :date')
             ->setParameter('date', $date);

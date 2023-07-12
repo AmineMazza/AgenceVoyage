@@ -78,7 +78,7 @@ class OffreController extends AbstractController
     {
         // dd($offre->getHotels());
         if($this->getUser() && !$this->isGranted('ROLE_USER')){
-            if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
+            if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMax")) {
                 return $this->redirectToRoute('app_offre_index', ['value' => 'all'], Response::HTTP_SEE_OTHER);
             }
         }
@@ -119,18 +119,18 @@ class OffreController extends AbstractController
             8
         );
         }
-        else if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMinPrix'])) {
+        else if (isset($_GET['SearchOffreName']) || isset($_GET['SearchOffreMaxPrix'])) {
             if($_GET['SearchOffreDate']!=''){   
         $date = DateTimeImmutable::createFromFormat('Y-m-d', $_GET['SearchOffreDate']);
             $pagination = $paginator->paginate(
-                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix'],$date),
+                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMaxPrix'],$date),
                 $request->query->get('page', 1),
                 8
             );
         }
         else{
             $pagination = $paginator->paginate(
-                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMinPrix']),
+                $OffreRepository->filterOffre($_GET['searchOffDestination'],$_GET['SearchOffreMaxPrix']),
                 $request->query->get('page', 1),
                 8
             );
