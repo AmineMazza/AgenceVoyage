@@ -28,7 +28,7 @@ class Users
     #[ORM\Column(length: 255)]
     private ?string $validation_token = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $is_valid = null;
 
     #[ORM\ManyToMany(targetEntity: Categories::class,  inversedBy: 'users')]

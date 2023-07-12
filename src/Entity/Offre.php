@@ -119,6 +119,9 @@ class Offre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $detail_complete_pension = null;
 
+    #[ORM\ManyToOne(inversedBy: 'offers')]
+    private ?CollectionOffre $categorieOffre = null;
+
     public function __construct()
     {
         $this->hotels = new ArrayCollection();
@@ -575,6 +578,18 @@ class Offre
     public function setPrixQuint(?float $prix_quint): self
     {
         $this->prix_quint = $prix_quint;
+
+        return $this;
+    }
+
+    public function getCategorieOffre(): ?CollectionOffre
+    {
+        return $this->categorieOffre;
+    }
+
+    public function setCategorieOffre(?CollectionOffre $categorieOffre): static
+    {
+        $this->categorieOffre = $categorieOffre;
 
         return $this;
     }

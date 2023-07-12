@@ -23,47 +23,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/offre')]
 class OffreController extends AbstractController
 {
-    #[Route('/new', name: 'app_offre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OffreApiService $offreApiService, SluggerInterface $slugger): Response
-    {
-        $offre = new Offre();
-        $form = $this->createForm(OffreType::class, $offre);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $file = $form->get('image')->getData();
-            if ($file){
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-                
-                
-                $offre->setImage('/assets/images/offres/'.$newFilename);
-                
-            }
-            $status = $offreApiService->addOffre($offre);
-            if($status){
-                if($file){
-                    try {
-                        $file->move(
-                            $this->getParameter('offres_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        throw new Exception($e);
-                    }
-                }
-            }
-
-            return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('offre/new.html.twig', [
-            'offre' => $offre,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/{id}', name: 'app_offre_show', methods: ['GET'])]
     public function show(array $_route_params, OffreApiService $offreApiService): Response
@@ -78,7 +37,7 @@ class OffreController extends AbstractController
     {
         // dd($offre->getHotels());
         if($this->getUser() && !$this->isGranted('ROLE_USER')){
-            if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMax")) {
+            if ($offre->getIdUser()->getId() != $this->getUser()->getId() && !$this->isGranted("ROLE_ADMIN")) {
                 return $this->redirectToRoute('app_offre_index', ['value' => 'all'], Response::HTTP_SEE_OTHER);
             }
         }

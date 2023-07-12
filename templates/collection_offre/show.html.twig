@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} CollectionOffre {% endblock%}
+
+{% block body %}
+    <h1>CollectionOffre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ collection_offre.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ collection_offre.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ collection_offre.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_collection_offre_index') }}">back to list</a>
+
+    <a href="{{ path('app_collection_offre_edit', {'id': collection_offre.id}) }}">edit</a>
+
+    {{ include('collection_offre/_delete_form.html.twig') }}
+{% endblock %}

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\CollectionOffre;
 use App\Entity\Offre;
+use App\Repository\CollectionOffreRepository;
 use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,6 +19,7 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class OffreType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -47,6 +50,7 @@ class OffreType extends AbstractType
                 ],
             ])
             ->add('id_destination', null ,['required' => false, 'attr' => [ 'class' => "OffreDestination" ]])
+            ->add('categorieOffre', null ,['required' => false, 'attr' => [ 'class' => "CollectionOffre" ]])
             ->add('date_depart')
             ->add('date_retour')
             ->add('hotels',CollectionType::class, [

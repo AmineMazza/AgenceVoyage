@@ -23,7 +23,7 @@ class Newsletters
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $is_sent = null;
 
     #[ORM\ManyToOne(inversedBy: 'newsletters')]
