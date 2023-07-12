@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class OffreApiService extends AbstractController {
 
     private $tokenStorage;
-    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService, private CallApiService $callApiService, private UserApiService $userApiService){
+    public function __construct(private HttpClientInterface $client, private HotelApiService $hotelApiService, TokenStorageInterface $tokenStorage, private DestinationApiService $destinationApiService,  private CollectionOffreApiService $collectionoffreApiServiceprivate ,CallApiService $callApiService, private UserApiService $userApiService){
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -95,7 +95,9 @@ class OffreApiService extends AbstractController {
         $offre->setDetailVols((!empty($data->detail_vols) ? $data->detail_vols : null));
         $arr_dest = explode('/',$data->idDestination);
         $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
+        $categorieOffre = $this->collectionoffreApiServiceprivate->getCtegorieOffre($arr_dest[count($arr_dest)-1]);
         $offre->setIdDestination($destination);
+        $offre->setCategorieOffre($categorieOffre);
         $arr_dest = explode('/',$data->id_user);
         $user = $this->userApiService->getOneUser($arr_dest[count($arr_dest)-1]);
         $offre->setIdUser($user);
@@ -120,6 +122,7 @@ class OffreApiService extends AbstractController {
         $json = [ 
             'idUser' => ($offre->getIdUser()!=null ? '/api/users/'.$offre->getIdUser()->getId() : '/api/users/'.$this->getUser()->getId()),
             'idDestination' =>  '/api/destinations/'.$offre->getIdDestination()->getId(),
+            'categorieOffre' =>  '/api/collection_offres/'.$offre->getCategorieOffre()->getId(),
             'titre' => $offre->getTitre(),
             'dateDepart' => $offre->getDateDepart()->format('Y-m-d\TH:i:sP'),
             'dateRetour' => $offre->getDateRetour()->format('Y-m-d\TH:i:sP'),
