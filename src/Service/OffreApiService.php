@@ -94,8 +94,9 @@ class OffreApiService extends AbstractController {
         $offre->setDetailVoyage((!empty($data->detail_voyage) ? $data->detail_voyage : null));
         $offre->setDetailVols((!empty($data->detail_vols) ? $data->detail_vols : null));
         $arr_dest = explode('/',$data->idDestination);
+        $arr_categorie = explode('/',$data->categorieOffre);
         $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
-        $categorieOffre = $this->collectionoffreApiServiceprivate->getCtegorieOffre($arr_dest[count($arr_dest)-1]);
+        $categorieOffre = $this->collectionoffreApiServiceprivate->getCtegorieOffre($arr_categorie[count($arr_categorie)-1]);
         $offre->setIdDestination($destination);
         $offre->setCategorieOffre($categorieOffre);
         $arr_dest = explode('/',$data->id_user);

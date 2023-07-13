@@ -53,7 +53,7 @@ class CollectionOffreApiService extends AbstractController {
                 'Authorization' => 'Bearer ' . $jwtToken,
                 'Accept' => 'application/json',
             ],
-            'json' => ['nom' => $categorie->getNom()],
+            'json' => ['nom' => $categorie->getNom(),'description'=> $categorie->getDescription()],
         ]);
         if ($response->getStatusCode() === 201) {
             return true;
