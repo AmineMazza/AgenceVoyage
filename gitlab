@@ -1,0 +1,71 @@
+[33mdf79da4[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: pull: Fast-forward
+[33m8953410[m HEAD@{1}: commit: Statut inscription Newsletters
+[33m1aa1da1[m HEAD@{2}: pull: Fast-forward
+[33m91e814b[m HEAD@{3}: pull: Fast-forward
+[33md88e8f1[m HEAD@{4}: commit: ajouter twig de recu
+[33m605bebe[m HEAD@{5}: commit: calculer le montant reste dans recu
+[33m97e0af6[m HEAD@{6}: commit: ajouter la fonctionnalité de modifier une newsletter
+[33m8776c97[m HEAD@{7}: commit: change in style HomePage darkMode
+[33m6d49d56[m HEAD@{8}: commit: change in style HomePage
+[33mfb3950f[m HEAD@{9}: pull: Fast-forward
+[33mf602927[m HEAD@{10}: commit: modifier dark-mode dans text home
+[33m514f2be[m HEAD@{11}: commit: Remplacer voyage avenir par un text
+[33m9417fab[m HEAD@{12}: pull: Merge made by the 'ort' strategy.
+[33mc939e1c[m HEAD@{13}: commit: ajt des fonctionnalités a newsletters/catégories
+[33m2847917[m HEAD@{14}: commit: changes in newsletters tables
+[33m3d7b3ad[m HEAD@{15}: pull: Merge made by the 'ort' strategy.
+[33mb027a96[m HEAD@{16}: commit: adobter aj-edit-delete offre sur dashboard
+[33m9984f69[m HEAD@{17}: pull: Merge made by the 'ort' strategy.
+[33mda9fd38[m HEAD@{18}: pull: Merge made by the 'ort' strategy.
+[33mef71491[m HEAD@{19}: commit: modification d'ajout offre
+[33ma2e34e5[m HEAD@{20}: commit: Minimisation du processe Aj-Offre et carousel
+[33m2809c51[m HEAD@{21}: commit: coup-coeur
+[33ma79a570[m HEAD@{22}: pull: Fast-forward
+[33m1ebe1db[m HEAD@{23}: commit: visibilité register + changes icons
+[33m6a8d7b8[m HEAD@{24}: commit: Modifier btn comm si l'agent avant la validation
+[33m1ad7038[m HEAD@{25}: commit: Correct Affers->Offers
+[33m184866f[m HEAD@{26}: commit: accesAgent+emplacement news dans dashboard
+[33me3ed617[m HEAD@{27}: commit: style-home
+[33mfea8d45[m HEAD@{28}: pull: Merge made by the 'ort' strategy.
+[33m898eb3f[m HEAD@{29}: commit: gestion-offers + newsletters
+[33m9b20910[m HEAD@{30}: commit: Creattion des Newsletters+config
+[33m2b85355[m HEAD@{31}: pull --tags: Fast-forward
+[33md5cb9a3[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{32}: checkout: moving from main to main
+[33md5cb9a3[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{33}: checkout: moving from master to main
+[33md5cb9a3[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{34}: checkout: moving from 2b853550acb215b49bef1993197b27b624e28cc5 to master
+[33m2b85355[m HEAD@{35}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33md5cb9a3[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{36}: checkout: moving from master to d5cb9a3b6e212fb30176caacc441532e60b693c1
+[33md5cb9a3[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{37}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33m68b73b3[m HEAD@{38}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33mecfbfaa[m HEAD@{39}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33md4f38dd[m HEAD@{40}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33m149c7b0[m HEAD@{41}: reset: moving to HEAD
+[33m149c7b0[m HEAD@{42}: pull origin main: Fast-forward
+[33m4cc6740[m HEAD@{43}: pull origin main: Fast-forward
+[33m4ad4515[m HEAD@{44}: pull origin main: Fast-forward
+[33md2192be[m HEAD@{45}: pull origin main: Fast-forward
+[33m026b7df[m HEAD@{46}: pull origin main: Fast-forward
+[33m5e85c93[m HEAD@{47}: pull origin main: Fast-forward
+[33m32b9a0f[m HEAD@{48}: pull https://gitlab.com/YubieTheGOAT/norsysproject.git: Fast-forward
+[33m86673cc[m HEAD@{49}: commit: adapte-image
+[33me268f0f[m HEAD@{50}: pull: Fast-forward
+[33mafae2e7[m HEAD@{51}: pull: Fast-forward
+[33mba441fe[m HEAD@{52}: pull: Fast-forward
+[33m48d9221[m HEAD@{53}: pull: Fast-forward
+[33m5b147de[m HEAD@{54}: pull: Fast-forward
+[33mda2c528[m HEAD@{55}: pull: Fast-forward
+[33mbc0ab8a[m HEAD@{56}: pull: Fast-forward
+[33m07b81aa[m HEAD@{57}: reset: moving to HEAD
+[33m07b81aa[m HEAD@{58}: pull: Fast-forward
+[33me679698[m HEAD@{59}: pull: Fast-forward
+[33m3d62e75[m HEAD@{60}: pull: Fast-forward
+[33m88108cc[m HEAD@{61}: pull: Fast-forward
+[33mc555b0b[m HEAD@{62}: pull: Fast-forward
+[33mac138e3[m HEAD@{63}: pull: Fast-forward
+[33mf168454[m HEAD@{64}: pull: Fast-forward
+[33m281a7a6[m HEAD@{65}: pull: Fast-forward
+[33m6ced673[m HEAD@{66}: pull: Fast-forward
+[33m8291053[m HEAD@{67}: pull: Fast-forward
+[33m289be35[m HEAD@{68}: pull: Fast-forward
+[33m7815dd6[m HEAD@{69}: pull --tags: Fast-forward
+[33m1b83589[m HEAD@{70}: initial pull
