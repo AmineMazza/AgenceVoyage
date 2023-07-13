@@ -74,7 +74,6 @@ class CollectionOffreApiService extends AbstractController {
         ]);
         $categorieOffre= new CollectionOffre();
         $data = json_decode($response->getContent());
-        $categorieOffre->setId($data->id);
         $categorieOffre->setNom($data->nom);
         $categorieOffre->setDescription($data->description);
         return $categorieOffre;

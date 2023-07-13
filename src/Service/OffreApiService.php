@@ -73,7 +73,7 @@ class OffreApiService extends AbstractController {
         $offre->setBhebergement($data->bhebergement);
         $offre->setBvisa($data->bvisa);
         $offre->setBdemiPension($data->bdemi_pension);
-        $offre->setPrixDemiPension($data->bdemi_pension ? $data->prix_demi_pension : null);
+        $offre->setPrixDemiPension($data->bdemi_pension ? $data->prix_demi_pension :null);
         $offre->setDetailDemiPension($data->bdemi_pension ? (!empty($data->detail_demi_pension) ? $data->detail_demi_pension : null) : null);
         $offre->setBpensionComplete($data->bpension_complete);
         $offre->setPrixCompletePension($data->bpension_complete ? $data->prix_complete_pension : null);
