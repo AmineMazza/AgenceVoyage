@@ -3,11 +3,11 @@
 {% block title %}Edit OffreCategorie{% endblock %}
 
 {% block body %}
-    <h1>Edit OffreCategorie</h1>
+    <h1>Modifier Catégorie d'offres</h1>
 
-    {{ include('offre_categorie/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('offre_categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_offre_categorie_index') }}">back to list</a>
+    <a href="{{ path('app_offre_categorie_index') }}">retour à la liste des catégories d'offres</a>
 
     {{ include('offre_categorie/_delete_form.html.twig') }}
 {% endblock %}
