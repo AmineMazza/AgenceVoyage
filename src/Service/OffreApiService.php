@@ -73,10 +73,10 @@ class OffreApiService extends AbstractController {
         $offre->setBhebergement($data->bhebergement);
         $offre->setBvisa($data->bvisa);
         $offre->setBdemiPension($data->bdemi_pension);
-        $offre->setPrixDemiPension($data->bdemi_pension ? $data->prix_demi_pension :null);
+        $offre->setPrixDemiPension(!empty($data->prix_demi_pension) ? $data->prix_demi_pension :null);
         $offre->setDetailDemiPension($data->bdemi_pension ? (!empty($data->detail_demi_pension) ? $data->detail_demi_pension : null) : null);
         $offre->setBpensionComplete($data->bpension_complete);
-        $offre->setPrixCompletePension($data->bpension_complete ? $data->prix_complete_pension : null);
+        $offre->setPrixCompletePension(!empty($data->prix_complete_pension) ? $data->prix_complete_pension : null);
         $offre->setDetailCompletePension($data->bpension_complete ? (!empty($data->detail_complete_pension) ? $data->detail_complete_pension : null) : null);
         $offre->setBvisiteMedine($data->bvisite_medine);
         $offre->setPrixUn((!empty($data->prix_un) ? $data->prix_un : null));
@@ -94,11 +94,11 @@ class OffreApiService extends AbstractController {
         $offre->setDetailVoyage((!empty($data->detail_voyage) ? $data->detail_voyage : null));
         $offre->setDetailVols((!empty($data->detail_vols) ? $data->detail_vols : null));
         $arr_dest = explode('/',$data->idDestination);
-        $arr_categorie = explode('/',$data->categorieOffre);
+        //$arr_categorie = explode('/',$data->categorieOffre);
         $destination = $this->destinationApiService->getDestination($arr_dest[count($arr_dest)-1]);
-        $categorieOffre = $this->collectionoffreApiServiceprivate->getCtegorieOffre($arr_categorie[count($arr_categorie)-1]);
+       // $categorieOffre = $this->collectionoffreApiServiceprivate->getCtegorieOffre($arr_categorie[count($arr_categorie)-1]);
         $offre->setIdDestination($destination);
-        $offre->setCategorieOffre($categorieOffre);
+     //   $offre->setCategorieOffre($categorieOffre);
         $arr_dest = explode('/',$data->id_user);
         $user = $this->userApiService->getOneUser($arr_dest[count($arr_dest)-1]);
         $offre->setIdUser($user);
@@ -175,7 +175,8 @@ class OffreApiService extends AbstractController {
     }
 
     public function updateOffre($offre) : bool
-    {        
+    {
+
         $jwtToken = $this->tokenStorage->getToken()->getAttribute("JWTToken"); 
         $json = [
             'idDestination' =>  '/api/destinations/'.$offre->getIdDestination()->getId(),
@@ -206,6 +207,7 @@ class OffreApiService extends AbstractController {
             'bpassVacinial' => $offre->isBpassVacinial(),
             'detailVoyage' => $offre->getDetailVoyage(),
             'detailVols' => $offre->getDetailVols(),
+            'image' => $offre->getImage(),
         ];
         $response = $this->client->request('PUT', 'http://127.0.0.1/api/offres/'.$offre->getId(), [
             'headers' => [
@@ -214,67 +216,68 @@ class OffreApiService extends AbstractController {
             ],
             'json' => $json,
         ]);
-        if ($response->getStatusCode() === 200) {
-            if($offre->isBhebergement()){
-                if($offre->getIdDestination()->getPays()=="Omra" || $offre->getIdDestination()->getPays()=="Hajj" || $offre->getIdDestination()->getPays()=="Omra Combine"){
-                    if($offre->isBvisiteMedine()){
-                        foreach($offre->getHotels() as $key => $hotel){
-                            if($hotel->getId() != null){
-                                $this->hotelApiService->UpdateHotel($hotel);
-                            }
-                            else{
-                                $this->hotelApiService->AddHotel($hotel,$offre->getId());
-                            }
-                        }
-                    }
-                    else{
-                        if($offre->getHotels()[0]->getId() != null){
-                            $this->hotelApiService->UpdateHotel($offre->getHotels()[0]);
-                        }
-                        else{
-                            $this->hotelApiService->AddHotel($offre->getHotels()[0],$offre->getId());
-                        }
-                        if($offre->getHotels()[1]->getId() != null){
-                            $this->hotelApiService->UpdateHotel($offre->getHotels()[1]);
-                        }
-                        else{
-                            $this->hotelApiService->AddHotel($offre->getHotels()[1],$offre->getId());
-                        }
-                        if(!empty($offre->getHotels()[1])){
-                            if($offre->getHotels()[1]->getId() != null){
-                                $this->hotelApiService->DeleteHotel($offre->getHotels()[1]->getId());
-                            }
-                        }
-                    }
+       if ($response->getStatusCode() === 200) {
+//            if($offre->isBhebergement()){
+//                if($offre->getIdDestination()->getPays()=="Omra" || $offre->getIdDestination()->getPays()=="Hajj" || $offre->getIdDestination()->getPays()=="Omra Combine"){
+////                    if($offre->isBvisiteMedine()){
+////                        foreach($offre->getHotels() as $key => $hotel){
+////                            if($hotel->getId() != null){
+////                                $this->hotelApiService->UpdateHotel($hotel);
+////                            }
+////                            else{
+////                                $this->hotelApiService->AddHotel($hotel,$offre->getId());
+////                            }
+////                        }
+////                    }
+//                    else{
+////                        if($offre->getHotels()[0]->getId() != null){
+////                            $this->hotelApiService->UpdateHotel($offre->getHotels()[0]);
+//                        }
+//                        else{
+//                            $this->hotelApiService->AddHotel($offre->getHotels()[0],$offre->getId());
+//                        }
+//                        if($offre->getHotels()[1]->getId() != null){
+//                            $this->hotelApiService->UpdateHotel($offre->getHotels()[1]);
+//                        }
+//                        else{
+//                            $this->hotelApiService->AddHotel($offre->getHotels()[1],$offre->getId());
+//                        }
+//                        if(!empty($offre->getHotels()[1])){
+//                            if($offre->getHotels()[1]->getId() != null){
+//                                $this->hotelApiService->DeleteHotel($offre->getHotels()[1]->getId());
+//                            }
+//                        }
+//                    }
+//                }
+//                else{
+//                    if($offre->getHotels()[0]->getId() != null){
+//                        $this->hotelApiService->UpdateHotel($offre->getHotels()[0]);
+//                    }
+//                    else{
+//                        $this->hotelApiService->AddHotel($offre->getHotels()[0],$offre->getId());
+//                    }
+//                //    if(!empty($offre->getHotels()[1])){
+//                  //      if($offre->getHotels()[1]->getId() != null){
+//                    //        $this->hotelApiService->DeleteHotel($offre->getHotels()[1]->getId());
+//                        }
+//                    }
+//                    if(!empty($offre->getHotels()[2])){
+//                        if($offre->getHotels()[2]->getId() != null){
+//                            $this->hotelApiService->DeleteHotel($offre->getHotels()[2]->getId());
+//                        }
+//                    }
                 }
-                else{
-                    if($offre->getHotels()[0]->getId() != null){
-                        $this->hotelApiService->UpdateHotel($offre->getHotels()[0]);
-                    }
-                    else{
-                        $this->hotelApiService->AddHotel($offre->getHotels()[0],$offre->getId());
-                    }
-                    if(!empty($offre->getHotels()[1])){
-                        if($offre->getHotels()[1]->getId() != null){
-                            $this->hotelApiService->DeleteHotel($offre->getHotels()[1]->getId());
-                        }
-                    }
-                    if(!empty($offre->getHotels()[2])){
-                        if($offre->getHotels()[2]->getId() != null){
-                            $this->hotelApiService->DeleteHotel($offre->getHotels()[2]->getId());
-                        }
-                    }
-                }
-            }
-            else{
-                foreach($offre->getHotels() as $hotel){
-                    if($hotel->getId() != null){
-                        $this->hotelApiService->DeleteHotel($hotel->getId());
-                    }
-                }
-            }
-            return true;
-        }
+//            }
+////            else{
+////                foreach($offre->getHotels() as $hotel){
+////                    if($hotel->getId() != null){
+////                        $this->hotelApiService->DeleteHotel($hotel->getId());
+////                    }
+////                }
+//            }
+//            return true;
+//
+//}
         else if ($response->getStatusCode() === 401) {
             $this->callApiService->getJWTRefreshToken();
             $this->updateOffre($offre);
