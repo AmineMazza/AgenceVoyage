@@ -111,7 +111,7 @@ class HomeController extends AbstractController
             $mailer->send($email);
 
             // On confirme et on redirige :
-            $this->addFlash('message', 'Inscription en attente de validation');
+            $this->addFlash('message', 'Inscription en attente de validation consultez votre boite mail');
             return $this->redirectToRoute('app_main_news');
         }
 
@@ -134,7 +134,7 @@ class HomeController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        $this->addFlash('message', 'Newsletters activé');
+        $this->addFlash('message2', ' Activé, vous êtes maintenant prêt à recevoir des nouvelles');
 
         return $this->redirectToRoute('app_main_news');
     }

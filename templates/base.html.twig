@@ -77,13 +77,13 @@
                         </div>
                         <ul class="py-1" role="none">
                             <li>
-                            <a href="{{path('app_dashboard')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                            <a href="{{path('app_dashboard')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Tableau de bord</a>
                             </li>
                             <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Paramètres</a>
                             </li>
                             <li>
-                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">se déconnecter</a>
                             </li>
                         </ul>
                         </div>
@@ -104,7 +104,7 @@
                     <li>
                         <a href="{{path('app_dashboard')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                        <span class="ml-3">Dashboard</span>
+                        <span class="ml-3">Tableau de bord</span>
                         </a>
                     </li>
                     {# <li>
@@ -213,7 +213,7 @@
                             {% endif %}
                         </button>
                     {% else %}
-                        <a href="/login" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-500">Commancer</a>
+                        <a href="/login" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-500">Commencer</a>
                     {% endif %}
                         <!-- Dropdown menu -->
                         {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_AGENT") %}
@@ -231,13 +231,13 @@
                                 <a href="{{path('app_prfile_index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Your Profile</a>
                             </li>
                             <li>
-                                <a href="{{path('app_dashboard')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                                <a href="{{path('app_dashboard')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Tableau de bord</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Paramètres</a>
                             </li>
                             <li>
-                                <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                                <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">se déconnecter</a>
                             </li>
                             </ul>
                         </div>
@@ -253,7 +253,7 @@
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                             <li>
-                                <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                                <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">se déconnecter</a>
                             </li>
                             </ul>
                         </div>
@@ -322,7 +322,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002" />
                         </svg>
                     </div>
-                    <dt class="mt-4 font-semibold text-white">No spam</dt>
+                    <dt class="mt-4 font-semibold text-white">Pas de spam</dt>
                     <dd class="mt-2 leading-7 text-white">Nous nous assurons que les e-mails que nous envoyons sont pertinents, pertinents et précieux pour le destinataire.</dd>
                     </div>
                 </dl>
@@ -333,27 +333,13 @@
             </div>
             {# debut footer #}
             <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8 mt-5">
-                <div class="sm:flex sm:items-center sm:justify-between">
+                {# <div class="sm:flex sm:items-center sm:justify-between">
                     <a href="/" class="flex items-center mb-4 sm:mb-0">
                         <img src="https://www.norsys.fr/sites/all/themes/custom/norsys/logo.png?v=2" class="h-8 mr-3" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Norsys</span>
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Norsys</span>
                     </a>
-                    <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 dark:text-white">
-                        <li>
-                            <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                        </li>
-                        <li>
-                            <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                </div> #}
+                <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4 " />
                 <span class="block text-sm text-white sm:text-center dark:text-gray-400">© 2023 <a href="https://www.norsys.fr/" class="hover:underline">Norsys™</a>. Tous les droits sont réservés.</span>
             </div>
              {# fin footer #}

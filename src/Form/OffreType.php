@@ -50,7 +50,7 @@ class OffreType extends AbstractType
                 ],
             ])
             ->add('id_destination', null ,['required' => false, 'attr' => [ 'class' => "OffreDestination" ]])
-            ->add('categorieOffre', null ,['required' => false, 'attr' => [ 'class' => "CollectionOffre" ]])
+            ->add('categorieOffre', null ,['required' => true, 'attr' => [ 'class' => "CollectionOffre" ]])
             ->add('date_depart')
             ->add('date_retour')
             ->add('hotels',CollectionType::class, [
