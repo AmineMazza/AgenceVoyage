@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} CollectionOffre {% endblock%}
+{% block title %} CollectionOffre {% endblock %}
 
 {% block body %}
     <h1>CollectionOffre</h1>
@@ -22,9 +22,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_collection_offre_index') }}">back to list</a>
+    <a href="{{ path('app_collection_offre_index') }}">retour à la liste</a>
 
-    <a href="{{ path('app_collection_offre_edit', {'id': collection_offre.id}) }}">edit</a>
+    <a href="{{ path('app_collection_offre_edit', {'id': collection_offre.id}) }}">Modifier</a>
 
     {{ include('collection_offre/_delete_form.html.twig') }}
 {% endblock %}
