@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New OffreCategorie{% endblock %}
+{% block title %}Nouvelle Categorie d'offres{% endblock %}
 
 {% block body %}
-    <h1>Create new OffreCategorie</h1>
+    <h1>Créer une nouvelle categorie d'offres</h1>
 
     {{ include('offre_categorie/_form.html.twig') }}
 
-    <a href="{{ path('app_offre_categorie_index') }}">back to list</a>
+    <a href="{{ path('app_offre_categorie_index') }}">retour à la liste</a>
 {% endblock %}

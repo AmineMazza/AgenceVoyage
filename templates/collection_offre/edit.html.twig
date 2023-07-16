@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit CollectionOffre{% endblock %}
+{% block title %}Modifier Collection Offre{% endblock %}
 
 {% block body %}
-    <h1>Edit CollectionOffre</h1>
+    <h1>Modifier Collection d'offre</h1>
 
-    {{ include('collection_offre/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('collection_offre/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_collection_offre_index') }}">back to list</a>
+    <a href="{{ path('app_collection_offre_index') }}"> retour à la liste</a>
 
     {{ include('collection_offre/_delete_form.html.twig') }}
 {% endblock %}

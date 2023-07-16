@@ -2,7 +2,6 @@
     {{ form_start(form, {
         'attr': {'class': 'space-y-6'}
     }) }}
-        <h5 class="text-xl text-center font-bold text-blue-600 dark:text-white">Modifier</h5>
         <div class="hidden">{{ form_widget(form.logo) }}</div>
         {% if form.logo.parent.vars.value.logo %}
             <img src="{{asset(form.logo.parent.vars.value.logo)}}" alt="" id="imageInput" data-popover-target="popover-default" class="m-auto cursor-pointer w-1/3">
@@ -83,7 +82,7 @@
                 }) }}
                 <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Valider</label>
             </div>
-            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300">{{ button_label|default('Save') }}</button>
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300">{{ button_label|default('Ajouter') }}</button>
         </div>
         
     {{ form_end(form) }}
