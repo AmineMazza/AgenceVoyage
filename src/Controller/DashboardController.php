@@ -65,6 +65,13 @@ class DashboardController extends AbstractController
             'offres' => $offres,
         ]);
     }
+    private function deleteOldImage($oldImagePath)
+    {
+        $oldImageFullPath = $this->getParameter('offres_directory') . '/' . $oldImagePath;
+        if (file_exists($oldImageFullPath)) {
+            unlink($oldImageFullPath);
+        }
+    }
     #[Route('/offre/new', name: 'app_offre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OffreApiService $offreApiService, SluggerInterface $slugger): Response
     {
@@ -75,6 +82,7 @@ class DashboardController extends AbstractController
 
             $file = $form->get('image')->getData();
             if ($file){
+                $this->deleteOldImage($file);
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 
                 $safeFilename = $slugger->slug($originalFilename);
@@ -109,7 +117,7 @@ class DashboardController extends AbstractController
 
 
     #[Route('/offre/{id}/edit', name: 'app_offre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
+    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService , SluggerInterface $slugger,ObjectManager $manager): Response
     {
         // dd($offre->getHotels());
         if($this->getUser() && !$this->isGranted('ROLE_USER')){
@@ -124,6 +132,26 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                // Validate the image file (e.g., check file size, MIME type)
+
+                try {
+                    $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                    $imageFile->move(
+                        $this->getParameter('offres_directory'),
+                        $newFilename
+                    );
+                    $offre->setImage($newFilename);
+                } catch (FileException $e) {
+                    echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
+            }
             $offreApiService->updateOffre($offre);
 
             return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);

@@ -31,9 +31,16 @@ class OffreController extends AbstractController
             'offre' => $offreApiService->getOffre($_route_params['id']),
         ]);
     }
-    
+    private function deleteOldImage($oldImagePath)
+    {
+        $oldImageFullPath = $this->getParameter('offres_directory') . '/' . $oldImagePath;
+
+        if (file_exists($oldImageFullPath)) {
+            unlink($oldImageFullPath);
+        }
+    }
     #[Route('/{id}/edit', name: 'app_offre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService): Response
+    public function edit(Request $request, Offre $offre, OffreApiService $offreApiService, HotelApiService $hotelApiService, SluggerInterface $slugger): Response
     {
         // dd($offre->getHotels());
         if($this->getUser() && !$this->isGranted('ROLE_USER')){
@@ -48,6 +55,26 @@ class OffreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $this->deleteOldImage($imageFile);
+                try {
+                    $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                    $imageFile->move(
+                        $this->getParameter('offres_directory'),
+                        $newFilename
+                    );
+                    $offre->setImage('/assets/images/offres/'.$newFilename);
+                } catch (FileException $e) {
+                   echo "image ont saved " ;
+                }
+                }
+
             $offreApiService->updateOffre($offre);
 
             return $this->redirectToRoute('app_offre_index', ['value'=>'all'], Response::HTTP_SEE_OTHER);
@@ -108,5 +135,6 @@ class OffreController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
+
     
 }
