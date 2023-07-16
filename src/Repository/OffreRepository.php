@@ -90,7 +90,7 @@ public function filterOffre(string $destination='',float $prixMax = 0.0,?\DateTi
         $queryBuilder->andWhere('o.prix_un <= :prixMax')
             ->setParameter('prixMax', $prixMax);
     }
-    if ($date instanceof \DateTimeInterface && $destination==='Choisissez une destination') {
+    if ($date instanceof \DateTimeInterface) {
         $queryBuilder
             ->andWhere('o.date_depart >= :date')
             ->setParameter('date', $date);
